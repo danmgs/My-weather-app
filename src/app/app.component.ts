@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'My Weather App ! ';
+
+  loadedFeature = 'weather-list';
+
+  onNavigate(feature: string) {
+    this.loadedFeature = feature;
+  }
 }
