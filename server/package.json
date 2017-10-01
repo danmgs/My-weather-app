@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha test/**/*.js",
+    "start": "nodemon --watch app.js --watch dist/"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "expect": "^21.2.1",
+    "mocha": "^3.2.0",
+    "supertest": "^2.0.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.11.14"
+  }
+}

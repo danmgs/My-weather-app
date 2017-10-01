@@ -14,6 +14,7 @@ export class WeatherService {
   geodata: GeoData;
 
   weatherChanged = new Subject<WeatherData>();
+  weatherFavChanged = new Subject();
 
   constructor(private http: Http, private geoService: GeoService) { }
 
@@ -53,6 +54,19 @@ export class WeatherService {
           // console.log('getWeatherInfos' + JSON.stringify(body, undefined, 2));
           return new WeatherData(geodata, body.currently.temperature);
         }
+      );
+  }
+
+  getWeatherFavAddresses()
+  {
+    const url = `http://localhost:3000/api/users`;
+    console.log(`Calling getWeatherFavAddresses with ${url}`);
+    return this.http.get(url/*, options */)
+      .subscribe(
+        (response: Response) => {
+          this.weatherFavChanged.next(response.json());
+        },
+        (error) => console.log(error)
       );
   }
 
