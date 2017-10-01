@@ -15,6 +15,7 @@ export class WeatherService {
 
   weatherChanged = new Subject<WeatherData>();
   weatherFavChanged = new Subject();
+  dummyUsersChanged = new Subject();
 
   constructor(private http: Http, private geoService: GeoService) { }
 
@@ -59,12 +60,27 @@ export class WeatherService {
 
   getWeatherFavAddresses()
   {
-    const url = `http://localhost:3000/api/users`;
+    const url = `http://localhost:3000/api/weatherFavAddress`;
     console.log(`Calling getWeatherFavAddresses with ${url}`);
-    return this.http.get(url/*, options */)
+    return this.http.get(url)
       .subscribe(
         (response: Response) => {
+          // WeatherFav
+          console.log(response.json());
           this.weatherFavChanged.next(response.json());
+        },
+        (error) => console.log(error)
+      );
+  }
+
+  getDummyUsers()
+  {
+    const url = `http://localhost:3000/api/users`;
+    console.log(`Calling getDummyUsers with ${url}`);
+    return this.http.get(url)
+      .subscribe(
+        (response: Response) => {
+          this.dummyUsersChanged.next(response.json());
         },
         (error) => console.log(error)
       );

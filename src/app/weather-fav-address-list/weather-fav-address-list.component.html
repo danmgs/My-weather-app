@@ -1,4 +1,8 @@
-<p>
-  weather-fav-address-list works!
-  {{  results }}
-</p>
+<ul class="list-group" *ngFor="let elt of resultsUser">
+  <li class="list-group-item">{{ elt.name }}</li>
+</ul>
+
+<hr>
+
+{{ resultsWeatherFav?.address }}
+

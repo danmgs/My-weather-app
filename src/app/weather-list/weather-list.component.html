@@ -1,9 +1,4 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <input type="text" value="Paris" #address>
-      <button class="btn btn-primary" (click)="getWeather(address.value)">How's the weather ?</button>
-      <!--
+<!--
       <br><br>
       <button class="btn btn-primary" (click)="onSave()">Save xxx</button>
       <button class="btn btn-primary" (click)="onGet()">Get xxx</button>
@@ -11,10 +6,28 @@
       <ul class="list-group" *ngFor="let el of elts">
         <li class="list-group-item">{{ el.name }} (ID: {{ el.id }})</li>
       </ul>
-      -->
-      <p>
-          {{weatherResponse}}
-      </p>
+-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <input type="text" value="Paris" #address>
+      <button class="btn btn-primary" (click)="getWeather(address.value)">How's the weather ?</button>
+    </div>
+  </div>
+  <div class="row">
+    <br>
+    <div class="col-md-12">
+      <h3 *ngIf="show; else elseBlock">
+        {{ weatherResponse?.geodata.formatted_address }} | {{weatherResponse?.temperature | convertToDegre}} degres
+      </h3>
+      <ng-template #elseBlock>Seach for an address ...</ng-template>
+    </div>
+  </div>
+  <div class="row">
+    <br><hr>
+    <div class="col-md-12">
+      {{weatherResponseStr}}
     </div>
   </div>
 </div>

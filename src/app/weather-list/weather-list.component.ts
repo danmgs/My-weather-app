@@ -15,7 +15,9 @@ import { WeatherData } from '../Shared/WeatherData';
 export class WeatherListComponent implements OnInit {
 
   private subscription: Subscription;
-  weatherResponse;
+  weatherResponseStr: String = '';
+  weatherResponse: WeatherData;
+  show: boolean = false;
 
   constructor(private weatherService: WeatherService) { }
 
@@ -23,12 +25,15 @@ export class WeatherListComponent implements OnInit {
     this.subscription = this.weatherService.weatherChanged
       .subscribe(
         (weatherdata: WeatherData) => {
-          this.weatherResponse = JSON.stringify(weatherdata, undefined, 2);
+          this.weatherResponseStr = JSON.stringify(weatherdata, undefined, 2);
+          this.weatherResponse = weatherdata;
+          this.show = true;
         }
       );
   }
 
   getWeather(address: String) {
+    this.show = false;
     console.log(address);
     this.weatherService.getWeather(address);
   }

@@ -7,6 +7,9 @@ import { WeatherListComponent } from './weather-list/weather-list.component';
 import { HeaderComponent } from './header/header.component';
 import { WeatherFavAddressListComponent } from './weather-fav-address-list/weather-fav-address-list.component';
 
+import { ExponentialStrengthPipe } from './filters/exponential-strength-pipe';
+import { ConvertToDegrePipe } from './filters/convert-degre-pipe';
+
 import { WeatherService } from './services/weather.service';
 import { GeoService } from './services/geo.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +19,9 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     WeatherListComponent,
     HeaderComponent,
-    WeatherFavAddressListComponent],
+    WeatherFavAddressListComponent, 
+    ExponentialStrengthPipe,
+    ConvertToDegrePipe],
   imports: [
     BrowserModule,
     AppRoutingModule,
