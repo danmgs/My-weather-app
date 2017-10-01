@@ -6,7 +6,21 @@ const app = require('../../app');
 const WeatherFavAddress = mongoose.model('weatherFavAddress');
 
 describe('WeatherFavAddress controller', () => {
-  it('Post to /api/weatherFavAddress creates a new weather favorite address', (done) => {
+  
+
+  it('Get to /api/getWeather get the weather', (done) => {
+
+    request(app)
+      .get('/api/getWeather?lat=49')
+      .end((err, res) => {
+        console.log(res.body);
+          done();
+      });
+     
+
+  });
+
+  xit('Post to /api/weatherFavAddress creates a new weather favorite address', (done) => {
     //console.log('>>> ' + WeatherFavAddress);
 
     WeatherFavAddress.count().then(count => {
@@ -14,7 +28,7 @@ describe('WeatherFavAddress controller', () => {
         .post('/api/weatherFavAddress')
         .send({ address: 'Paris 75001' })
         .end(() => {
-          WeatherFavAddress.count().then(newCount => {
+            WeatherFavAddress.count().then(newCount => {
             assert(count + 1 === newCount);
             done();
           });
@@ -33,7 +47,7 @@ describe('WeatherFavAddress controller', () => {
     // done();
   });
 
-  it('Post to /api/weatherFavAddress requires an address', (done) => {
+  xit('Post to /api/weatherFavAddress requires an address', (done) => {
     request(app)
       .post('/api/weatherFavAddress')
       .send({})
@@ -44,7 +58,7 @@ describe('WeatherFavAddress controller', () => {
       });
   });
 
-  it('Delete to /api/weatherFavAddress/:id can delete a record', done => {
+  xit('Delete to /api/weatherFavAddress/:id can delete a record', done => {
     const weatherFavAddress = new WeatherFavAddress({ address: 'Paris 75001' });
 
     weatherFavAddress.save().then(() => {

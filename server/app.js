@@ -30,6 +30,13 @@ app.use(bodyParser.json());
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// CORS Configuration to allow cross domains, to set BEFORE API routing
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 // API location
 app.use('/api', api);
 routes(app);

@@ -1,6 +1,10 @@
-<ul class="list-group" *ngFor="let elt of resultsUser">
+<ul class="list-group" *ngFor="let elt of resultsUsers">
   <li class="list-group-item">{{ elt.name }}</li>
 </ul>
+
+<hr>
+
+{{resultsUsers | json }}
 
 <hr>
 

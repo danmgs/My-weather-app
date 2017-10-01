@@ -12,17 +12,17 @@ export class GeoService {
 
   getGeoCode(address: String) {
 
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}`;
+    const url = `http://localhost:3000/api/getGeoCode?address=${address}`;
     console.log(`Calling getGeoCode with ${url}`);
     return this.http.get(url)
       .map(
         (response: Response) => {
-          const body = response.json();
-          //console.log(body.results[0].geometry.location);
+          const res = response.json();
+          console.log(res);
           return new GeoData(
-            body.results[0].geometry.location.lat,
-            body.results[0].geometry.location.lng,
-            body.results[0].formatted_address);
+            res.geometry.location.lat,
+            res.geometry.location.lng,
+            res.formatted_address);
         }
       );
   }

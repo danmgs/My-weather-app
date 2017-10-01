@@ -24,11 +24,12 @@ export class WeatherFavAddressListComponent implements OnInit {
 
   ngOnInit() {
     this.getWeatherFavAddresses();
+    this.getDummyUsers();
     
     this.subscriptionUsers = this.weatherService.dummyUsersChanged
     .subscribe(
       (res: any) => {
-        console.log(JSON.stringify(res.data));
+        console.log('dummyUsersChanged >>>' + JSON.stringify(res.data));
         this.resultsUsers = res.data;
       }
     );

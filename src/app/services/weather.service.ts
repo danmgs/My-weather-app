@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { Headers, Http, Response, RequestOptions, Jsonp, URLSearchParams } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -17,72 +17,82 @@ export class WeatherService {
   weatherFavChanged = new Subject();
   dummyUsersChanged = new Subject();
 
-  constructor(private http: Http, private geoService: GeoService) { }
+  constructor(private http: Http, private geoService: GeoService, private jsonp: Jsonp) { }
 
   getWeather(address: String) {
-    const encodedAddress = encodeURIComponent(address.toString());
-    this.geoService.getGeoCode(encodedAddress)
+    this.geoService.getGeoCode(address)
       .subscribe(
-        (geodata: GeoData) => {
-          return this.getWeatherInfos(geodata)
-                      .subscribe(
-                        (weatherdata: WeatherData) => {
-                          this.weatherChanged.next(weatherdata);
-                        },
-                        (error) => console.log(error)
-                      );
-        },
-        (error) => console.log(error)
+      (geodata: GeoData) => {
+        return this.getWeatherInfos(geodata)
+          .subscribe(
+          (weatherdata: WeatherData) => {
+            this.weatherChanged.next(weatherdata);
+          },
+          (error) => console.log(error)
+          );
+      },
+      (error) => console.log(error)
       );
   }
 
   getWeatherInfos(geodata: GeoData) {
 
-    // let headers = new Headers();
-    //     // headers.append('Content-Type','application/json');
-    //     // headers.append('Accept', 'application/json');
-    //     // headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
-    //     headers.append('Access-Control-Allow-Origin', '*');
-    //     // headers.append('Access-Control-Allow-Headers', "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
-    //     let options = new RequestOptions({ headers: headers });
-
-    const url = `https://api.darksky.net/forecast/3ef106162ed142fc3dc78e058263e0e8/${geodata.lat}\,${geodata.lng}`;
+    const url = `http://localhost:3000/api/getWeather/${geodata.lat}/${geodata.lng}`;
     console.log(`Calling getWeatherInfos with ${url}`);
-    return this.http.get(url/*, options */)
+    return this.http.post(url, {}/*, options */)
       .map(
-        (response: Response) => {
-          const body = response.json();
-          // console.log('getWeatherInfos' + JSON.stringify(body, undefined, 2));
-          return new WeatherData(geodata, body.currently.temperature);
-        }
+      (response: Response) => {
+        const res = response.json();
+        console.log('getWeatherInfos' + JSON.stringify(res, undefined, 2));
+        return new WeatherData(geodata, res.body.currently.temperature);
+      }
       );
   }
 
-  getWeatherFavAddresses()
-  {
+  // getWeatherFavAddresses()
+  // {
+  //   const url = `http://localhost:3000/api/weatherFavAddress`;
+  //   console.log(`Calling getWeatherFavAddresses with ${url}`);
+  //   return this.http.get(url)
+  //     .subscribe(
+  //       (response: Response) => {
+  //         // WeatherFav
+  //         console.log(response.json());
+  //         this.weatherFavChanged.next(response.json());
+  //       },
+  //       (error) => console.log(error)
+  //     );
+  // }
+
+  getWeatherFavAddresses() {
     const url = `http://localhost:3000/api/weatherFavAddress`;
     console.log(`Calling getWeatherFavAddresses with ${url}`);
     return this.http.get(url)
       .subscribe(
-        (response: Response) => {
-          // WeatherFav
-          console.log(response.json());
-          this.weatherFavChanged.next(response.json());
-        },
-        (error) => console.log(error)
+      (response: Response) => {
+        // WeatherFav
+        console.log(response.json());
+        this.weatherFavChanged.next(response.json());
+      },
+      (error) => console.log(error)
       );
   }
 
-  getDummyUsers()
-  {
+  getDummyUsers() {
     const url = `http://localhost:3000/api/users`;
     console.log(`Calling getDummyUsers with ${url}`);
+
+    // let params = new URLSearchParams();
+    // // params.set('format', 'json');
+    // params.set('callback', '__ng_jsonp__.__req0.finished');
+
+    // return this.jsonp.request(url, { search: params })
     return this.http.get(url)
       .subscribe(
-        (response: Response) => {
-          this.dummyUsersChanged.next(response.json());
-        },
-        (error) => console.log(error)
+      (response: Response) => {
+        this.dummyUsersChanged.next(response.json());
+      },
+      (error) => console.log(error)
       );
   }
 
