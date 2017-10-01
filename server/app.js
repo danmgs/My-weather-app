@@ -13,9 +13,15 @@ const api = require('./routes/api');
 console.log(`Starting server from ${__dirname} ...`);
 
 mongoose.Promise = global.Promise;
-// if (process.env.NODE_ENV !== 'test') {
-//   mongoose.connect('mongodb://localhost/muber');
-// }
+console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
+if (process.env.NODE_ENV !== 'test') {
+    console.log('PROD Config');
+    mongoose.connect('mongodb://localhost/weatherapp', { useMongoClient: true });
+}
+else
+{
+    console.log('TEST Config');
+}
 
 // Parsers
 app.use(bodyParser.json());

@@ -1,6 +1,30 @@
-# MyWeatherApp
+# My Weather App (2017)
 
-A WEB application providing weather information
+A WEB application providing weather information.
+
+
+# <span style="color:green">BACKEND</span>
+
+To start the server (<b>server</b> folder):
+
+1. Launch mongod.exe locally :
+`
+"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe"
+`
+
+2. To start backend server:
+```
+cd server
+npm start
+```
+
+3. To launch test (server must be shutdown):
+```
+cd server
+npm test
+```
+
+# <span style="color:green">FRONTEND</span>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.7.
 
@@ -28,3 +52,8 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# <span style="color:red">TASK LIST</span>
+
+- [x] this is a complete item
+- [ ] CORS issue between backend / frontend:  No 'Access-Control-Allow-Origin' header is present on the requested resource.

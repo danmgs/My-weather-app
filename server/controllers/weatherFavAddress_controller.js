@@ -4,25 +4,32 @@ module.exports = {
   index(req, res, next) {
     // const { lng, lat } = req.query;
 
-    const { address } = req.query
+    console.log('Calling index ..........');
 
-    console.log('weatherFavAddress_controller > index is called with ' + address);
+    //const { address } = req.query
+
+    //console.log('weatherFavAddress_controller > index is called with ' + address);
 
     // WeatherFavAddress.findOne({address: address})
     //   .then(items => res.send(items))
     //   .catch(next);
-      WeatherFavAddress.find({}, function(err, docs) {
-        if (!err){ 
-            console.log(docs);
-            res.send(docs)
-        } else {throw err;}
-    });     
+
+    WeatherFavAddress.findOne({ address: 'Paris' })
+      .then(items => { console.log(items); return res.send(items); })
+      .catch(next);
+
+    // WeatherFavAddress.find({ _id: itemId }, itemProps)
+    // .then(() => WeatherFavAddress.findById({ _id: id }))
+    // .then(item => res.send(item))
+    // .catch(next);
+
+
   },
 
   create(req, res, next) {
     const itemProps = req.body;
 
-    console.log('weatherFavAddress_controller > create is called with ' + itemProps);
+    // console.log('weatherFavAddress_controller > create is called with ' + itemProps);
 
     WeatherFavAddress.create(itemProps)
       .then(item => res.send(item))
@@ -42,8 +49,10 @@ module.exports = {
   delete(req, res, next) {
     const itemId = req.params.id;
 
+    // console.log('weatherFavAddress_controller > delete is called with ' + itemId);
+
     WeatherFavAddress.findByIdAndRemove({ _id: itemId })
-      .then(item => res.status(204).send(item))
+      .then(item => res.status(204).send(item) )
       .catch(next);
   }
 };
