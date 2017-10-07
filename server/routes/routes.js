@@ -1,11 +1,12 @@
-const WeatherFavAddressController = require('../controllers/weatherFavAddress_controller');
+const WeatherController = require('../controllers/weather_controller');
+const GeoController = require('../controllers/geo_controller');
 
 module.exports = (app) => {
-  app.post('/api/weatherFavAddress', WeatherFavAddressController.create);
-  app.put('/api/weatherFavAddress/:id', WeatherFavAddressController.edit);
-  app.delete('/api/weatherFavAddress/:id', WeatherFavAddressController.delete);
-  app.get('/api/weatherFavAddress', WeatherFavAddressController.index);
+  app.post('/api/weather/favorites', WeatherController.create);
+  app.put('/api/weather/favorites/:id', WeatherController.edit);
+  app.delete('/api/weather/favorites/:id', WeatherController.delete);
+  app.get('/api/weather/favorites', WeatherController.index);
 
-  app.get('/api/getGeoCode', WeatherFavAddressController.getGeoCode);
-  app.post('/api/getWeather/:lat/:lng', WeatherFavAddressController.getWeather);
+  app.get('/api/geo', GeoController.getGeoCode);
+  app.post('/api/weather/:lat/:lng', WeatherController.getWeather);
 };

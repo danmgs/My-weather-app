@@ -12,7 +12,7 @@ export class GeoService {
 
   getGeoCode(address: String) {
 
-    const url = `http://localhost:3000/api/getGeoCode?address=${address}`;
+    const url = `http://localhost:3000/api/geo?address=${address}`;
     console.log(`Calling getGeoCode with ${url}`);
     return this.http.get(url)
       .map(

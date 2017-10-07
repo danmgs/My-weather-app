@@ -8,6 +8,8 @@ import { WeatherService } from '../services/weather.service';
 import { WeatherData } from '../Shared/WeatherData';
 import { WeatherFav } from '../Shared/WeatherFav';
 
+import * as _ from "lodash";
+
 @Component({
   selector: 'app-weather-fav-address-list',
   templateUrl: './weather-fav-address-list.component.html',
@@ -17,42 +19,58 @@ export class WeatherFavAddressListComponent implements OnInit {
 
   constructor(private weatherService: WeatherService) { }
 
-  resultsUsers: any[] = [];
-  resultsWeatherFav: WeatherFav;
-  private subscriptionUsers: Subscription;
-  private subscriptionWeatherFavChanged: Subscription;
+  resultsWeatherFav: WeatherFav[] = [];
+  favorites: WeatherFav[] = [];
+  private subscriptionGetFavorites: Subscription;
 
   ngOnInit() {
-    this.getWeatherFavAddresses();
-    this.getDummyUsers();
-    
-    this.subscriptionUsers = this.weatherService.dummyUsersChanged
-    .subscribe(
-      (res: any) => {
-        console.log('dummyUsersChanged >>>' + JSON.stringify(res.data));
-        this.resultsUsers = res.data;
-      }
-    );
 
-    this.subscriptionWeatherFavChanged = this.weatherService.weatherFavChanged
-    .subscribe(
+    this.getFavorites();
+
+    this.subscriptionGetFavorites = this.weatherService.favoritesChanged
+      .subscribe(
       (res: any) => {
         console.log(JSON.stringify(res));
-        this.resultsWeatherFav = new WeatherFav(res.address);
+
+        for (let wf of res) {
+          this.favorites.push(new WeatherFav(wf._id, wf.address));
+        }
       }
-    );
+      );
+
   }
 
-  getWeatherFavAddresses() {
-    return this.weatherService.getWeatherFavAddresses();
-  }  
+  getFavorites() {
+    return this.weatherService.getFavorites();
+  }
 
-  getDummyUsers() {
-    return this.weatherService.getDummyUsers();
-  }  
+  addFavorite(address) {
+
+    this.weatherService
+      .addFavorite(address)
+      .subscribe(
+      (wf: WeatherFav) => {
+        this.favorites.push(wf);
+        address = '';
+      },
+      (error) => console.log(error)
+      );
+  }
+
+  deleteFromFavorites(id: String) {
+    console.log('first call deleteFromFavorites' + id);
+    return this.weatherService
+      .deleteFromFavorites(id)
+      .subscribe(
+      (res) => {
+        console.log(`deleteFromFavorites OK`);
+        _.remove(this.favorites, (currentObject) => currentObject.id === id);
+      },
+      (error) => console.log(error)
+      );
+  }
 
   ngOnDestroy() {
-    this.subscriptionUsers.unsubscribe();
-    this.subscriptionWeatherFavChanged.unsubscribe();
+    this.subscriptionGetFavorites.unsubscribe();
   }
 }

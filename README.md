@@ -64,4 +64,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [x] this is a complete item
 - [ ] CORS issue between backend / frontend:  No 'Access-Control-Allow-Origin' header is present on the requested resource. 
  [Help jsonp here](https://codecraft.tv/courses/angular/http/jsonp-with-observables/).
-- [ ] Server-side : weatherFavAddress_controller.index method to implement to find all and return array
+- [ ] Server-side : weather_controller.index method to implement to find all and return array

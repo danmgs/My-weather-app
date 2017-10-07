@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions, Jsonp, URLSearchParams } from '@angular/http';
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { GeoService } from './geo.service';
 import { GeoData } from '../Shared/GeoData';
 import { WeatherData } from '../Shared/WeatherData';
+import { WeatherFav } from '../Shared/WeatherFav';
 
 @Injectable()
 export class WeatherService {
@@ -14,10 +15,9 @@ export class WeatherService {
   geodata: GeoData;
 
   weatherChanged = new Subject<WeatherData>();
-  weatherFavChanged = new Subject();
-  dummyUsersChanged = new Subject();
+  favoritesChanged = new Subject<WeatherFav>();
 
-  constructor(private http: Http, private geoService: GeoService, private jsonp: Jsonp) { }
+  constructor(private http: Http, private geoService: GeoService) { }
 
   getWeather(address: String) {
     this.geoService.getGeoCode(address)
@@ -37,7 +37,7 @@ export class WeatherService {
 
   getWeatherInfos(geodata: GeoData) {
 
-    const url = `http://localhost:3000/api/getWeather/${geodata.lat}/${geodata.lng}`;
+    const url = `http://localhost:3000/api/weather/${geodata.lat}/${geodata.lng}`;
     console.log(`Calling getWeatherInfos with ${url}`);
     return this.http.post(url, {}/*, options */)
       .map(
@@ -49,51 +49,40 @@ export class WeatherService {
       );
   }
 
-  // getWeatherFavAddresses()
-  // {
-  //   const url = `http://localhost:3000/api/weatherFavAddress`;
-  //   console.log(`Calling getWeatherFavAddresses with ${url}`);
-  //   return this.http.get(url)
-  //     .subscribe(
-  //       (response: Response) => {
-  //         // WeatherFav
-  //         console.log(response.json());
-  //         this.weatherFavChanged.next(response.json());
-  //       },
-  //       (error) => console.log(error)
-  //     );
-  // }
-
-  getWeatherFavAddresses() {
-    const url = `http://localhost:3000/api/weatherFavAddress`;
-    console.log(`Calling getWeatherFavAddresses with ${url}`);
+  getFavorites() {
+    const url = `http://localhost:3000/api/weather/favorites`;
+    console.log(`Calling getFavorites with ${url}`);
     return this.http.get(url)
       .subscribe(
       (response: Response) => {
         // WeatherFav
         console.log(response.json());
-        this.weatherFavChanged.next(response.json());
+        this.favoritesChanged.next(response.json());
       },
       (error) => console.log(error)
       );
   }
 
-  getDummyUsers() {
-    const url = `http://localhost:3000/api/users`;
-    console.log(`Calling getDummyUsers with ${url}`);
-
-    // let params = new URLSearchParams();
-    // // params.set('format', 'json');
-    // params.set('callback', '__ng_jsonp__.__req0.finished');
-
-    // return this.jsonp.request(url, { search: params })
-    return this.http.get(url)
-      .subscribe(
+  addFavorite(address: String) {
+    const url = `http://localhost:3000/api/weather/favorites`;
+    console.log(`Calling getFavorites with ${url} ${address}`);
+    return this.http.post(url, { address })
+    .map(
       (response: Response) => {
-        this.dummyUsersChanged.next(response.json());
-      },
-      (error) => console.log(error)
-      );
+        const res = response.json();
+        console.log('addFavorite' + JSON.stringify(res, undefined, 2));
+        return new WeatherFav(res._id, res.address);
+      });
+  }
+
+  deleteFromFavorites(id: String) {
+
+    let headers = new Headers();
+    headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+
+    const url = `http://localhost:3000/api/weather/favorites/${id}`;
+    console.log(`Calling deleteFromFavorites with ${url}`);
+    return this.http.delete(url, { headers });      
   }
 
 }

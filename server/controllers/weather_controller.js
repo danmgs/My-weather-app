@@ -4,30 +4,6 @@ const request = require('request');
 
 module.exports = {
 
-  getGeoCode(req, res, next) {
-
-    const { address } = req.query;
-
-    var encodedAddress = encodeURIComponent(address);
-
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`;
-    console.log(`Calling getGeoCode with ${url}`);
-
-    request({
-      url: url,
-      json: true
-    }, (error, response, body) => {
-      if (error) {
-        console.log('Unable to connect to Google map server.');
-      } else if (response.statusCode === 400) {
-        console.log('Unable to fetch geocode.');
-      } else if (response.statusCode === 200) {
-        console.log(body);
-      }
-      res.send(body.results[0]);
-    });
-  },
-
   getWeather(req, res, next) {
 
     const { lat, lng } = req.params;
@@ -44,7 +20,7 @@ module.exports = {
       } else if (response.statusCode === 400) {
         console.log('Unable to fetch weather.');
       } else if (response.statusCode === 200) {
-        console.log(body.currently.temperature);
+        console.log(`=> temperature : ${body.currently.temperature}`);
       }
       res.send(response);
     });
@@ -57,13 +33,13 @@ module.exports = {
 
     //const { address } = req.query
 
-    //console.log('weatherFavAddress_controller > index is called with ' + address);
+    //console.log('weather_controller > index is called with ' + address);
 
     // WeatherFavAddress.findOne({address: address})
     //   .then(items => res.send(items))
     //   .catch(next);
 
-    WeatherFavAddress.findOne({ address: 'Paris' })
+    WeatherFavAddress.find({ })
       .then(items => { console.log(items); return res.send(items); })
       .catch(next);
 
@@ -71,14 +47,12 @@ module.exports = {
     // .then(() => WeatherFavAddress.findById({ _id: id }))
     // .then(item => res.send(item))
     // .catch(next);
-
-
   },
 
   create(req, res, next) {
     const itemProps = req.body;
 
-    // console.log('weatherFavAddress_controller > create is called with ' + itemProps);
+    // console.log('weather_controller > create is called with ' + itemProps);
 
     WeatherFavAddress.create(itemProps)
       .then(item => res.send(item))
@@ -98,7 +72,7 @@ module.exports = {
   delete(req, res, next) {
     const itemId = req.params.id;
 
-    // console.log('weatherFavAddress_controller > delete is called with ' + itemId);
+    console.log('weather_controller > delete is called with ' + itemId);
 
     WeatherFavAddress.findByIdAndRemove({ _id: itemId })
       .then(item => res.status(204).send(item))

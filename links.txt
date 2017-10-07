@@ -1,0 +1,10 @@
+https://scotch.io/tutorials/speed-up-your-restful-api-development-in-node-js-with-swagger
+
+
+https://docs.microsoft.com/en-us/aspnet/core/migration/webapi
+
+
+https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio-mac%2Cvisual-studio
+
+
+C:\Apps\GIT\WebApplicationDotNetCore\WebApplicationDotNetCore\bin\Debug\netcoreapp1.1\WebApplicationDotNetCore.xml

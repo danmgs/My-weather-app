@@ -11,6 +11,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <br>
       <input type="text" value="Paris" #address>
       <button class="btn btn-primary" (click)="getWeather(address.value)">How's the weather ?</button>
     </div>
@@ -19,9 +20,9 @@
     <br>
     <div class="col-md-12">
       <h3 *ngIf="show; else elseBlock">
-        {{ weatherResponse?.geodata.formatted_address }} | {{weatherResponse?.temperature | convertToDegre}} degres
+        {{ weatherResponse?.geodata.formatted_address }} | {{weatherResponse?.temperature | convertToDegre | number:'1.0-2' }} degres
       </h3>
-      <ng-template #elseBlock>Seach for an address ...</ng-template>
+      <ng-template #elseBlock>...</ng-template>
     </div>
   </div>
   <div class="row">
@@ -31,3 +32,16 @@
     </div>
   </div>
 </div>
+
+
+<div class="container">
+    <div class="row" *ngFor="let elt of favorites" style="margin-top:10px;">
+      <div class="col-md-8">
+        {{ elt.address }} {{ elt.id }}
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-warning" (click)="deleteFromFavorites(elt.id)">Delete</button>
+      </div>
+      <br>
+    </div>
+  </div>

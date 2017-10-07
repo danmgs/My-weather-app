@@ -5,51 +5,43 @@ const app = require('../../app');
 
 const WeatherFavAddress = mongoose.model('weatherFavAddress');
 
-describe('WeatherFavAddress controller', () => {
-  
+describe('Weather controller', () => {
 
-  it('Get to /api/getWeather get the weather', (done) => {
+  it('Get to /api/weather/:lat/:lng get the weather', (done) => {
 
     request(app)
-      .get('/api/getWeather?lat=49')
+      .post('/api/weather/49/75')
       .end((err, res) => {
-        console.log(res.body);
-          done();
+        assert(res.statusCode === 200);
+        assert(res.body.body.latitude === 49);
+        assert(res.body.body.longitude === 75);
+        //console.log(res.body);
+        done();
       });
-     
-
   });
 
-  xit('Post to /api/weatherFavAddress creates a new weather favorite address', (done) => {
-    //console.log('>>> ' + WeatherFavAddress);
+  it('Post to /api/weather/favorites creates a new weather favorite address', (done) => {
 
     WeatherFavAddress.count().then(count => {
       request(app)
-        .post('/api/weatherFavAddress')
+        .post('/api/weather/favorites')
         .send({ address: 'Paris 75001' })
         .end(() => {
-            WeatherFavAddress.count().then(newCount => {
+          WeatherFavAddress.count().then(newCount => {
             assert(count + 1 === newCount);
             done();
           });
         });
     });
 
-    // request(app)
-    //   .post('/api/weatherFavAddress')
-    //   .send({ address: 'Paris 75002' })
-    //   .end(() => {
-    //       done();
-    //   });     
-
     // const wfa = new WeatherFavAddress({address: "Paris 75015"});
     // wfa.save();
     // done();
   });
 
-  xit('Post to /api/weatherFavAddress requires an address', (done) => {
+  it('Post to /api/weather/favorites requires an address', (done) => {
     request(app)
-      .post('/api/weatherFavAddress')
+      .post('/api/weather/favorites')
       .send({})
       .end((err, res) => {
         //console.log('will return res = ' + JSON.stringify(res, undefined, 2));
@@ -58,12 +50,12 @@ describe('WeatherFavAddress controller', () => {
       });
   });
 
-  xit('Delete to /api/weatherFavAddress/:id can delete a record', done => {
+  it('Delete to /api/weather/favorites/:id can delete a record', done => {
     const weatherFavAddress = new WeatherFavAddress({ address: 'Paris 75001' });
 
     weatherFavAddress.save().then(() => {
       request(app)
-        .delete(`/api/weatherFavAddress/${weatherFavAddress._id}`)
+        .delete(`/api/weather/favorites/${weatherFavAddress._id}`)
         .end((err, res) => {
 
           //console.log('>>>>> ' +JSON.stringify(res, undefined,2));
@@ -74,5 +66,5 @@ describe('WeatherFavAddress controller', () => {
         });
     });
   });
-  
+
 });

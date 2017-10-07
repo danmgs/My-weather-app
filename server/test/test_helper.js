@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 before(done => {
   mongoose.connect('mongodb://localhost/weatherapp_test', { useMongoClient: true });
   mongoose.connection
-    .once('open', () => { 
-      console.log('Connect to mongodb successfully !'); 
+    .once('open', () => {
+      console.log('Connect to mongodb successfully !');
       done();
     })
     .on('error', error => {

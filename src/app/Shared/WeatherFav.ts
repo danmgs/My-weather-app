@@ -1,6 +1,7 @@
 export class WeatherFav {
 
   constructor(
-    public address: String
+    public id: String,
+    public address: String    
   ) { }
 }
