@@ -29,7 +29,7 @@ export class WeatherListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getFavorites();
+    this.getFavoritesWeather();
 
     this.subscriptionGetFavorites = this.weatherService.favoritesChanged
       .subscribe(
@@ -57,23 +57,10 @@ export class WeatherListComponent implements OnInit {
     this.weatherService.getWeather(address);
   }
 
-  getFavorites() {
-    return this.weatherService.getFavorites();
+  getFavoritesWeather() {
+    return this.weatherService.getFavoritesWeather();
   }
 
-  deleteFromFavorites(id: String) {
-    console.log('first call deleteFromFavorites' + id);
-    return this.weatherService
-      .deleteFromFavorites(id)
-      .subscribe(
-      (res) => {
-        console.log(`deleteFromFavorites OK`);
-        _.remove(this.favorites, (currentObject) => currentObject.id === id);
-      },
-      (error) => console.log(error)
-      );
-  }
-  
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subscriptionGetFavorites.unsubscribe();

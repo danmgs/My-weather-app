@@ -45,8 +45,7 @@ export class WeatherService {
         const res = response.json();
         console.log('getWeatherInfos' + JSON.stringify(res, undefined, 2));
         return new WeatherData(geodata, res.body.currently.temperature);
-      }
-      );
+      });
   }
 
   getFavorites() {
@@ -63,11 +62,31 @@ export class WeatherService {
       );
   }
 
+  getFavorite(address: String) {
+    const url = `http://localhost:3000/api/weather/favorites/${address}`;
+    console.log(`Calling getFavorites with ${url} ${address}`);
+    return this.http.get(url)
+      .map(
+      (response: Response) => {
+
+        // console.log('getFavorite' + JSON.stringify(response, undefined, 2));
+        try {
+          const res = response.json();
+          return new WeatherFav(res._id, res.address);
+        }
+        catch (error) {
+          return null;
+        }
+      }
+      );
+  }
+
   addFavorite(address: String) {
+
     const url = `http://localhost:3000/api/weather/favorites`;
     console.log(`Calling getFavorites with ${url} ${address}`);
     return this.http.post(url, { address })
-    .map(
+      .map(
       (response: Response) => {
         const res = response.json();
         console.log('addFavorite' + JSON.stringify(res, undefined, 2));
@@ -82,7 +101,32 @@ export class WeatherService {
 
     const url = `http://localhost:3000/api/weather/favorites/${id}`;
     console.log(`Calling deleteFromFavorites with ${url}`);
-    return this.http.delete(url, { headers });      
+    return this.http.delete(url, { headers });
+  }
+
+  getFavoritesObj() {
+    const url = `http://localhost:3000/api/weather/favorites`;
+    console.log(`Calling getFavorites with ${url}`);
+    return this.http.get(url)
+      .map(
+      (response: Response) => {
+        const res = response.json();
+        console.log(res);
+        return new WeatherFav(
+          res.id,
+          res.address);
+      }
+      );
+  }
+
+  getFavoritesWeather() {
+    return this.getFavoritesObj()
+      .subscribe(
+      (wf: WeatherFav) => {
+
+      },
+      (error) => console.log(error)
+      );
   }
 
 }

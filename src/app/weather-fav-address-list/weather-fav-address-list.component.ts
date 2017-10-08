@@ -47,11 +47,24 @@ export class WeatherFavAddressListComponent implements OnInit {
   addFavorite(address) {
 
     this.weatherService
-      .addFavorite(address)
+      .getFavorite(address)
       .subscribe(
-      (wf: WeatherFav) => {
-        this.favorites.push(wf);
-        address = '';
+      (res: WeatherFav) => {
+
+        if (res === null) {
+          console.log('addFavorite city not found : create one');
+          this.weatherService.addFavorite(address)
+            .subscribe(
+            (wf: WeatherFav) => {
+              this.favorites.push(wf);
+            },
+            (error) => console.log(error)
+            );
+        }
+        else {
+          console.log(`addFavorite city found: no need to create`);
+        }
+
       },
       (error) => console.log(error)
       );

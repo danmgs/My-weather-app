@@ -27,36 +27,53 @@ module.exports = {
   },
 
   index(req, res, next) {
-    // const { lng, lat } = req.query;
 
-    console.log('Calling index ..........');
+    console.log(`Calling index .......... req.params.address=${req.params.address}`);
 
-    //const { address } = req.query
-
-    //console.log('weather_controller > index is called with ' + address);
-
-    // WeatherFavAddress.findOne({address: address})
-    //   .then(items => res.send(items))
-    //   .catch(next);
-
-    WeatherFavAddress.find({ })
-      .then(items => { console.log(items); return res.send(items); })
-      .catch(next);
-
-    // WeatherFavAddress.find({ _id: itemId }, itemProps)
-    // .then(() => WeatherFavAddress.findById({ _id: id }))
-    // .then(item => res.send(item))
-    // .catch(next);
+    if (req.params.address != null) {
+      console.log('Calling index findOne');
+      WeatherFavAddress.findOne({ address: req.params.address })
+        .then(item => { console.log(item); return res.send(item); })
+        .catch(next);
+    }
+    else {
+      console.log('Calling index find');
+      WeatherFavAddress.find({})
+        .then(items => { console.log(items); return res.send(items); })
+        .catch(next);
+    }
   },
 
   create(req, res, next) {
     const itemProps = req.body;
 
     // console.log('weather_controller > create is called with ' + itemProps);
-
     WeatherFavAddress.create(itemProps)
       .then(item => res.send(item))
       .catch(next)
+  },
+
+  createIfNotExist(req, res, next) {
+    const itemProps = req.body; 
+
+    // console.log(req.body);
+    WeatherFavAddress.findOne(itemProps)
+      .then(item => { 
+        console.log('found ?  ' + item);
+        // console.log(item); 
+        if(item === null)
+        {
+          console.log('weather_controller > createIfNotExist (item not found) is called with ' + itemProps);
+          WeatherFavAddress.create(itemProps)
+          .then(itemcreated => res.send(itemcreated))
+          .catch(next)
+        }
+        else{
+          console.log('weather_controller > createIfNotExist (item found) is called with ' + itemProps);
+          res.send(null);
+        }
+      })
+      .catch(next);
   },
 
   edit(req, res, next) {
