@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 before(done => {
-  mongoose.connect('mongodb://localhost/weatherapp_test', { useMongoClient: true });
+  const url = 'mongodb://localhost/weatherapp_test';
+  mongoose.connect(url, { useMongoClient: true });
   mongoose.connection
     .once('open', () => {
-      console.log('Connect to mongodb successfully !');
+      console.log(`Connect to mongodb successfully : ${url} !`);
       done();
     })
     .on('error', error => {

@@ -23,6 +23,8 @@ else
     console.log('TEST Config');
 }
 
+console.log('*************************************');
+
 // Parsers
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true}));

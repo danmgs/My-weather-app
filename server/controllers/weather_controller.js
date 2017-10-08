@@ -63,13 +63,13 @@ module.exports = {
         // console.log(item); 
         if(item === null)
         {
-          console.log('weather_controller > createIfNotExist (item not found) is called with ' + itemProps);
+          console.log('weather_controller > createIfNotExist (item not found) is called with ' + JSON.stringify(itemProps));
           WeatherFavAddress.create(itemProps)
           .then(itemcreated => res.send(itemcreated))
           .catch(next)
         }
         else{
-          console.log('weather_controller > createIfNotExist (item found) is called with ' + itemProps);
+          console.log('weather_controller > createIfNotExist (item found) is called with ' + JSON.stringify(itemProps));
           res.send(null);
         }
       })
