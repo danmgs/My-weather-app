@@ -30,48 +30,34 @@ export class WeatherFavAddressListComponent implements OnInit {
     this.subscriptionGetFavorites = this.weatherService.favoritesChanged
       .subscribe(
       (res: any) => {
-        console.log(JSON.stringify(res));
-
+        //console.log(res);
+        this.favorites = [];
         for (let wf of res) {
           this.favorites.push(new WeatherFav(wf._id, wf.address));
         }
       }
       );
-
   }
 
   getFavorites() {
-    return this.weatherService.getFavorites();
+    this.weatherService.getFavorites();
   }
 
-  addFavorite(address) {
+  addFavoriteWithCheck(address) {
 
     this.weatherService
-      .getFavorite(address)
+      .addFavoriteWithCheck(address)
       .subscribe(
       (res: WeatherFav) => {
-
-        if (res === null) {
-          console.log('addFavorite city not found : create one');
-          this.weatherService.addFavorite(address)
-            .subscribe(
-            (wf: WeatherFav) => {
-              this.favorites.push(wf);
-            },
-            (error) => console.log(error)
-            );
+        if (res !== null) {
+          this.getFavorites();
         }
-        else {
-          console.log(`addFavorite city found: no need to create`);
-        }
-
       },
       (error) => console.log(error)
       );
   }
 
   deleteFromFavorites(id: String) {
-    console.log('first call deleteFromFavorites' + id);
     return this.weatherService
       .deleteFromFavorites(id)
       .subscribe(

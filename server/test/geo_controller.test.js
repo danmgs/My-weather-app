@@ -16,5 +16,4 @@ describe('Geo controller', () => {
             });
 
     });
-
 });

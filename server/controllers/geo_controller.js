@@ -30,5 +30,5 @@ module.exports = {
             }
             res.send(body.results[0]);
         });
-    },
+    }
 };

@@ -17,53 +17,47 @@ import * as _ from "lodash";
 })
 export class WeatherListComponent implements OnInit {
 
-  private subscription: Subscription;
-  weatherResponseStr: String = '';
+  private subscriptionWeather: Subscription;
+  private subscriptionAllWeatherFavorites: Subscription;
   weatherResponse: WeatherData;
   show: boolean = false;
-
-  favorites: WeatherFav[] = [];
-  private subscriptionGetFavorites: Subscription;
+  weatherResponseFavorites: WeatherData[] = [];  
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
 
-    this.getFavoritesWeather();
-
-    this.subscriptionGetFavorites = this.weatherService.favoritesChanged
-      .subscribe(
-      (res: any) => {
-        console.log(JSON.stringify(res));
-
-        for (let wf of res) {
-          this.favorites.push(new WeatherFav(wf._id, wf.address));
-        }
-      });
+    this.getWeatherForFavorites();
           
-    this.subscription = this.weatherService.weatherChanged
+    this.subscriptionWeather = this.weatherService.weatherChanged
       .subscribe(
         (weatherdata: WeatherData) => {
-          this.weatherResponseStr = JSON.stringify(weatherdata, undefined, 2);
           this.weatherResponse = weatherdata;
           this.show = true;
         }
       );
+
+      this.subscriptionAllWeatherFavorites = this.weatherService.allWeatherFavoritesChanged
+      .subscribe(
+        (weatherdatas: WeatherData[]) => {
+          this.weatherResponseFavorites = weatherdatas;
+        }
+      );      
   }
 
   getWeather(address: String) {
     this.show = false;
-    console.log(address);
     this.weatherService.getWeather(address);
   }
 
-  getFavoritesWeather() {
-    return this.weatherService.getFavoritesWeather();
+  getWeatherForFavorites() {
+    this.weatherResponseFavorites = [];
+    this.weatherService.getWeatherForFavorites();
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.subscriptionGetFavorites.unsubscribe();
+    this.subscriptionWeather.unsubscribe();
+    this.subscriptionAllWeatherFavorites.unsubscribe();
   }
 
 }

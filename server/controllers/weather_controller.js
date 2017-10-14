@@ -54,22 +54,21 @@ module.exports = {
   },
 
   createIfNotExist(req, res, next) {
-    const itemProps = req.body; 
+    const itemProps = req.body;
 
-    // console.log(req.body);
+    console.log('*******************');
     WeatherFavAddress.findOne(itemProps)
-      .then(item => { 
+      .then(item => {
         console.log('found ?  ' + item);
         // console.log(item); 
-        if(item === null)
-        {
-          console.log('weather_controller > createIfNotExist (item not found) is called with ' + JSON.stringify(itemProps));
+        if (item === null) {
+          console.log('weather_controller > createIfNotExist (item not found, will create one) is called with ' + JSON.stringify(itemProps));
           WeatherFavAddress.create(itemProps)
-          .then(itemcreated => res.send(itemcreated))
-          .catch(next)
+            .then(itemcreated => res.send(itemcreated))
+            .catch(next)
         }
-        else{
-          console.log('weather_controller > createIfNotExist (item found) is called with ' + JSON.stringify(itemProps));
+        else {
+          console.log('weather_controller > createIfNotExist (item found, will not create one) is called with ' + JSON.stringify(itemProps));
           res.send(null);
         }
       })
@@ -94,5 +93,6 @@ module.exports = {
     WeatherFavAddress.findByIdAndRemove({ _id: itemId })
       .then(item => res.status(204).send(item))
       .catch(next);
-  }
+  },
+
 };

@@ -19,26 +19,24 @@
   <div class="row">
     <br>
     <div class="col-md-12">
-      <h3 *ngIf="show; else elseBlock">
-        {{ weatherResponse?.geodata.formatted_address }} | {{weatherResponse?.temperature | convertToDegre | number:'1.0-2' }} degres
-      </h3>
+      <b *ngIf="show; else elseBlock">
+        {{ weatherResponse?.geodata.formatted_address | uppercase }} {{weatherResponse?.temperature | convertToDegre | number:'1.0-2' }} degres
+      </b>
       <ng-template #elseBlock>...</ng-template>
-    </div>
-  </div>
-  <div class="row">
-    <br><hr>
-    <div class="col-md-12">
-      {{weatherResponseStr}}
     </div>
   </div>
 </div>
 
+<hr>
 
+<h2>Favorites</h2>
+
+<!-- {{ weatherResponseFavorites | json }} -->
 <div class="container">
-    <div class="row" *ngFor="let elt of favorites" style="margin-top:10px;">
-      <div class="col-md-8">
-        {{ elt.address }} {{ elt.id }}
-      </div>
-      <br>
+  <div class="row" *ngFor="let elt of weatherResponseFavorites" style="margin-top:10px;">
+    <div class="col-md-8">
+      <b>{{ elt.geodata.formatted_address | uppercase }}</b> {{ elt.temperature | convertToDegre | number:'1.0-2' }} degres
     </div>
+    <br>
   </div>
+</div>

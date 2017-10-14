@@ -2,12 +2,11 @@ const assert = require('assert');
 const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../app');
-
 const WeatherFavAddress = mongoose.model('weatherFavAddress');
 
-describe('#Weather controller', () => {
+describe('Weather controller', () => {
 
-  it('Get to /api/weather/favorites get the weather favorites', (done) => {
+  it('Get to /api/weather/favorites get the favorites', (done) => {
 
     request(app)
       .post('/api/weather/favorites')
@@ -53,7 +52,7 @@ describe('#Weather controller', () => {
       });
   });
 
-  it('Post to /api/weather/favorites creates a new weather favorite address', (done) => {
+  it('Post to /api/weather/favorites creates a new favorite address', (done) => {
 
     WeatherFavAddress.count().then(count => {
       request(app)
@@ -83,7 +82,7 @@ describe('#Weather controller', () => {
       });
   });
 
-  it('Post to /api/weather/favorites/check creates a new weather favorite address when one is NOT already existing', (done) => {
+  it('Post to /api/weather/favorites/check creates a new favorite address when one is NOT already existing', (done) => {
 
     WeatherFavAddress.count().then(count => {
       request(app)
@@ -104,7 +103,7 @@ describe('#Weather controller', () => {
     });
   });
 
-  it('Post to /api/weather/favorites/check creates a new weather favorite address when one is already existing', (done) => {
+  it('Post to /api/weather/favorites/check creates a new favorite address when one is already existing', (done) => {
 
     WeatherFavAddress.count().then(count => {
       request(app)
@@ -140,6 +139,32 @@ describe('#Weather controller', () => {
           });
         });
     });
+  });
+
+  it('Get to /api/weather/favorites get the favorites', (done) => {
+
+    WeatherFavAddress.count().then(count => {
+
+      const parisWeatherFav = new WeatherFavAddress({
+        address: 'Paris 75001'
+      });
+
+      const sfWeatherFav = new WeatherFavAddress({
+        address: 'San Francisco'
+      });
+
+      Promise.all([parisWeatherFav.save(), sfWeatherFav.save()])
+        .then(() => {
+          request(app)
+            .get('/api/weather/favorites')
+            .end((err, res) => {
+              WeatherFavAddress.count().then(newcount => {
+                assert(count + 2 === newcount);
+                done();              
+              });              
+            });
+        });
+    })
   });
 
 });

@@ -4,7 +4,7 @@
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Enter an address ..." #address>
         <span class="input-group-btn">
-            <button class="btn btn-default" type="button" (click)="addFavorite(address.value)">Add to favorites!</button>
+            <button class="btn btn-default" type="button" (click)="addFavoriteWithCheck(address.value)">Add to favorites!</button>
           </span>
       </div>
     </div>
@@ -17,7 +17,7 @@
 <div class="container">
   <div class="row" *ngFor="let elt of favorites" style="margin-top:10px;">
     <div class="col-md-8">
-      {{ elt.address }} {{ elt.id }}
+      #{{ elt.id }} <b>{{ elt.address | uppercase }}</b> 
     </div>
     <div class="col-md-4">
       <button class="btn btn-warning" (click)="deleteFromFavorites(elt.id)">Delete</button>

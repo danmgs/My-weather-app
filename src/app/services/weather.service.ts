@@ -15,18 +15,28 @@ export class WeatherService {
   geodata: GeoData;
 
   weatherChanged = new Subject<WeatherData>();
+  allWeatherFavoritesChanged = new Subject<WeatherData[]>();
   favoritesChanged = new Subject<WeatherFav>();
+
+  weatherResponseFavorites: WeatherData[] = [];  
 
   constructor(private http: Http, private geoService: GeoService) { }
 
-  getWeather(address: String) {
+  getWeather(address: String, isFavorite: Boolean = false) {
     this.geoService.getGeoCode(address)
       .subscribe(
       (geodata: GeoData) => {
-        return this.getWeatherInfos(geodata)
+        this.getWeatherInfos(geodata)
           .subscribe(
           (weatherdata: WeatherData) => {
-            this.weatherChanged.next(weatherdata);
+            if (!isFavorite)
+            {
+              this.weatherChanged.next(weatherdata);
+            }
+            else
+            {
+              this.weatherResponseFavorites.push(weatherdata);
+            }
           },
           (error) => console.log(error)
           );
@@ -43,7 +53,7 @@ export class WeatherService {
       .map(
       (response: Response) => {
         const res = response.json();
-        console.log('getWeatherInfos' + JSON.stringify(res, undefined, 2));
+        //console.log('getWeatherInfos' + JSON.stringify(res, undefined, 2));
         return new WeatherData(geodata, res.body.currently.temperature);
       });
   }
@@ -55,7 +65,7 @@ export class WeatherService {
       .subscribe(
       (response: Response) => {
         // WeatherFav
-        console.log(response.json());
+        //console.log(response.json());
         this.favoritesChanged.next(response.json());
       },
       (error) => console.log(error)
@@ -81,6 +91,24 @@ export class WeatherService {
       );
   }
 
+  addFavoriteWithCheck(address: String) {
+
+    const url = `http://localhost:3000/api/weather/favorites/check`;
+    console.log(`Calling addFavoriteWithCheck with ${url} ${address}`);
+    return this.http.post(url, { address })
+      .map(
+      (response: Response) => {
+        try {
+          const res = response.json();
+          //console.log('addFavoriteWithCheck' + JSON.stringify(res, undefined, 2));
+          return new WeatherFav(res._id, res.address);
+        }
+        catch (error) {
+          return null;
+        }
+      });
+  }
+
   addFavorite(address: String) {
 
     const url = `http://localhost:3000/api/weather/favorites`;
@@ -104,29 +132,28 @@ export class WeatherService {
     return this.http.delete(url, { headers });
   }
 
-  getFavoritesObj() {
+  getWeatherForFavorites() {
+
+    this.weatherResponseFavorites = [];
+
     const url = `http://localhost:3000/api/weather/favorites`;
     console.log(`Calling getFavorites with ${url}`);
-    return this.http.get(url)
-      .map(
-      (response: Response) => {
-        const res = response.json();
-        console.log(res);
-        return new WeatherFav(
-          res.id,
-          res.address);
-      }
-      );
-  }
-
-  getFavoritesWeather() {
-    return this.getFavoritesObj()
+    this.http.get(url)
       .subscribe(
-      (wf: WeatherFav) => {
+      (response: Response) => {
 
+        const favorites = response.json();
+        // console.log(favorites);
+
+        favorites.forEach((fav) => {
+          this.getWeather(fav.address, true);
+        });
+
+        this.allWeatherFavoritesChanged.next(this.weatherResponseFavorites);
       },
       (error) => console.log(error)
       );
+
   }
 
 }
