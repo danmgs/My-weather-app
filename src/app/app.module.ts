@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { WeatherListComponent } from './weather-list/weather-list.component';
@@ -14,6 +15,9 @@ import { WeatherService } from './services/weather.service';
 import { GeoService } from './services/geo.service';
 import { AppRoutingModule } from './app-routing.module';
 
+import {ButtonModule} from 'primeng/primeng';
+import {CheckboxModule} from 'primeng/primeng';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +29,10 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    FormsModule,
+    ButtonModule,
+    CheckboxModule
   ],
   providers: [WeatherService, GeoService],
   bootstrap: [AppComponent]

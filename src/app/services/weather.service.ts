@@ -82,7 +82,7 @@ export class WeatherService {
         // console.log('getFavorite' + JSON.stringify(response, undefined, 2));
         try {
           const res = response.json();
-          return new WeatherFav(res._id, res.address);
+          return new WeatherFav(res._id, res.address, res.active);
         }
         catch (error) {
           return null;
@@ -101,7 +101,7 @@ export class WeatherService {
         try {
           const res = response.json();
           //console.log('addFavoriteWithCheck' + JSON.stringify(res, undefined, 2));
-          return new WeatherFav(res._id, res.address);
+          return new WeatherFav(res._id, res.address, res.active);
         }
         catch (error) {
           return null;
@@ -117,19 +117,16 @@ export class WeatherService {
       .map(
       (response: Response) => {
         const res = response.json();
-        console.log('addFavorite' + JSON.stringify(res, undefined, 2));
-        return new WeatherFav(res._id, res.address);
+        // console.log('addFavorite' + JSON.stringify(res, undefined, 2));
+        return new WeatherFav(res._id, res.address, res.active);
       });
   }
 
   deleteFromFavorites(id: String) {
 
-    let headers = new Headers();
-    headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-
     const url = `http://localhost:3000/api/weather/favorites/${id}`;
     console.log(`Calling deleteFromFavorites with ${url}`);
-    return this.http.delete(url, { headers });
+    return this.http.delete(url);
   }
 
   getWeatherForFavorites() {

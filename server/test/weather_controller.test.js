@@ -65,10 +65,6 @@ describe('Weather controller', () => {
           });
         });
     });
-
-    // const wfa = new WeatherFavAddress({address: "Paris 75015"});
-    // wfa.save();
-    // done();
   });
 
   it('Post to /api/weather/favorites requires an address', (done) => {
@@ -166,5 +162,23 @@ describe('Weather controller', () => {
         });
     })
   });
+
+  it('Put to /api/weather/favorites/id can update a record', done => {
+    const weatherfav = new WeatherFavAddress({ address: 'Paris', active: true });
+
+    weatherfav.save().then(() => {
+      request(app)
+        .put(`/api/weather/favorites/${weatherfav._id}`)
+        .send({ active: false })
+        .end(() => {
+          WeatherFavAddress.findOne({ address: 'Paris' })
+            .then(wf => {
+              assert(wf.active === false);
+              done();
+            });
+        });
+    });
+  });
+
 
 });

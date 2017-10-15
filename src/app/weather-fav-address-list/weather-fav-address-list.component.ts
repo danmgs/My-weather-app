@@ -33,7 +33,7 @@ export class WeatherFavAddressListComponent implements OnInit {
         //console.log(res);
         this.favorites = [];
         for (let wf of res) {
-          this.favorites.push(new WeatherFav(wf._id, wf.address));
+          this.favorites.push(new WeatherFav(wf._id, wf.address, wf.active));
         }
       }
       );

@@ -14,13 +14,15 @@
   </div>
 </div>
 
+<!-- {{ favorites | json }} -->
 <div class="container">
   <div class="row" *ngFor="let elt of favorites" style="margin-top:10px;">
     <div class="col-md-8">
-      #{{ elt.id }} <b>{{ elt.address | uppercase }}</b> 
+      <p-checkbox [(ngModel)]="elt.active" binary="true"></p-checkbox>
+      #{{ elt.id }} <b>{{ elt.address | uppercase }}</b>
     </div>
     <div class="col-md-4">
-      <button class="btn btn-warning" (click)="deleteFromFavorites(elt.id)">Delete</button>
+      <button pButton type="button" (click)="deleteFromFavorites(elt.id)" icon="fa-close" label="Delete"></button>
     </div>
     <br>
   </div>

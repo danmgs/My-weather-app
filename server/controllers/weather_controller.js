@@ -33,13 +33,13 @@ module.exports = {
     if (req.params.address != null) {
       console.log('Calling index findOne');
       WeatherFavAddress.findOne({ address: req.params.address })
-        .then(item => { console.log(item); return res.send(item); })
+        .then(item => { /* console.log(item); */ return res.send(item); })
         .catch(next);
     }
     else {
-      console.log('Calling index find');
+      console.log('Calling index find all');
       WeatherFavAddress.find({})
-        .then(items => { console.log(items); return res.send(items); })
+        .then(items => { /* console.log(items); */ return res.send(items); })
         .catch(next);
     }
   },
