@@ -1,5 +1,6 @@
 const WeatherController = require('../controllers/weather_controller');
 const GeoController = require('../controllers/geo_controller');
+const GoogleFinanceController = require('../controllers/google_finance_controller');
 
 module.exports = (app) => {
   app.post('/api/weather/favorites', WeatherController.create);
@@ -12,4 +13,7 @@ module.exports = (app) => {
 
   app.get('/api/geo', GeoController.getGeoCode);
   app.post('/api/weather/:lat/:lng', WeatherController.getWeather);
+
+  // Google finance API
+  app.get('/api/quotes', GoogleFinanceController.getQuotes);  
 };

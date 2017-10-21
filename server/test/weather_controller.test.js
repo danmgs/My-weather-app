@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const app = require('../app');
 const WeatherFavAddress = mongoose.model('weatherFavAddress');
 
-describe('Weather controller', () => {
+xdescribe('Weather controller', () => {
 
-  it('Get to /api/weather/favorites get the favorites', (done) => {
+  it('Get /api/weather/favorites get the favorites', (done) => {
 
     request(app)
       .post('/api/weather/favorites')
@@ -23,7 +23,7 @@ describe('Weather controller', () => {
       });
   });
 
-  it('Get to /api/weather/favorites/:address find a favorite address', (done) => {
+  it('Get /api/weather/favorites/:address find a favorite address', (done) => {
 
     request(app)
       .post('/api/weather/favorites')
@@ -39,15 +39,15 @@ describe('Weather controller', () => {
       });
   });
 
-  it('Get to /api/weather/:lat/:lng get the weather', (done) => {
+  it('Get /api/weather/:lat/:lng get the weather', (done) => {
 
     request(app)
       .post('/api/weather/49/75')
       .end((err, res) => {
+        // console.log(res.body);
         assert(res.statusCode === 200);
         assert(res.body.body.latitude === 49);
-        assert(res.body.body.longitude === 75);
-        //console.log(res.body);
+        assert(res.body.body.longitude === 75);        
         done();
       });
   });
@@ -137,7 +137,7 @@ describe('Weather controller', () => {
     });
   });
 
-  it('Get to /api/weather/favorites get the favorites', (done) => {
+  it('Get /api/weather/favorites get the favorites', (done) => {
 
     WeatherFavAddress.count().then(count => {
 

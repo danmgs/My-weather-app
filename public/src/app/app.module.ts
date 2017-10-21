@@ -7,16 +7,19 @@ import { AppComponent } from './app.component';
 import { WeatherListComponent } from './weather-list/weather-list.component';
 import { HeaderComponent } from './header/header.component';
 import { WeatherFavAddressListComponent } from './weather-fav-address-list/weather-fav-address-list.component';
+import { QuoteListComponent } from './quote-list/quote-list.component';
 
 import { ExponentialStrengthPipe } from './filters/exponential-strength-pipe';
 import { ConvertToDegrePipe } from './filters/convert-degre-pipe';
 
 import { WeatherService } from './services/weather.service';
 import { GeoService } from './services/geo.service';
+import { QuoteService } from './services/quote.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import {ButtonModule} from 'primeng/primeng';
 import {CheckboxModule} from 'primeng/primeng';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import {CheckboxModule} from 'primeng/primeng';
     HeaderComponent,
     WeatherFavAddressListComponent, 
     ExponentialStrengthPipe,
-    ConvertToDegrePipe],
+    ConvertToDegrePipe,
+    QuoteListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,7 +38,7 @@ import {CheckboxModule} from 'primeng/primeng';
     ButtonModule,
     CheckboxModule
   ],
-  providers: [WeatherService, GeoService],
+  providers: [WeatherService, GeoService, QuoteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

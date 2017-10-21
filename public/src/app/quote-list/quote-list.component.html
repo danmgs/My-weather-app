@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="input-group">
+        <input type="text" placeholder="Enter a symbol ...NASDAQ:AAPL" value="NASDAQ:AAPL" #symbol>
+        <input type="text" placeholder="from ...2014-01-01" value="2014-01-01" #from>
+        <input type="text" placeholder="to ...2014-12-31" value="2014-12-31" #to>
+        <button class="btn btn-primary" type="button" (click)="getQuotes(symbol.value, from.value, to.value)">Add to favorites!</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <hr> {{ quotesResponse }}
+  </div>
+</div>
