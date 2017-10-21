@@ -3,13 +3,21 @@
     <div class="col-lg-12">
       <div class="input-group">
         <input type="text" placeholder="Enter a symbol ...NASDAQ:AAPL" value="NASDAQ:AAPL" #symbol>
-        <input type="text" placeholder="from ...2014-01-01" value="2014-01-01" #from>
-        <input type="text" placeholder="to ...2014-12-31" value="2014-12-31" #to>
-        <button class="btn btn-primary" type="button" (click)="getQuotes(symbol.value, from.value, to.value)">Add to favorites!</button>
+        <input type="text" placeholder="from ...2016-01-01" value="2016-01-01" #from>
+        <input type="text" placeholder="to ...2016-01-10" value="2016-01-10" #to>
+        <button class="btn btn-primary" type="button" (click)="getQuotes(symbol.value, from.value, to.value)">Load Quotes</button>
       </div>
     </div>
   </div>
+  <div class="row" *ngFor="let elt of quotesArray" style="margin-top:10px;">
+    <div class="col-md-12">
+      {{ elt | json }}
+    </div>
+  </div>
   <div class="row">
-    <hr> {{ quotesResponse }}
+    <div class="col-md-12">
+      <p-growl [value]="msgs"></p-growl>
+      <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+    </div>
   </div>
 </div>

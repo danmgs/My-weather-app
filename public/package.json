@@ -23,6 +23,7 @@
     "@angular/router": "^4.0.0",
     "@types/lodash": "^4.14.77",
     "bootstrap": "^3.3.7",
+    "chart.js": "^2.7.0",
     "core-js": "^2.4.1",
     "express": "^4.16.1",
     "font-awesome": "^4.7.0",

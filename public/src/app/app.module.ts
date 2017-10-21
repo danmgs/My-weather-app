@@ -17,8 +17,7 @@ import { GeoService } from './services/geo.service';
 import { QuoteService } from './services/quote.service';
 import { AppRoutingModule } from './app-routing.module';
 
-import {ButtonModule} from 'primeng/primeng';
-import {CheckboxModule} from 'primeng/primeng';
+import { ButtonModule, CheckboxModule, ChartModule, GrowlModule } from 'primeng/primeng';
 
 
 @NgModule({
@@ -26,7 +25,7 @@ import {CheckboxModule} from 'primeng/primeng';
     AppComponent,
     WeatherListComponent,
     HeaderComponent,
-    WeatherFavAddressListComponent, 
+    WeatherFavAddressListComponent,
     ExponentialStrengthPipe,
     ConvertToDegrePipe,
     QuoteListComponent],
@@ -36,7 +35,9 @@ import {CheckboxModule} from 'primeng/primeng';
     HttpModule,
     FormsModule,
     ButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    ChartModule,
+    GrowlModule
   ],
   providers: [WeatherService, GeoService, QuoteService],
   bootstrap: [AppComponent]

@@ -61,9 +61,10 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-# <span style="color:red">TASK LIST</span>
+# <span style="color:red">TASKS LIST</span>
 
-- [x] this is a complete item
-- [ ] CORS issue between backend / frontend:  No 'Access-Control-Allow-Origin' header is present on the requested resource. 
+- [x] CORS issue between backend / frontend:  No 'Access-Control-Allow-Origin' header is present on the requested resource. 
  [Help jsonp here](https://codecraft.tv/courses/angular/http/jsonp-with-observables/).
-- [ ] Server-side : weather_controller.index method to implement to find all and return array
+- [ ] Langages fr/eng for web pages.
+- [ ] Reorganize menu labels Weather, Finance ...
+- [ ] Listing of weather on favorites: show weather only for active favorite addresses.
