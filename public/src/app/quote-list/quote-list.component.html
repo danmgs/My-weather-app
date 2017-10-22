@@ -1,23 +1,60 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
       <div class="input-group">
-        <input type="text" placeholder="Enter a symbol ...NASDAQ:AAPL" value="NASDAQ:AAPL" #symbol>
-        <input type="text" placeholder="from ...2016-01-01" value="2016-01-01" #from>
-        <input type="text" placeholder="to ...2016-01-10" value="2016-01-10" #to>
-        <button class="btn btn-primary" type="button" (click)="getQuotes(symbol.value, from.value, to.value)">Load Quotes</button>
+        <input type="text" class="form-control" placeholder="Enter a symbol ...NASDAQ:AAPL" value="NASDAQ:AAPL" #symbol>
+        <input type="text" class="form-control" placeholder="from ...2016-01-01" value="2016-01-01" #from>
+        <input type="text" class="form-control" placeholder="to ...2016-01-10" value="2016-01-10" #to>
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" (click)="getData(symbol.value, from.value, to.value)">Load Quotes</button>
+        </span>
       </div>
     </div>
   </div>
-  <!-- <div class="row" *ngFor="let elt of quotesArray" style="margin-top:10px;">
-    <div class="col-md-12">
-      {{ elt | json }}
+
+  <div class="container" *ngIf="quotesArray != null && quotesArray.length > 0">
+
+    <!-- <div class="row" *ngFor="let elt of quotesArray" style="margin-top:10px;">
+      <div class="col-md-12">
+        {{ elt | json }}
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-12">
+        <p-growl [value]="msgs"></p-growl>
+        <p-chart type="line" [data]="data" [options]="options" (onDataSelect)="selectData($event)"></p-chart>
+      </div>
     </div>
-  </div> -->
-  <div class="row" style="margin-top:10px;">
-    <div class="col-md-12">
-      <p-growl [value]="msgs"></p-growl>
-      <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+
+    <div class="row" style="margin:20px">
+      <div class="col-md-12">
+        <div id="accordion" role="tablist">
+          <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#collapseHtmlItem" aria-expanded="true" aria-controls="collapseHtmlItem">
+                  Company News
+                </a>
+              </h5>
+            </div>
+            <div id="collapseHtmlItem" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <div class="row" *ngFor="let elt of companyNewsArray; let i = index" style="margin-top:10px;">
+                  {{ elt.summary | truncate : 100 }}
+                  <a [href]="elt.link" target="_blank">show</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
 </div>

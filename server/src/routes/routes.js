@@ -16,5 +16,6 @@ module.exports = (app) => {
   app.post('/api/weather/:lat/:lng', WeatherController.getWeather);
 
   // Google finance API
-  app.get('/api/quotes', GoogleFinanceController.getQuotes);  
+  app.get('/api/quotes', GoogleFinanceController.getQuotes);
+  app.get('/api/companynews', GoogleFinanceController.getCompanyNews);  
 };

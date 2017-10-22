@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { QuoteService } from '../services/quote.service';
 import { QuoteData } from '../Shared/QuoteData';
+import { CompanyNewsData } from '../Shared/CompanyNewsData';
 import { Message } from 'primeng/primeng';
+
 
 @Component({
   selector: 'app-quote-list',
@@ -12,8 +14,10 @@ import { Message } from 'primeng/primeng';
 export class QuoteListComponent implements OnInit {
 
   quotesArray: QuoteData[];
+  companyNewsArray: CompanyNewsData[];
 
   data: any;
+  options: any;
 
   msgs: Message[];
 
@@ -23,11 +27,16 @@ export class QuoteListComponent implements OnInit {
 
   }
 
+  getData(symbol: String, from: String, to: String)
+  {
+    this.getQuotes(symbol, from, to);
+    this.getCompanyNews(symbol);
+  }
+
   getQuotes(symbol: String, from: String, to: String) {
     this.quoteService.getQuotes(symbol, from, to)
       .subscribe(
       (res: QuoteData[]) => {
-        console.log('subscribe');
         this.quotesArray = res;
         this.drawChart(res);
       },
@@ -52,6 +61,27 @@ export class QuoteListComponent implements OnInit {
     let dataL = quotesdata.map(function (quotedata) {
       return quotedata.low
     });
+
+    this.options = {
+      scales: {
+        xAxes: [{
+          type: 'time',
+          position: 'bottom',
+          time: {
+            unit: "day",
+            tooltipFormat: "MM-DD-YYYY",
+          },
+        }],
+      },
+      title: {
+        display: true,
+        text: 'Quotes Values',
+        fontSize: 12
+      },
+      legend: {
+          position: 'bottom'
+      }
+    };
 
     this.data = {
       labels: labels,//['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -81,12 +111,23 @@ export class QuoteListComponent implements OnInit {
           borderColor: '#FF6384'
         }
       ]
-    }
+    };
   }
 
   selectData(event) {
     this.msgs = [];
     this.msgs.push({ severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index] });
+  }
+
+  getCompanyNews(symbol: String)
+  {
+    this.quoteService.getCompanyNews(symbol)
+    .subscribe(
+      (res: CompanyNewsData[]) => {
+        this.companyNewsArray = res;
+      },
+      (error) => console.log(error)
+      );
   }
 
 }

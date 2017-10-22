@@ -9,7 +9,7 @@ module.exports = {
         var encodedAddress = encodeURIComponent(address);
 
         const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`;
-        console.log(`Calling getGeoCode with ${url}`);
+        // console.log(`getGeoCode with ${url}`);
 
         request({
             url: url,
@@ -26,7 +26,6 @@ module.exports = {
                 //   results: [],
                 //   status: 'OVER_QUERY_LIMIT' }
                 //console.log(body);
-                console.log('=> status code 200 !');
             }
             res.send(body.results[0]);
         });

@@ -4,6 +4,7 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
 import { QuoteData } from '../Shared/QuoteData';
+import { CompanyNewsData } from '../Shared/CompanyNewsData';
 
 @Injectable()
 export class QuoteService {
@@ -14,12 +15,12 @@ export class QuoteService {
 
   getQuotes(symbol: String, from: String, to: String) {
     const url = `http://localhost:3000/api/quotes?symbol=${symbol}&from=${from}&to=${to}`;
-    console.log(`Calling getQuotes with ${symbol},  ${from},  ${to}`);
+    console.log(`getQuotes with ${symbol},  ${from},  ${to}`);
     return this.http.get(url)
       .map(
       (response: Response) => {
         // const res = response.json();
-        console.log(response.json());
+        // console.log(response.json());
 
         // https://codecraft.tv/courses/angular/http/http-with-observables/
         return response.json().map(item => {
@@ -34,7 +35,30 @@ export class QuoteService {
           );
         }
         );
-      })
+      });
   }
 
+  getCompanyNews(symbol: String) {
+    const url = `http://localhost:3000/api/companynews?symbol=${symbol}`;
+    console.log(`getCompanyNews with ${symbol}`);
+    return this.http.get(url)
+      .map(
+      (response: Response) => {
+
+        console.log(response.json());
+
+        return response.json().map(item => {
+          return new CompanyNewsData(
+            item.guid,
+            item.symbol,
+            item.title,
+            item.description,
+            item.summary,
+            item.date,
+            item.link
+          );
+        }
+        );
+      });
+  }
 }

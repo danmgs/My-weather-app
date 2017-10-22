@@ -198,7 +198,7 @@ describe('Weather controller', () => {
           .get('/api/weather/favorites/active/true')
           .end((err, res) => {
             assert(res.body.length === 1);
-            console.log(res.body);
+            // console.log(res.body);
             var obj = JSON.parse(JSON.stringify(res.body));
             assert(obj[0].address === 'Paris 75001');
             assert(res.statusCode === 200);

@@ -11,14 +11,14 @@ import { QuoteListComponent } from './quote-list/quote-list.component';
 
 import { ExponentialStrengthPipe } from './filters/exponential-strength-pipe';
 import { ConvertToDegrePipe } from './filters/convert-degre-pipe';
+import { TruncatePipe } from './filters/truncate-pipe';
 
 import { WeatherService } from './services/weather.service';
 import { GeoService } from './services/geo.service';
 import { QuoteService } from './services/quote.service';
 import { AppRoutingModule } from './app-routing.module';
 
-import { ButtonModule, CheckboxModule, ChartModule, GrowlModule } from 'primeng/primeng';
-
+import { ButtonModule, CheckboxModule, ChartModule, GrowlModule, CalendarModule } from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { ButtonModule, CheckboxModule, ChartModule, GrowlModule } from 'primeng/
     WeatherFavAddressListComponent,
     ExponentialStrengthPipe,
     ConvertToDegrePipe,
+    TruncatePipe,
     QuoteListComponent],
   imports: [
     BrowserModule,
@@ -37,7 +38,8 @@ import { ButtonModule, CheckboxModule, ChartModule, GrowlModule } from 'primeng/
     ButtonModule,
     CheckboxModule,
     ChartModule,
-    GrowlModule
+    GrowlModule,
+    CalendarModule
   ],
   providers: [WeatherService, GeoService, QuoteService],
   bootstrap: [AppComponent]

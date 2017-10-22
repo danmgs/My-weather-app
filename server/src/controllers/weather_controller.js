@@ -9,7 +9,7 @@ module.exports = {
     const { lat, lng } = req.params;
 
     const url = `https://api.darksky.net/forecast/3ef106162ed142fc3dc78e058263e0e8/${lat}\,${lng}`;
-    console.log(`Calling getWeather with ${url}`);
+    // console.log(`getWeather with ${url}`);
 
     request({
       url: url,
@@ -20,7 +20,7 @@ module.exports = {
       } else if (response.statusCode === 400) {
         console.log('Unable to fetch weather.');
       } else if (response.statusCode === 200) {
-        console.log(`=> temperature : ${body.currently.temperature}`);
+        // console.log(`=> temperature : ${body.currently.temperature}`);
       }
       res.send(response);
     });
@@ -28,16 +28,14 @@ module.exports = {
 
   index(req, res, next) {
 
-    console.log(`Calling index .......... req.params.address=${req.params.address}`);
+    // console.log(`index with req.params.address=${req.params.address}`);
 
     if (req.params.address != null) {
-      console.log('Calling index findOne');
       WeatherFavAddress.findOne({ address: req.params.address })
         .then(item => { /* console.log(item); */ return res.send(item); })
         .catch(next);
     }
     else {
-      console.log('Calling index find all');
       WeatherFavAddress.find({})
         .then(items => { /* console.log(items); */ return res.send(items); })
         .catch(next);
@@ -46,16 +44,14 @@ module.exports = {
 
   getActive(req, res, next) {
 
-    console.log('Calling getActive');
     WeatherFavAddress.find({ active: req.params.active })
       .then(items => { return res.send(items); })
       .catch(next);
   },
 
   create(req, res, next) {
-    const itemProps = req.body;
 
-    // console.log('weather_controller > create is called with ' + itemProps);
+    const itemProps = req.body;
     WeatherFavAddress.create(itemProps)
       .then(item => res.send(item))
       .catch(next)
@@ -67,16 +63,16 @@ module.exports = {
 
     WeatherFavAddress.findOne(itemProps)
       .then(item => {
-        console.log('found ?  ' + item);
+        // console.log('found ?  ' + item);
         // console.log(item); 
         if (item === null) {
-          console.log('weather_controller > createIfNotExist (item not found, will create one) is called with ' + JSON.stringify(itemProps));
+          // console.log('createIfNotExist (item not found, will create one) is called with ' + JSON.stringify(itemProps));
           WeatherFavAddress.create(itemProps)
             .then(itemcreated => res.send(itemcreated))
             .catch(next)
         }
         else {
-          console.log('weather_controller > createIfNotExist (item found, will not create one) is called with ' + JSON.stringify(itemProps));
+          // console.log('createIfNotExist (item found, will not create one) is called with ' + JSON.stringify(itemProps));
           res.send(null);
         }
       })
@@ -88,7 +84,7 @@ module.exports = {
     const itemId = req.params.id;
     const itemProps = req.body;
 
-    console.log(`Calling edit with ${itemId} ${itemProps}`);
+    // console.log(`edit with ${itemId} ${itemProps}`);
 
     WeatherFavAddress.findByIdAndUpdate({ _id: itemId }, itemProps)
       .then(() => WeatherFavAddress.findById({ _id: itemId }))
@@ -99,7 +95,7 @@ module.exports = {
   delete(req, res, next) {
     const itemId = req.params.id;
 
-    console.log('weather_controller > delete is called with ' + itemId);
+    // console.log('delete is called with ' + itemId);
 
     WeatherFavAddress.findByIdAndRemove({ _id: itemId })
       .then(item => res.status(204).send(item))

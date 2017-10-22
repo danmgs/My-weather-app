@@ -7,7 +7,7 @@ module.exports = {
 
         const { symbol, from, to } = req.query;
 
-        console.log(`symbol = ${symbol}, from = ${from}, to = ${to}`);
+        // console.log(`getQuotes symbol = ${symbol}, from = ${from}, to = ${to}`);
 
         googleFinance.historical({
             symbol,
@@ -17,6 +17,19 @@ module.exports = {
             //console.log(quotes);
             res.send(quotes);
         });
+    },
 
+    getCompanyNews(req, res, next) {
+
+        const { symbol } = req.query;
+
+        console.log(`getCompanyNews = ${symbol}`);
+
+        googleFinance.companyNews({
+            symbol
+        }, function (err, news) {
+            // console.log(news);
+            res.send(news);
+        });
     }
 };
