@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = require('../app');
 const WeatherFavAddress = mongoose.model('weatherFavAddress');
 
-xdescribe('Weather controller', () => {
+describe('Weather controller', () => {
 
   it('Get /api/weather/favorites get the favorites', (done) => {
 
@@ -178,6 +178,34 @@ xdescribe('Weather controller', () => {
             });
         });
     });
+  });
+
+  it('Get /api/weather/favorites/active/true find all favorite address with active status = true', done => {
+
+    const parisWeatherFav = new WeatherFavAddress({
+      address: 'Paris 75001',
+      active: true
+    });
+
+    const sfWeatherFav = new WeatherFavAddress({
+      address: 'San Francisco',
+      active: false
+    });
+
+    Promise.all([parisWeatherFav.save(), sfWeatherFav.save()])
+      .then(() => {
+        request(app)
+          .get('/api/weather/favorites/active/true')
+          .end((err, res) => {
+            assert(res.body.length === 1);
+            console.log(res.body);
+            var obj = JSON.parse(JSON.stringify(res.body));
+            assert(obj[0].address === 'Paris 75001');
+            assert(res.statusCode === 200);
+            assert(res.error !== '');
+            done();             
+          });
+      });
   });
 
 

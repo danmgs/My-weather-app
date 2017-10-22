@@ -21,28 +21,28 @@ export class WeatherListComponent implements OnInit {
   private subscriptionAllWeatherFavorites: Subscription;
   weatherResponse: WeatherData;
   show: boolean = false;
-  weatherResponseFavorites: WeatherData[] = [];  
+  weatherResponseFavorites: WeatherData[] = [];
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
 
-    this.getWeatherForFavorites();
-          
+    this.getWeatherForFavoritesActive();
+
     this.subscriptionWeather = this.weatherService.weatherChanged
       .subscribe(
-        (weatherdata: WeatherData) => {
-          this.weatherResponse = weatherdata;
-          this.show = true;
-        }
+      (weatherdata: WeatherData) => {
+        this.weatherResponse = weatherdata;
+        this.show = true;
+      }
       );
 
-      this.subscriptionAllWeatherFavorites = this.weatherService.allWeatherFavoritesChanged
+    this.subscriptionAllWeatherFavorites = this.weatherService.allWeatherFavoritesChanged
       .subscribe(
-        (weatherdatas: WeatherData[]) => {
-          this.weatherResponseFavorites = weatherdatas;
-        }
-      );      
+      (weatherdatas: WeatherData[]) => {
+        this.weatherResponseFavorites = weatherdatas;
+      }
+      );
   }
 
   getWeather(address: String) {
@@ -50,9 +50,9 @@ export class WeatherListComponent implements OnInit {
     this.weatherService.getWeather(address);
   }
 
-  getWeatherForFavorites() {
+  getWeatherForFavoritesActive() {
     this.weatherResponseFavorites = [];
-    this.weatherService.getWeatherForFavorites();
+    this.weatherService.getWeatherForFavoritesActive();
   }
 
   ngOnDestroy() {

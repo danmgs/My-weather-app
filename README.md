@@ -23,7 +23,7 @@ npm start
 http://localhost:3000/api/users
 ```
 
-4. To launch unit tests (server must be shutdown):
+4. To launch unit tests (server must be shutdown, i.e no "<b>npm start</b>"), <b>make sure mongodb is started</b>.
 ```
 cd server
 npm test
@@ -33,6 +33,12 @@ npm test
 
 
 # <span style="color:green">FRONTEND</span>
+
+0. To start client website :
+```
+cd public
+npm start
+```
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.7.
 
@@ -68,3 +74,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [ ] Langages fr/eng for web pages.
 - [ ] Reorganize menu labels Weather, Finance ...
 - [ ] Listing of weather on favorites: show weather only for active favorite addresses.
+- [ ] Edit Favorite weather active/notactive status.
+- [ ] Add creation timestamp (mongodb id based) on display all Favorites page.

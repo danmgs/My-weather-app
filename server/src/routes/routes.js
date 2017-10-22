@@ -9,6 +9,7 @@ module.exports = (app) => {
   // app.get('/api/weather/favorites', WeatherController.index);
   
   app.get('/api/weather/favorites/:address?', WeatherController.index);
+  app.get('/api/weather/favorites/active/:active', WeatherController.getActive);
   app.post('/api/weather/favorites/check', WeatherController.createIfNotExist);
 
   app.get('/api/geo', GeoController.getGeoCode);

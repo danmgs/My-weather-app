@@ -44,6 +44,14 @@ module.exports = {
     }
   },
 
+  getActive(req, res, next) {
+
+    console.log('Calling getActive');
+    WeatherFavAddress.find({ active: req.params.active })
+      .then(items => { return res.send(items); })
+      .catch(next);
+  },
+
   create(req, res, next) {
     const itemProps = req.body;
 
@@ -54,9 +62,9 @@ module.exports = {
   },
 
   createIfNotExist(req, res, next) {
+
     const itemProps = req.body;
 
-    console.log('*******************');
     WeatherFavAddress.findOne(itemProps)
       .then(item => {
         console.log('found ?  ' + item);
@@ -76,11 +84,14 @@ module.exports = {
   },
 
   edit(req, res, next) {
+
     const itemId = req.params.id;
     const itemProps = req.body;
 
+    console.log(`Calling edit with ${itemId} ${itemProps}`);
+
     WeatherFavAddress.findByIdAndUpdate({ _id: itemId }, itemProps)
-      .then(() => WeatherFavAddress.findById({ _id: id }))
+      .then(() => WeatherFavAddress.findById({ _id: itemId }))
       .then(item => res.send(item))
       .catch(next);
   },

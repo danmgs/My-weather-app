@@ -18,7 +18,7 @@ export class WeatherService {
   allWeatherFavoritesChanged = new Subject<WeatherData[]>();
   favoritesChanged = new Subject<WeatherFav>();
 
-  weatherResponseFavorites: WeatherData[] = [];  
+  weatherResponseFavorites: WeatherData[] = [];
 
   constructor(private http: Http, private geoService: GeoService) { }
 
@@ -29,12 +29,10 @@ export class WeatherService {
         this.getWeatherInfos(geodata)
           .subscribe(
           (weatherdata: WeatherData) => {
-            if (!isFavorite)
-            {
+            if (!isFavorite) {
               this.weatherChanged.next(weatherdata);
             }
-            else
-            {
+            else {
               this.weatherResponseFavorites.push(weatherdata);
             }
           },
@@ -129,18 +127,18 @@ export class WeatherService {
     return this.http.delete(url);
   }
 
-  getWeatherForFavorites() {
+  getWeatherForFavoritesActive() {
 
     this.weatherResponseFavorites = [];
 
-    const url = `http://localhost:3000/api/weather/favorites`;
+    const url = `http://localhost:3000/api/weather/favorites/active/true`;
     console.log(`Calling getFavorites with ${url}`);
     this.http.get(url)
       .subscribe(
       (response: Response) => {
 
         const favorites = response.json();
-        // console.log(favorites);
+        console.log(favorites);
 
         favorites.forEach((fav) => {
           this.getWeather(fav.address, true);
@@ -150,7 +148,17 @@ export class WeatherService {
       },
       (error) => console.log(error)
       );
-
   }
 
+  editFavoriteStatus(id: String, activeStatus: Boolean) {
+    
+        const url = `http://localhost:3000/api/weather/favorites/${id}`;
+        console.log(`Calling editFavoriteStatus with ${id} ${activeStatus}`);
+        return this.http.put(url, { active: activeStatus })
+          .subscribe(
+          (response: Response) => {
+            const res = response.json();
+            console.log('Done !', res);
+          });
+      }
 }

@@ -2,9 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test nodemon --exec \"mocha --recursive\"",
+    "test": "cross-env NODE_ENV=test nodemon --exec \"mocha \"src/test/**/*\" \"",
     "start": "nodemon --watch app.js --watch **/*"
   },
   "author": "",

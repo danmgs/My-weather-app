@@ -34,7 +34,7 @@ export class QuoteListComponent implements OnInit {
       (error) => console.log(error)
       );
   }
-  // label: String, labels: Date[], data: Number[], label2: String, data2: Number[]
+
   drawChart(quotesdata: QuoteData[]) {
 
     let labels = quotesdata.map(function (quotedata) {

@@ -13,10 +13,10 @@ module.exports = {
             symbol,
             from,
             to
-          }, function (err, quotes) {
+        }, function (err, quotes) {
             //console.log(quotes);
             res.send(quotes);
-          });
+        });
 
     }
 };

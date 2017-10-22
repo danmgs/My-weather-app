@@ -4,8 +4,8 @@
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Enter an address ..." #address>
         <span class="input-group-btn">
-            <button class="btn btn-primary" type="button" (click)="addFavoriteWithCheck(address.value)">Add to favorites!</button>
-          </span>
+          <button class="btn btn-primary" type="button" (click)="addFavoriteWithCheck(address.value)">Add to favorites!</button>
+        </span>
       </div>
     </div>
   </div>
@@ -18,8 +18,9 @@
 <div class="container">
   <div class="row" *ngFor="let elt of favorites" style="margin-top:10px;">
     <div class="col-md-8">
-      <p-checkbox [(ngModel)]="elt.active" binary="true"></p-checkbox>
-      #{{ elt.id }} <b>{{ elt.address | uppercase }}</b>
+      <p-checkbox [(ngModel)]="elt.active" binary="true" (click)="onEditStatus(elt.id, elt.active)"></p-checkbox>
+      #{{ elt.id }}
+      <b>{{ elt.address | uppercase }}</b>
     </div>
     <div class="col-md-4">
       <button pButton type="button" (click)="deleteFromFavorites(elt.id)" icon="fa-close" label="Delete"></button>

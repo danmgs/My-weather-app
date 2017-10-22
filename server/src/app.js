@@ -16,10 +16,13 @@ mongoose.Promise = global.Promise;
 console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
 if (process.env.NODE_ENV !== 'test') {
     console.log('PROD Config');
-    mongoose.connect('mongodb://localhost/weatherapp', { useMongoClient: true });
+    const url = 'mongodb://localhost/weatherapp';
+    mongoose.connect(url, { useMongoClient: true }, function (error) {
+        if (error) console.log(error);
+        console.log(`Connect to mongodb successfully : ${url} !`);
+    });
 }
-else
-{
+else {
     console.log('TEST Config');
 }
 
@@ -33,18 +36,15 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // CORS Configuration to allow cross domains, to set BEFORE API routing
-app.use(function(req, res, next) {
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Access-Control-Allow-Methods, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     next();
-  });
+});
 
-  
+
 // API location
 app.use('/api', api);
 routes(app);
