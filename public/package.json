@@ -24,6 +24,7 @@
     "@types/lodash": "^4.14.77",
     "bootstrap": "^4.0.0-beta.2",
     "chart.js": "^2.7.0",
+    "chartjs-plugin-zoom": "^0.5.0",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",

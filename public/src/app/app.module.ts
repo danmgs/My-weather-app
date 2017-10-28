@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
 import { AppComponent } from './app.component';
 import { WeatherListComponent } from './weather-list/weather-list.component';
@@ -35,6 +36,7 @@ import { ButtonModule, CheckboxModule, ChartModule, GrowlModule, CalendarModule 
     AppRoutingModule,
     HttpModule,
     FormsModule,
+    BrowserAnimationsModule,
     ButtonModule,
     CheckboxModule,
     ChartModule,

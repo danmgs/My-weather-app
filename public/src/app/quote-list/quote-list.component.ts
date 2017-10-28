@@ -19,18 +19,24 @@ export class QuoteListComponent implements OnInit {
   data: any;
   options: any;
 
+  fromDate: Date;
+  toDate: Date;
+
   msgs: Message[];
 
   constructor(private quoteService: QuoteService) { }
 
   ngOnInit() {
 
+    this.toDate = new Date();
+    this.fromDate = new Date();
+    this.fromDate.setDate(this.fromDate.getDate() - 60);
   }
 
-  getData(symbol: String, from: String, to: String)
-  {
+  getData(symbol: String, from: String, to: String) {
+    // console.log("getData", symbol, from, to);
     this.getQuotes(symbol, from, to);
-    this.getCompanyNews(symbol);
+    this.getTopCompanyNews(symbol, 5);
   }
 
   getQuotes(symbol: String, from: String, to: String) {
@@ -75,11 +81,11 @@ export class QuoteListComponent implements OnInit {
       },
       title: {
         display: true,
-        text: 'Quotes Values',
+        text: 'HISTORICAL QUOTES',
         fontSize: 12
       },
       legend: {
-          position: 'bottom'
+        position: 'bottom'
       }
     };
 
@@ -119,12 +125,12 @@ export class QuoteListComponent implements OnInit {
     this.msgs.push({ severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index] });
   }
 
-  getCompanyNews(symbol: String)
-  {
+  getTopCompanyNews(symbol: String, maxCount: number) {
     this.quoteService.getCompanyNews(symbol)
-    .subscribe(
+      .subscribe(
       (res: CompanyNewsData[]) => {
-        this.companyNewsArray = res;
+        let max = res.length > maxCount ? maxCount : res.length;
+        this.companyNewsArray = res.slice(0, maxCount) ;
       },
       (error) => console.log(error)
       );

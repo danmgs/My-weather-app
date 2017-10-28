@@ -76,3 +76,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [ ] Listing of weather on favorites: show weather only for active favorite addresses.
 - [ ] Edit Favorite weather active/notactive status.
 - [ ] Add creation timestamp (mongodb id based) on display all Favorites page.
+- [ ] Check inputs from end-users (control + validation)

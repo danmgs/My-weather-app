@@ -1,28 +1,36 @@
 <div class="container">
   <div class="row">
-    <div class="input-group">
-      <input type="text" class="form-control" value="Paris" placeholder="Enter an address ..." #address>
-      <span class="input-group-btn">
-        <button class="btn btn-primary" type="button" (click)="getWeather(address.value)">How's the weather ?</button>
-      </span>
+    <div class="col-md-12">
+      <div class="input-group">
+        <input type="text" class="form-control" value="Paris" placeholder="Enter an address ..." #address>
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" (click)="getWeather(address.value)">How's the weather ?</button>
+        </span>
+      </div>
     </div>
   </div>
   <div class="row">
-    <b *ngIf="show; else elseBlock">
-      {{ weatherResponse?.geodata.formatted_address | uppercase }} {{weatherResponse?.temperature | convertToDegre | number:'1.0-2'
-      }} degres
-    </b>
-    <ng-template #elseBlock>&nbsp;</ng-template>
+    <div class="col-md-12">
+      <b *ngIf="show; else elseBlock">
+        {{ weatherResponse?.geodata.formatted_address | uppercase }} {{weatherResponse?.temperature | convertToDegre | number:'1.0-2'
+        }} degres
+      </b>
+      <ng-template #elseBlock>&nbsp;</ng-template>
+    </div>
   </div>
-</div>
-
-<hr>
-
-<h2>Favorites</h2>
-<!-- {{ weatherResponseFavorites | json }} -->
-<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <hr>
+      <h2>Favorites</h2>
+    </div>
+  </div>
   <div class="row" *ngFor="let elt of weatherResponseFavorites">
-    <b>{{ elt.geodata.formatted_address | uppercase }}</b> {{ elt.temperature | convertToDegre | number:'1.0-2' }} degres
+    <div class="col-md-4">
+      <b>{{ elt.geodata.formatted_address | uppercase }}</b>
+    </div>
+    <div class="col-md-8">
+      {{ elt.temperature | convertToDegre | number:'1.0-2' }} degres
+    </div>
     <br>
   </div>
 </div>

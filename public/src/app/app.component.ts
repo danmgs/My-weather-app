@@ -11,6 +11,7 @@ export class AppComponent {
   loadedFeature = 'weather-list';
 
   onNavigate(feature: string) {
+    // console.log(feature);
     this.loadedFeature = feature;
   }
 }
