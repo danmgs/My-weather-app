@@ -3,9 +3,9 @@
 A WEB application providing weather, news, finance information.
 
 
-![alt capture1](https://github.com/danmgs/My-weather-app/blob/master/public/IMG/Capture.JPG)
+![alt capture1](https://github.com/danmgs/My-weather-app/blob/master/public/img/Capture1.JPG)
 
-![alt capture2](https://github.com/danmgs/My-weather-app/blob/master/public/IMG/Capture2.JPG)
+![alt capture2](https://github.com/danmgs/My-weather-app/blob/master/public/img/Capture2.JPG)
 
 # <span style="color:green">BACKEND</span>
 
