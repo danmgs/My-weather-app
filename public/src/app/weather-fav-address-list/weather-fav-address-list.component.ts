@@ -71,7 +71,7 @@ export class WeatherFavAddressListComponent implements OnInit {
 
   onEditStatus(id: String, activeStatus: Boolean)
   {
-    console.log(id);
+    // console.log(id);
     this.weatherService.editFavoriteStatus(id, activeStatus);
   }
 

@@ -1,5 +1,8 @@
 <div class="container">
   <div class="row">
+    <h2 class="header-title-page"><i class="fa fa-heart" aria-hidden="true"></i> FAVORITES</h2>
+  </div>
+  <div class="row">
     <div class="col-md-12 input-group">
       <input type="text" class="form-control" placeholder="Enter an address ..." #address>
       <span class="input-group-btn">
@@ -12,14 +15,28 @@
       <hr>
     </div>
   </div>
-  <div class="row" *ngFor="let elt of favorites">
-    <div class="col-md-8">
-      <p-checkbox [(ngModel)]="elt.active" binary="true" (click)="onEditStatus(elt.id, elt.active)"></p-checkbox>
-      <b>{{ elt.address | uppercase }}</b>
-    </div>
-    <div class="col-md-4 text-right">
-      <button pButton type="button" (click)="deleteFromFavorites(elt.id)" icon="fa-close" label="Delete"></button>
-    </div>
-    <br>
+  <div class="row">
+    <table class="table table-sm table-inverse table-bordered">
+      <thead>
+        <tr class="table-header">
+          <th>#</th>
+          <th>ACTIVE</th>
+          <th>ADDRESS</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let elt of favorites, let ind = index;" [ngClass]="(ind%2==0)?'':''">
+          <th scope="row">{{ ind + 1 }}</th>
+          <td>
+            <p-checkbox [(ngModel)]="elt.active" binary="true" (click)="onEditStatus(elt.id, elt.active)"></p-checkbox>
+          </td>
+          <td>{{ elt.address | uppercase }}</td>
+          <td class="text-right">
+            <button pButton type="button" (click)="deleteFromFavorites(elt.id)" icon="fa-close" label="Delete"></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

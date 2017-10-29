@@ -1,42 +1,27 @@
-<!-- <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a routerLink="/" class="navbar-brand">Home</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="avbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="active"><a routerLink="/weather-list">How's the Weather</a></li>
-        <li class="nav-item"><a routerLink="/weather-fav-address-list">Favorites</a></li>
-        <li class="nav-item"><a routerLink="/quote-list">Financial Data</a></li>
-      </ul>
-    </div>
-  </div>
-</nav> -->
-
 <div class="container">
   <nav class="navbar navbar-expand-md navbar-light bg-faded">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">Home</a>
+    <a class="navbar-brand" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            WEATHER
+              <i class="fa fa-umbrella" aria-hidden="true"></i> WEATHER
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" routerLink="/weather-list">How's the Weather ?</a>
-            <a class="dropdown-item" routerLink="/weather-fav-address-list">Favorites</a>
+            <a class="dropdown-item" routerLink="/weather-list"><i class="fa fa-thermometer-full" aria-hidden="true"></i> How's the Weather ?</a>
+            <a class="dropdown-item" routerLink="/weather-fav-address-list"><i class="fa fa-heart" aria-hidden="true"></i> Favorites</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/quote-list">FINANCE</a>
+          <a class="nav-link" routerLink="/quote-list"><i class="fa fa-jpy" aria-hidden="true"></i> FINANCE</a>
         </li>
       </ul>
     </div>
   </nav>
 </div>
+

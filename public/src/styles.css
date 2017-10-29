@@ -2,5 +2,26 @@
 
 .row
 {
-    margin-top:10px;
+    margin-top:15px;
 }
+
+.header-title-page
+{
+    margin-bottom:15px;
+    text-transform: uppercase;
+    cursor: default;
+}
+
+tr.table-header > th {
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    background-color: #245fac;
+}
+
+.bg-info-custom {
+    background-color: #60a5ff;
+}
+
+

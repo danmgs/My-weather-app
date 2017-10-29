@@ -52,7 +52,15 @@ export class WeatherService {
       (response: Response) => {
         const res = response.json();
         //console.log('getWeatherInfos' + JSON.stringify(res, undefined, 2));
-        return new WeatherData(geodata, res.body.currently.temperature);
+        return new WeatherData(
+          geodata,
+          res.body.currently.temperature,
+          res.body.currently.icon,
+          res.body.currently.precipProbability,
+          res.body.currently.humidity,
+          res.body.currently.windSpeed,
+          res.body.currently.cloudCover,
+          res.body.daily.summary);
       });
   }
 
@@ -62,8 +70,6 @@ export class WeatherService {
     return this.http.get(url)
       .subscribe(
       (response: Response) => {
-        // WeatherFav
-        //console.log(response.json());
         this.favoritesChanged.next(response.json());
       },
       (error) => console.log(error)
@@ -76,8 +82,6 @@ export class WeatherService {
     return this.http.get(url)
       .map(
       (response: Response) => {
-
-        // console.log('getFavorite' + JSON.stringify(response, undefined, 2));
         try {
           const res = response.json();
           return new WeatherFav(res._id, res.address, res.active);
@@ -98,7 +102,6 @@ export class WeatherService {
       (response: Response) => {
         try {
           const res = response.json();
-          //console.log('addFavoriteWithCheck' + JSON.stringify(res, undefined, 2));
           return new WeatherFav(res._id, res.address, res.active);
         }
         catch (error) {
@@ -115,7 +118,6 @@ export class WeatherService {
       .map(
       (response: Response) => {
         const res = response.json();
-        // console.log('addFavorite' + JSON.stringify(res, undefined, 2));
         return new WeatherFav(res._id, res.address, res.active);
       });
   }
@@ -151,14 +153,14 @@ export class WeatherService {
   }
 
   editFavoriteStatus(id: String, activeStatus: Boolean) {
-    
-        const url = `http://localhost:3000/api/weather/favorites/${id}`;
-        console.log(`Calling editFavoriteStatus with ${id} ${activeStatus}`);
-        return this.http.put(url, { active: activeStatus })
-          .subscribe(
-          (response: Response) => {
-            const res = response.json();
-            console.log('Done !', res);
-          });
-      }
+
+    const url = `http://localhost:3000/api/weather/favorites/${id}`;
+    console.log(`Calling editFavoriteStatus with ${id} ${activeStatus}`);
+    return this.http.put(url, { active: activeStatus })
+      .subscribe(
+      (response: Response) => {
+        const res = response.json();
+        console.log('Done !', res);
+      });
+  }
 }

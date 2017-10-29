@@ -55,6 +55,23 @@ export class WeatherListComponent implements OnInit {
     this.weatherService.getWeatherForFavoritesActive();
   }
 
+  /// Helper to make weather icons work
+  /// better solution is to map icons to an object 
+  weatherIcon(icon) {
+    switch (icon) {
+      case 'partly-cloudy-day':
+        return 'wi wi-day-cloudy'
+      case 'clear-day':
+        return 'wi wi-day-sunny'
+      case 'partly-cloudy-night':
+        return 'wi wi-night-partly-cloudy'
+        case 'rain':
+        return 'wi wi-day-rain'  
+      default:
+        return `wi wi-day-sunny`
+    }
+  }
+
   ngOnDestroy() {
     this.subscriptionWeather.unsubscribe();
     this.subscriptionAllWeatherFavorites.unsubscribe();

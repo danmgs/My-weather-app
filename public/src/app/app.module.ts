@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { WeatherListComponent } from './weather-list/weather-list.component';
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 import { WeatherFavAddressListComponent } from './weather-fav-address-list/weather-fav-address-list.component';
 import { QuoteListComponent } from './quote-list/quote-list.component';
 
@@ -26,11 +27,13 @@ import { ButtonModule, CheckboxModule, ChartModule, GrowlModule, CalendarModule 
     AppComponent,
     WeatherListComponent,
     HeaderComponent,
+    FooterComponent,
     WeatherFavAddressListComponent,
     ExponentialStrengthPipe,
     ConvertToDegrePipe,
     TruncatePipe,
-    QuoteListComponent],
+    QuoteListComponent,
+    FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

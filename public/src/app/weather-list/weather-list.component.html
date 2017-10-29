@@ -1,36 +1,68 @@
 <div class="container">
   <div class="row">
+    <h2 class="header-title-page">
+      <i class="fa fa-thermometer-full" aria-hidden="true"></i> HOW'S THE WEATHER ?</h2>
+  </div>
+  <div class="row">
     <div class="col-md-12">
       <div class="input-group">
         <input type="text" class="form-control" value="Paris" placeholder="Enter an address ..." #address>
         <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" (click)="getWeather(address.value)">How's the weather ?</button>
+          <button class="btn btn-primary" type="button" (click)="getWeather(address.value)">Show Forecast</button>
         </span>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <b *ngIf="show; else elseBlock">
-        {{ weatherResponse?.geodata.formatted_address | uppercase }} {{weatherResponse?.temperature | convertToDegre | number:'1.0-2'
-        }} degres
+    <div class="col-md-12" *ngIf="show; else elseBlock">
+      <b>
+        <!-- {{ weatherResponse | json }} -->
+        {{ weatherResponse?.geodata.formatted_address | uppercase }}
       </b>
+      <br> {{weatherResponse?.temperature | convertToDegre | number:'1.0-2' }} degres |
+      <i class="{{weatherIcon(weatherResponse.icon)}}"></i>
+      <br> {{ weatherResponse.dailySummary }}
       <ng-template #elseBlock>&nbsp;</ng-template>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
       <hr>
-      <h2>Favorites</h2>
+      <h2>
+        FAVORITES
+      </h2>
     </div>
   </div>
-  <div class="row" *ngFor="let elt of weatherResponseFavorites">
-    <div class="col-md-4">
-      <b>{{ elt.geodata.formatted_address | uppercase }}</b>
-    </div>
-    <div class="col-md-8">
-      {{ elt.temperature | convertToDegre | number:'1.0-2' }} degres
-    </div>
-    <br>
+  <div class="row">
+    <table class="table table-sm table-inverse table-bordered">
+      <thead>
+        <tr class="table-header">
+          <th>#</th>
+          <th>LOCATION</th>
+          <th>TEMPERATURE</th>
+          <th>PRECIP. PROBA</th>
+          <th>HUMIDITY</th>
+          <th>WINDSPEED</th>
+          <th>CLOUD COVER</th>
+          <th>ICON</th>
+          <th>DAILY SUMMARY</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let elt of weatherResponseFavorites, let ind = index;" [ngClass]="(ind%2==0)?'':'bg-info-custom'">
+          <th scope="row">{{ ind + 1 }}</th>
+          <td>{{ elt.geodata.formatted_address | uppercase }}</td>
+          <td>{{ elt.temperature | convertToDegre | number:'1.0-2' }} degres</td>
+          <td>{{ elt.precipProbability }}</td>
+          <td>{{ elt.humidity }}</td>
+          <td>{{ elt.windSpeed }}</td>
+          <td>{{ elt.cloudCover }}</td>
+          <td class="text-center">
+            <i class="{{weatherIcon(elt.icon)}}"></i>
+            <!-- {{ elt.icon }} -->
+          </td>
+          <td>{{ elt.dailySummary }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>
