@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = require('../app');
 const WeatherFavAddress = mongoose.model('weatherFavAddress');
 
-describe('Weather controller', () => {
+xdescribe('Weather controller', () => {
 
   it('Get /api/weather/favorites get the favorites', (done) => {
 

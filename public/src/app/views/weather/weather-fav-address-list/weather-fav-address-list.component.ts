@@ -3,10 +3,10 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { WeatherService } from '../services/weather.service';
+import { WeatherService } from '../../../services/weather.service';
 
-import { WeatherData } from '../Shared/WeatherData';
-import { WeatherFav } from '../Shared/WeatherFav';
+import { WeatherData } from '../../../Shared/WeatherData';
+import { WeatherFav } from '../../../Shared/WeatherFav';
 
 import * as _ from "lodash";
 
@@ -19,8 +19,7 @@ export class WeatherFavAddressListComponent implements OnInit {
 
   constructor(private weatherService: WeatherService) { }
 
-  resultsWeatherFav: WeatherFav[] = [];
-  favorites: WeatherFav[] = [];
+  favoritesResponse: WeatherFav[] = [];
   private subscriptionGetFavorites: Subscription;
 
   ngOnInit() {
@@ -29,11 +28,11 @@ export class WeatherFavAddressListComponent implements OnInit {
 
     this.subscriptionGetFavorites = this.weatherService.favoritesChanged
       .subscribe(
-      (res: any) => {
-        //console.log(res);
-        this.favorites = [];
-        for (let wf of res) {
-          this.favorites.push(new WeatherFav(wf._id, wf.address, wf.active));
+      (response: any) => {
+        //console.log(response);
+        this.favoritesResponse = [];
+        for (let wf of response) {
+          this.favoritesResponse.push(new WeatherFav(wf._id, wf.address, wf.active));
         }
       }
       );
@@ -48,8 +47,8 @@ export class WeatherFavAddressListComponent implements OnInit {
     this.weatherService
       .addFavoriteWithCheck(address)
       .subscribe(
-      (res: WeatherFav) => {
-        if (res !== null) {
+      (response: WeatherFav) => {
+        if (response !== null) {
           this.getFavorites();
         }
       },
@@ -61,9 +60,9 @@ export class WeatherFavAddressListComponent implements OnInit {
     return this.weatherService
       .deleteFromFavorites(id)
       .subscribe(
-      (res) => {
+      (response) => {
         console.log(`deleteFromFavorites OK`);
-        _.remove(this.favorites, (currentObject) => currentObject.id === id);
+        _.remove(this.favoritesResponse, (currentObject) => currentObject.id === id);
       },
       (error) => console.log(error)
       );
@@ -71,7 +70,6 @@ export class WeatherFavAddressListComponent implements OnInit {
 
   onEditStatus(id: String, activeStatus: Boolean)
   {
-    // console.log(id);
     this.weatherService.editFavoriteStatus(id, activeStatus);
   }
 

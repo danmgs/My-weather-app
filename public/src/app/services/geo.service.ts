@@ -13,12 +13,11 @@ export class GeoService {
   getGeoCode(address: String) {
 
     const url = `http://localhost:3000/api/geo?address=${address}`;
-    console.log(`Calling getGeoCode with ${url}`);
+    // console.log('getGeoCode', url);
     return this.http.get(url)
       .map(
       (response: Response) => {
         const res = response.json();
-        console.log(res);
         return new GeoData(
           res.geometry.location.lat,
           res.geometry.location.lng,

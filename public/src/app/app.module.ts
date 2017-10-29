@@ -5,11 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
 import { AppComponent } from './app.component';
-import { WeatherListComponent } from './weather-list/weather-list.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { WeatherFavAddressListComponent } from './weather-fav-address-list/weather-fav-address-list.component';
-import { QuoteListComponent } from './quote-list/quote-list.component';
+import { HeaderComponent } from './views/header/header.component';
+import { FooterComponent } from './views/footer/footer.component';
+import { WeatherListComponent } from './views/weather/weather-list/weather-list.component';
+import { WeatherFavAddressListComponent } from './views/weather/weather-fav-address-list/weather-fav-address-list.component';
+import { QuoteListComponent } from './views/quote-list/quote-list.component';
+import { NewsSourcesListComponent } from './views/news/news-sources-list/news-sources-list.component';
+import { NewsArticlesListComponent } from './views/news/news-articles-list/news-articles-list.component';
 
 import { ExponentialStrengthPipe } from './filters/exponential-strength-pipe';
 import { ConvertToDegrePipe } from './filters/convert-degre-pipe';
@@ -18,6 +20,8 @@ import { TruncatePipe } from './filters/truncate-pipe';
 import { WeatherService } from './services/weather.service';
 import { GeoService } from './services/geo.service';
 import { QuoteService } from './services/quote.service';
+import { NewsService } from './services/news.service';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { ButtonModule, CheckboxModule, ChartModule, GrowlModule, CalendarModule } from 'primeng/primeng';
@@ -25,15 +29,16 @@ import { ButtonModule, CheckboxModule, ChartModule, GrowlModule, CalendarModule 
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherListComponent,
     HeaderComponent,
     FooterComponent,
+    WeatherListComponent,
     WeatherFavAddressListComponent,
+    QuoteListComponent,
+    NewsSourcesListComponent,
+    NewsArticlesListComponent,
     ExponentialStrengthPipe,
     ConvertToDegrePipe,
-    TruncatePipe,
-    QuoteListComponent,
-    FooterComponent],
+    TruncatePipe],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -46,7 +51,7 @@ import { ButtonModule, CheckboxModule, ChartModule, GrowlModule, CalendarModule 
     GrowlModule,
     CalendarModule
   ],
-  providers: [WeatherService, GeoService, QuoteService],
+  providers: [WeatherService, GeoService, QuoteService, NewsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

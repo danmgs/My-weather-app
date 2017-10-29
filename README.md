@@ -1,7 +1,11 @@
-# My Weather App (2017)
+# My Web App (2017)
 
-A WEB application providing weather information.
+A WEB application providing weather, news, finance information.
 
+
+![alt capture1](https://github.com/danmgs/My-weather-app/blob/master/public/IMG/Capture.JPG)
+
+![alt capture2](https://github.com/danmgs/My-weather-app/blob/master/public/IMG/Capture2.JPG)
 
 # <span style="color:green">BACKEND</span>
 
@@ -26,7 +30,7 @@ http://localhost:3000/api/users
 4. To launch unit tests (server must be shutdown, i.e no "<b>npm start</b>"), <b>make sure mongodb is started</b>.
 ```
 cd server
-npm test
+npm test (or npm run test-noverbose for minimal logs.)
 ```
 
 ---------------------------------------------------------------
@@ -77,3 +81,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [ ] Edit Favorite weather active/notactive status.
 - [ ] Add creation timestamp (mongodb id based) on display all Favorites page.
 - [ ] Check inputs from end-users (control + validation)
+- [ ] Identify Root Case for Momentjs issue (deprecated) on server side (Quote page)
+- [ ] Format publishedAt info for News Article Page (momentjs)

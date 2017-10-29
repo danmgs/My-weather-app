@@ -4,12 +4,12 @@ const request = require('request');
 
 module.exports = {
 
-  getWeather(req, res, next) {
+  getForecast(req, res, next) {
 
     const { lat, lng } = req.params;
 
     const url = `https://api.darksky.net/forecast/3ef106162ed142fc3dc78e058263e0e8/${lat}\,${lng}`;
-    // console.log(`getWeather with ${url}`);
+    console.log('getForecast', url);
 
     request({
       url: url,
@@ -26,7 +26,7 @@ module.exports = {
     });
   },
 
-  index(req, res, next) {
+  getFavorites(req, res, next) {
 
     // console.log(`index with req.params.address=${req.params.address}`);
 

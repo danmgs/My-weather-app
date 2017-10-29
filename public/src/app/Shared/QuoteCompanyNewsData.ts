@@ -6,7 +6,7 @@
 // "date": "2014-09-27T06:23:41.000Z",
 // "link": "ht
 
-export class CompanyNewsData {
+export class QuoteCompanyNewsData {
 
     constructor(
         public id: number,

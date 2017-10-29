@@ -1,10 +1,10 @@
-import { MyWeatherAppPage } from './app.po';
+import { MyWebAppPage } from './app.po';
 
-describe('my-weather-app App', () => {
-  let page: MyWeatherAppPage;
+describe('my-web-app App', () => {
+  let page: MyWebAppPage;
 
   beforeEach(() => {
-    page = new MyWeatherAppPage();
+    page = new MyWebAppPage();
   });
 
   it('should display welcome message', () => {

@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
 import { QuoteData } from '../Shared/QuoteData';
-import { CompanyNewsData } from '../Shared/CompanyNewsData';
+import { QuoteCompanyNewsData } from '../Shared/QuoteCompanyNewsData';
 
 @Injectable()
 export class QuoteService {
@@ -14,8 +14,8 @@ export class QuoteService {
   constructor(private http: Http) { }
 
   getQuotes(symbol: String, from: String, to: String) {
-    const url = `http://localhost:3000/api/quotes?symbol=${symbol}&from=${from}&to=${to}`;
-    console.log(`getQuotes with ${symbol},  ${from},  ${to}`);
+    const url = `http://localhost:3000/api/finance/quotes?symbol=${symbol}&from=${from}&to=${to}`;
+    // console.log('getQuotes', url);
     return this.http.get(url)
       .map(
       (response: Response) => {
@@ -39,8 +39,8 @@ export class QuoteService {
   }
 
   getCompanyNews(symbol: String) {
-    const url = `http://localhost:3000/api/companynews?symbol=${symbol}`;
-    console.log(`getCompanyNews with ${symbol}`);
+    const url = `http://localhost:3000/api/finance/companynews?symbol=${symbol}`;
+    // console.log('getCompanyNews', url);
     return this.http.get(url)
       .map(
       (response: Response) => {
@@ -48,7 +48,7 @@ export class QuoteService {
         console.log(response.json());
 
         return response.json().map(item => {
-          return new CompanyNewsData(
+          return new QuoteCompanyNewsData(
             item.guid,
             item.symbol,
             item.title,

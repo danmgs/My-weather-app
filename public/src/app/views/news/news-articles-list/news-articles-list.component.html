@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <h2 class="header-title-page">
+      <i class="fa fa-newspaper-o" aria-hidden="true"></i> NEWS ARTICLES</h2>
+  </div>
+  <div class="row">
+    <table class="table table-sm table-inverse table-bordered">
+      <thead>
+        <tr class="table-header">
+          <th>#</th>
+          <th>AUTHOR</th>
+          <th>TITLE</th>
+          <th>DESCRIPTION</th>
+          <!-- <th>URL</th>
+          <th>URL IMAGES</th> -->
+          <th>PUBLISHED DATE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let elt of newsArticleResponse, let ind = index;" [ngClass]="(ind%2==0)?'':'bg-info-custom'">
+          <th scope="row">{{ ind + 1 }}</th>
+          <td>{{ elt.author }}</td>
+          <td>{{ elt.title }}</td>
+          <td>{{ elt.description }}</td>
+          <!-- <td>{{ elt.url }}</td>
+          <td>{{ elt.urlToImage }}</td> -->
+          <td>{{ elt.publishedAt }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

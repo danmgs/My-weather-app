@@ -23,8 +23,6 @@ module.exports = {
 
         const { symbol } = req.query;
 
-        console.log(`getCompanyNews = ${symbol}`);
-
         googleFinance.companyNews({
             symbol
         }, function (err, news) {

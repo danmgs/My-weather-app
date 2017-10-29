@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <h2 class="header-title-page">
+      <i class="fa fa-rss" aria-hidden="true"></i> NEWS SOURCES</h2>
+  </div>
+  <div class="row">
+    <table class="table table-sm table-inverse table-bordered">
+      <thead>
+        <tr class="table-header">
+          <th>#</th>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>DESCRIPTION</th>
+          <th>URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let elt of newsSourceResponse, let ind = index;" [ngClass]="(ind%2==0)?'':'bg-info-custom'">
+          <th scope="row">{{ ind + 1 }}</th>
+          <td>{{ elt.id }}</td>
+          <td>{{ elt.name }}</td>
+          <td>{{ elt.description }}</td>
+          <td>{{ elt.url }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

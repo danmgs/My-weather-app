@@ -3,8 +3,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
-// const WeatherFavAddress = require('./models/weatherFavAddress');
 const routes = require('./routes/routes');
+var env = require('node-env-file');
+
+// Init custom env variables
+// env(__dirname + '/.env');
+// console.log('>>>>>>>>>>>>>>>>> ', process.env.FOO);
+
 const app = express();
 
 // API file for interacting with MongoDB

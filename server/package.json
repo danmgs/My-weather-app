@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test nodemon --exec \"mocha \"src/test/**/*\" \"",
+    "test": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 -R min \"src/test/**/*\" \"",
+    "test-noverbose": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 \"src/test/**/*\" \" -R min",
     "start": "nodemon --watch app.js --watch **/*"
   },
   "author": "",
@@ -21,6 +22,8 @@
     "express": "^4.16.1",
     "google-finance": "^0.1.10",
     "mongodb": "^2.2.31",
-    "mongoose": "^4.12.0"
+    "mongoose": "^4.12.0",
+    "node-env-file": "^0.1.8",
+    "node-news": "0.0.7"
   }
 }

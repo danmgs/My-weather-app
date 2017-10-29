@@ -6,9 +6,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="input-group">
-        <input type="text" class="form-control" value="Paris" placeholder="Enter an address ..." #address>
+        <input type="text" class="form-control" value="{{ defaultAddress }}" placeholder="Enter an address ..." #address>
         <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" (click)="getWeather(address.value)">Show Forecast</button>
+          <button class="btn btn-primary" type="button" (click)="getForecast(address.value)">SHOW FORECAST</button>
         </span>
       </div>
     </div>
@@ -16,7 +16,6 @@
   <div class="row">
     <div class="col-md-12" *ngIf="show; else elseBlock">
       <b>
-        <!-- {{ weatherResponse | json }} -->
         {{ weatherResponse?.geodata.formatted_address | uppercase }}
       </b>
       <br> {{weatherResponse?.temperature | convertToDegre | number:'1.0-2' }} degres |
@@ -49,7 +48,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let elt of weatherResponseFavorites, let ind = index;" [ngClass]="(ind%2==0)?'':'bg-info-custom'">
+        <tr *ngFor="let elt of weatherFavoritesResponse, let ind = index;" [ngClass]="(ind%2==0)?'':'bg-info-custom'">
           <th scope="row">{{ ind + 1 }}</th>
           <td>{{ elt.geodata.formatted_address | uppercase }}</td>
           <td>{{ elt.temperature | convertToDegre | number:'1.0-2' }} degres</td>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { QuoteService } from '../services/quote.service';
-import { QuoteData } from '../Shared/QuoteData';
-import { CompanyNewsData } from '../Shared/CompanyNewsData';
+import { QuoteService } from '../../services/quote.service';
+import { QuoteData } from '../../Shared/QuoteData';
+import { QuoteCompanyNewsData } from '../../Shared/QuoteCompanyNewsData';
 import { Message } from 'primeng/primeng';
 
 
@@ -13,8 +13,8 @@ import { Message } from 'primeng/primeng';
 })
 export class QuoteListComponent implements OnInit {
 
-  quotesArray: QuoteData[];
-  companyNewsArray: CompanyNewsData[];
+  quotesResponse: QuoteData[];
+  quoteCompanyNewsResponse: QuoteCompanyNewsData[];
 
   data: any;
   options: any;
@@ -42,9 +42,9 @@ export class QuoteListComponent implements OnInit {
   getQuotes(symbol: String, from: String, to: String) {
     this.quoteService.getQuotes(symbol, from, to)
       .subscribe(
-      (res: QuoteData[]) => {
-        this.quotesArray = res;
-        this.drawChart(res);
+      (response: QuoteData[]) => {
+        this.quotesResponse = response;
+        this.drawChart(response);
       },
       (error) => console.log(error)
       );
@@ -128,9 +128,9 @@ export class QuoteListComponent implements OnInit {
   getTopCompanyNews(symbol: String, maxCount: number) {
     this.quoteService.getCompanyNews(symbol)
       .subscribe(
-      (res: CompanyNewsData[]) => {
-        let max = res.length > maxCount ? maxCount : res.length;
-        this.companyNewsArray = res.slice(0, maxCount) ;
+      (response: QuoteCompanyNewsData[]) => {
+        let max = response.length > maxCount ? maxCount : response.length;
+        this.quoteCompanyNewsResponse = response.slice(0, maxCount) ;
       },
       (error) => console.log(error)
       );
