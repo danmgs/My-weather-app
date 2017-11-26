@@ -22,6 +22,7 @@
           <th>#</th>
           <th>ACTIVE</th>
           <th>ADDRESS</th>
+          <th>CREATED TIME</th>
           <th></th>
         </tr>
       </thead>
@@ -32,6 +33,7 @@
             <p-checkbox [(ngModel)]="elt.active" binary="true" (click)="onEditStatus(elt.id, elt.active)"></p-checkbox>
           </td>
           <td>{{ elt.address | uppercase }}</td>
+          <td>{{ elt.createdTime | date:'dd MMM yyyy, HH:mm' }}</td>
           <td class="text-right">
             <button pButton type="button" (click)="deleteFromFavorites(elt.id)" icon="fa-close" label="Delete"></button>
           </td>

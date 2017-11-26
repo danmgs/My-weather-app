@@ -1,6 +1,6 @@
-# My Web App (2017)
+# MY WEB APP - MEAN STACK (2017)
 
-A WEB application providing weather, news, finance information.
+A WEB application providing weather, news, financial information.
 
 
 ![alt capture1](https://github.com/danmgs/My-weather-app/blob/master/public/img/screenshot1.JPG)

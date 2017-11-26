@@ -9,7 +9,7 @@ module.exports = {
     const { lat, lng } = req.params;
 
     const url = `https://api.darksky.net/forecast/3ef106162ed142fc3dc78e058263e0e8/${lat}\,${lng}`;
-    console.log('getForecast', url);
+    // console.log('getForecast', url);
 
     request({
       url: url,

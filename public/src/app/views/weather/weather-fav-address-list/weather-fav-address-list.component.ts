@@ -32,7 +32,9 @@ export class WeatherFavAddressListComponent implements OnInit {
         //console.log(response);
         this.favoritesResponse = [];
         for (let wf of response) {
-          this.favoritesResponse.push(new WeatherFav(wf._id, wf.address, wf.active));
+          this.favoritesResponse.push(
+            new WeatherFav(wf._id, wf.address, wf.active,
+              new Date(parseInt(wf._id.substring(0, 8), 16) * 1000)));
         }
       }
       );
@@ -68,8 +70,7 @@ export class WeatherFavAddressListComponent implements OnInit {
       );
   }
 
-  onEditStatus(id: String, activeStatus: Boolean)
-  {
+  onEditStatus(id: String, activeStatus: Boolean) {
     this.weatherService.editFavoriteStatus(id, activeStatus);
   }
 
