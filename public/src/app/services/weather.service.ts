@@ -31,8 +31,7 @@ export class WeatherService {
           (weatherdata: WeatherData) => {
             if (!isFavorite) {
               this.weatherChanged.next(weatherdata);
-            }
-            else {
+            } else {
               this.weatherFavoritesResponse.push(weatherdata);
             }
           },
@@ -85,8 +84,7 @@ export class WeatherService {
         try {
           const res = response.json();
           return new WeatherFav(res._id, res.address, res.active);
-        }
-        catch (error) {
+        } catch (error) {
           return null;
         }
       }
@@ -103,8 +101,7 @@ export class WeatherService {
         try {
           const res = response.json();
           return new WeatherFav(res._id, res.address, res.active);
-        }
-        catch (error) {
+        } catch (error) {
           return null;
         }
       });

@@ -19,7 +19,6 @@ export class QuoteService {
     return this.http.get(url)
       .map(
       (response: Response) => {
-        // const res = response.json();
         // console.log(response.json());
 
         // https://codecraft.tv/courses/angular/http/http-with-observables/
@@ -45,7 +44,7 @@ export class QuoteService {
       .map(
       (response: Response) => {
 
-        console.log(response.json());
+        // console.log(response.json());
 
         return response.json().map(item => {
           return new QuoteCompanyNewsData(

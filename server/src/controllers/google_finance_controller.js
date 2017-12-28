@@ -1,10 +1,8 @@
-const request = require('request');
-var googleFinance = require("google-finance")
+const googleFinance = require('google-finance');
 
 module.exports = {
 
     getQuotes(req, res, next) {
-
         const { symbol, from, to } = req.query;
 
         // console.log(`getQuotes symbol = ${symbol}, from = ${from}, to = ${to}`);
@@ -13,21 +11,24 @@ module.exports = {
             symbol,
             from,
             to
-        }, function (err, quotes) {
-            //console.log(quotes);
-            res.send(quotes);
+        }, (err, quotes) => {
+            // console.log(quotes);
+            if (!err) {
+                res.send(quotes);
+            } else next();
         });
     },
 
     getCompanyNews(req, res, next) {
-
         const { symbol } = req.query;
 
         googleFinance.companyNews({
             symbol
-        }, function (err, news) {
+        }, (err, news) => {
             // console.log(news);
-            res.send(news);
+            if (!err) {
+                res.send(news);
+            } else next();
         });
     }
 };

@@ -8,14 +8,15 @@ import { WeatherService } from '../../../services/weather.service';
 import { WeatherData } from '../../../Shared/WeatherData';
 import { WeatherFav } from '../../../Shared/WeatherFav';
 
-import * as _ from "lodash";
+import * as _ from 'lodash';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-weather-fav-address-list',
   templateUrl: './weather-fav-address-list.component.html',
   styleUrls: ['./weather-fav-address-list.component.css']
 })
-export class WeatherFavAddressListComponent implements OnInit {
+export class WeatherFavAddressListComponent implements OnInit, OnDestroy {
 
   constructor(private weatherService: WeatherService) { }
 
@@ -29,9 +30,9 @@ export class WeatherFavAddressListComponent implements OnInit {
     this.subscriptionGetFavorites = this.weatherService.favoritesChanged
       .subscribe(
       (response: any) => {
-        //console.log(response);
+        // console.log(response);
         this.favoritesResponse = [];
-        for (let wf of response) {
+        for (const wf of response) {
           this.favoritesResponse.push(
             new WeatherFav(wf._id, wf.address, wf.active));
         }

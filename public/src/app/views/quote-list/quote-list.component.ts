@@ -13,8 +13,8 @@ import { Message } from 'primeng/primeng';
 })
 export class QuoteListComponent implements OnInit {
 
-  quotesResponse: QuoteData[];
-  quoteCompanyNewsResponse: QuoteCompanyNewsData[];
+  quotesResponse: QuoteData[] = [];
+  quoteCompanyNewsResponse: QuoteCompanyNewsData[] = [];
 
   data: any;
   options: any;
@@ -52,20 +52,20 @@ export class QuoteListComponent implements OnInit {
 
   drawChart(quotesdata: QuoteData[]) {
 
-    let labels = quotesdata.map(function (quotedata) {
-      return quotedata.date
+    const labels = quotesdata.map(function (quotedata) {
+      return quotedata.date;
     });
-    let dataO = quotesdata.map(function (quotedata) {
-      return quotedata.open
+    const dataO = quotesdata.map(function (quotedata) {
+      return quotedata.open;
     });
-    let dataC = quotesdata.map(function (quotedata) {
-      return quotedata.close
+    const dataC = quotesdata.map(function (quotedata) {
+      return quotedata.close;
     });
-    let dataH = quotesdata.map(function (quotedata) {
-      return quotedata.high
+    const dataH = quotesdata.map(function (quotedata) {
+      return quotedata.high;
     });
-    let dataL = quotesdata.map(function (quotedata) {
-      return quotedata.low
+    const dataL = quotesdata.map(function (quotedata) {
+      return quotedata.low;
     });
 
     this.options = {
@@ -74,8 +74,8 @@ export class QuoteListComponent implements OnInit {
           type: 'time',
           position: 'bottom',
           time: {
-            unit: "day",
-            tooltipFormat: "MM-DD-YYYY",
+            unit: 'day',
+            tooltipFormat: 'MM-DD-YYYY',
           },
         }],
       },
@@ -90,11 +90,11 @@ export class QuoteListComponent implements OnInit {
     };
 
     this.data = {
-      labels: labels,//['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: labels, // ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
           label: 'Open',
-          data: dataO, //[65, 59, 80, 81, 56, 55, 40],
+          data: dataO, // [65, 59, 80, 81, 56, 55, 40],
           fill: false,
           borderColor: '#4bc0c0'
         },
@@ -122,15 +122,19 @@ export class QuoteListComponent implements OnInit {
 
   selectData(event) {
     this.msgs = [];
-    this.msgs.push({ severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index] });
+    this.msgs.push({
+      severity: 'info',
+      summary: 'Data Selected',
+      'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]
+    });
   }
 
   getTopCompanyNews(symbol: String, maxCount: number) {
     this.quoteService.getCompanyNews(symbol)
       .subscribe(
       (response: QuoteCompanyNewsData[]) => {
-        let max = response.length > maxCount ? maxCount : response.length;
-        this.quoteCompanyNewsResponse = response.slice(0, maxCount) ;
+        const max = response.length > maxCount ? maxCount : response.length;
+        this.quoteCompanyNewsResponse = response.slice(0, maxCount);
       },
       (error) => console.log(error)
       );

@@ -2,12 +2,11 @@ const assert = require('assert');
 const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../app');
+
 const WeatherFavAddress = mongoose.model('weatherFavAddress');
 
-xdescribe('Weather controller', () => {
-
+describe('Weather controller', () => {
   it('Get /api/weather/favorites get the favorites', (done) => {
-
     request(app)
       .post('/api/weather/favorites')
       .send({ address: 'Paris 75001' })
@@ -24,7 +23,6 @@ xdescribe('Weather controller', () => {
   });
 
   it('Get /api/weather/favorites/:address find a favorite address', (done) => {
-
     request(app)
       .post('/api/weather/favorites')
       .send({ address: 'Paris' })
@@ -40,26 +38,24 @@ xdescribe('Weather controller', () => {
   });
 
   it('Get /api/weather/:lat/:lng get the weather', (done) => {
-
     request(app)
       .post('/api/weather/49/75')
       .end((err, res) => {
         // console.log(res.body);
         assert(res.statusCode === 200);
         assert(res.body.body.latitude === 49);
-        assert(res.body.body.longitude === 75);        
+        assert(res.body.body.longitude === 75);
         done();
       });
   });
 
   it('Post to /api/weather/favorites creates a new favorite address', (done) => {
-
-    WeatherFavAddress.count().then(count => {
+    WeatherFavAddress.count().then((count) => {
       request(app)
         .post('/api/weather/favorites')
         .send({ address: 'Paris 75001' })
         .end(() => {
-          WeatherFavAddress.count().then(newCount => {
+          WeatherFavAddress.count().then((newCount) => {
             assert(count + 1 === newCount);
             done();
           });
@@ -72,25 +68,23 @@ xdescribe('Weather controller', () => {
       .post('/api/weather/favorites')
       .send({})
       .end((err, res) => {
-        //console.log('will return res = ' + JSON.stringify(res, undefined, 2));
+        // console.log('will return res = ' + JSON.stringify(res, undefined, 2));
         assert(res.status === 500);
         done();
       });
   });
 
   it('Post to /api/weather/favorites/check creates a new favorite address when one is NOT already existing', (done) => {
-
-    WeatherFavAddress.count().then(count => {
+    WeatherFavAddress.count().then((count) => {
       request(app)
         .post('/api/weather/favorites')
         .send({ address: 'Paris 75001' })
         .end(() => {
-
           request(app)
             .post('/api/weather/favorites/check')
             .send({ address: 'Paris 75002' })
             .end(() => {
-              WeatherFavAddress.count().then(newCount => {
+              WeatherFavAddress.count().then((newCount) => {
                 assert(count + 2 === newCount);
                 done();
               });
@@ -100,18 +94,16 @@ xdescribe('Weather controller', () => {
   });
 
   it('Post to /api/weather/favorites/check creates a new favorite address when one is already existing', (done) => {
-
-    WeatherFavAddress.count().then(count => {
+    WeatherFavAddress.count().then((count) => {
       request(app)
         .post('/api/weather/favorites')
         .send({ address: 'Paris 75001' })
         .end(() => {
-
           request(app)
             .post('/api/weather/favorites/check')
             .send({ address: 'Paris 75001' })
             .end(() => {
-              WeatherFavAddress.count().then(newCount => {
+              WeatherFavAddress.count().then((newCount) => {
                 assert(count + 1 === newCount);
                 done();
               });
@@ -120,16 +112,15 @@ xdescribe('Weather controller', () => {
     });
   });
 
-  it('Delete to /api/weather/favorites/:id can delete a record', done => {
+  it('Delete to /api/weather/favorites/:id can delete a record', (done) => {
     const weatherFavAddress = new WeatherFavAddress({ address: 'Paris 75001' });
 
     weatherFavAddress.save().then(() => {
       request(app)
         .delete(`/api/weather/favorites/${weatherFavAddress._id}`)
         .end((err, res) => {
-
-          //console.log('>>>>> ' +JSON.stringify(res, undefined,2));
-          WeatherFavAddress.count().then(count => {
+          // console.log('>>>>> ' +JSON.stringify(res, undefined,2));
+          WeatherFavAddress.count().then((count) => {
             assert(count === 0);
             done();
           });
@@ -138,9 +129,7 @@ xdescribe('Weather controller', () => {
   });
 
   it('Get /api/weather/favorites get the favorites', (done) => {
-
-    WeatherFavAddress.count().then(count => {
-
+    WeatherFavAddress.count().then((count) => {
       const parisWeatherFav = new WeatherFavAddress({
         address: 'Paris 75001'
       });
@@ -154,16 +143,16 @@ xdescribe('Weather controller', () => {
           request(app)
             .get('/api/weather/favorites')
             .end((err, res) => {
-              WeatherFavAddress.count().then(newcount => {
+              WeatherFavAddress.count().then((newcount) => {
                 assert(count + 2 === newcount);
-                done();              
-              });              
+                done();
+              });
             });
         });
-    })
+    });
   });
 
-  it('Put to /api/weather/favorites/id can update a record', done => {
+  it('Put to /api/weather/favorites/id can update a record', (done) => {
     const weatherfav = new WeatherFavAddress({ address: 'Paris', active: true });
 
     weatherfav.save().then(() => {
@@ -172,7 +161,7 @@ xdescribe('Weather controller', () => {
         .send({ active: false })
         .end(() => {
           WeatherFavAddress.findOne({ address: 'Paris' })
-            .then(wf => {
+            .then((wf) => {
               assert(wf.active === false);
               done();
             });
@@ -180,11 +169,10 @@ xdescribe('Weather controller', () => {
     });
   });
 
-  it('Get /api/weather/favorites/active/true find all favorite address with active status = true', done => {
-
+  it('Get /api/weather/favorites/active/true find all favorite address with active status = true', (done) => {
     const parisWeatherFav = new WeatherFavAddress({
       address: 'Paris 75001',
-      active: true
+      active: true,
     });
 
     const sfWeatherFav = new WeatherFavAddress({
@@ -199,14 +187,12 @@ xdescribe('Weather controller', () => {
           .end((err, res) => {
             assert(res.body.length === 1);
             // console.log(res.body);
-            var obj = JSON.parse(JSON.stringify(res.body));
+            const obj = JSON.parse(JSON.stringify(res.body));
             assert(obj[0].address === 'Paris 75001');
             assert(res.statusCode === 200);
             assert(res.error !== '');
-            done();             
+            done();
           });
       });
   });
-
-
 });

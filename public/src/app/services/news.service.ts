@@ -21,7 +21,7 @@ export class NewsService {
       .map(
       (response: Response) => {
 
-        console.log('getSources', response.json())
+        console.log('getSources', response.json());
 
         return response.json().map(item => {
           return new NewsSourceData(

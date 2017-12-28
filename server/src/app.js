@@ -1,19 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const rfs = require('rotating-file-stream');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
-var env = require('node-env-file');
+const env = require('node-env-file');
 
 // Init custom env variables
-// env(__dirname + '/.env');
-// console.log('>>>>>>>>>>>>>>>>> ', process.env.FOO);
+env(path.join(__dirname, '/../', '.env'));
 
 const app = express();
-
-// API file for interacting with MongoDB
-const api = require('./routes/api');
 
 console.log(`Starting server from ${__dirname} ...`);
 
@@ -22,12 +21,11 @@ console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
 if (process.env.NODE_ENV !== 'test') {
     console.log('PROD Config');
     const url = 'mongodb://localhost/weatherapp';
-    mongoose.connect(url, { useMongoClient: true }, function (error) {
+    mongoose.connect(url, { useMongoClient: true }, (error) => {
         if (error) console.log(error);
         console.log(`Connect to mongodb successfully : ${url} !`);
     });
-}
-else {
+} else {
     console.log('TEST Config');
 }
 
@@ -41,20 +39,33 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // CORS Configuration to allow cross domains, to set BEFORE API routing
-app.use(function (req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Access-Control-Allow-Methods, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-    
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Access-Control-Allow-Methods, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+
     // simple logger for this router's requests
     console.log(`${req.method} ${req.url} ${req.path}`);
     next();
 });
 
+// **** Middleware : Logger congiguration ****
+const logDirectory = path.join(__dirname, '/../', 'log');
 
-// API locationZ
-app.use('/api', api);
+// ensure log directory exists
+if (!fs.existsSync(logDirectory)) { fs.mkdirSync(logDirectory); }
+
+// create a rotating write stream
+const accessLogStream = rfs('access.log', {
+ interval: '1d', // rotate daily
+ path: logDirectory
+});
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }));
+
+// API location
 routes(app);
 
 // Send all other requests to the Angular app
@@ -62,7 +73,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-//Set Port
+// Set Port
 const port = process.env.PORT || '3000';
 app.set('port', port);
 

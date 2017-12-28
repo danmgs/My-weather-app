@@ -8,19 +8,20 @@ import { WeatherService } from '../../../services/weather.service';
 import { WeatherData } from '../../../Shared/WeatherData';
 import { WeatherFav } from '../../../Shared/WeatherFav';
 
-import * as _ from "lodash";
+import * as _ from 'lodash';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-weather-list',
   templateUrl: './weather-list.component.html',
   styleUrls: ['./weather-list.component.css']
 })
-export class WeatherListComponent implements OnInit {
+export class WeatherListComponent implements OnInit, OnDestroy {
 
   private subscriptionGetForecast: Subscription;
   private subscriptionGetForecastForFavoritesActive: Subscription;
   weatherResponse: WeatherData;
-  show: boolean = false;
+  show = false;
   weatherFavoritesResponse: WeatherData[] = [];
   defaultAddress: String = 'Paris';
 
@@ -60,22 +61,22 @@ export class WeatherListComponent implements OnInit {
   }
 
   /// Helper to make weather icons work
-  /// better solution is to map icons to an object 
+  /// better solution is to map icons to an object
   weatherIcon(icon) {
     switch (icon) {
       case 'partly-cloudy-day':
-        return 'wi wi-day-cloudy'
+        return 'wi wi-day-cloudy';
       case 'clear-day':
-        return 'wi wi-day-sunny'
+        return 'wi wi-day-sunny';
       case 'partly-cloudy-night':
-        return 'wi wi-night-partly-cloudy'
+        return 'wi wi-night-partly-cloudy';
       case 'rain':
-        return 'wi wi-day-rain'
+        return 'wi wi-day-rain';
       case 'clear-night':
-        return 'wi wi-night-clear'
+        return 'wi wi-night-clear';
       default:
         console.log('weatherIcon not managed', icon);
-        return `wi wi-day-sunny`
+        return `wi wi-day-sunny`;
     }
   }
 

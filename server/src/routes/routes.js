@@ -4,7 +4,6 @@ const GoogleFinanceController = require('../controllers/google_finance_controlle
 const NewsController = require('../controllers/news_controller');
 
 module.exports = (app) => {
-
   // Dark Sky Weather API
   app.post('/api/weather/:lat/:lng', WeatherController.getForecast);
   app.post('/api/weather/favorites', WeatherController.create);
@@ -15,13 +14,13 @@ module.exports = (app) => {
   app.post('/api/weather/favorites/check', WeatherController.createIfNotExist);
 
   // Geo API
-  app.get('/api/geo', GeoController.getGeoCode); 
+  app.get('/api/geo', GeoController.getGeoCode);
 
   // Google finance API
   app.get('/api/finance/quotes', GoogleFinanceController.getQuotes);
-  app.get('/api/finance/companynews', GoogleFinanceController.getCompanyNews);  
+  app.get('/api/finance/companynews', GoogleFinanceController.getCompanyNews);
 
     // Node News API
-    app.get('/api/news/articles', NewsController.getArticles); 
-    app.get('/api/news/sources', NewsController.getSources); 
+    app.get('/api/news/articles', NewsController.getArticles);
+    app.get('/api/news/sources', NewsController.getSources);
 };

@@ -30,7 +30,7 @@ http://localhost:3000/api/users
 4. To launch unit tests (server must be shutdown, i.e no "<b>npm start</b>"), <b>make sure mongodb is started</b>.
 ```
 cd server
-npm test (or npm run test-noverbose for minimal logs.)
+npm test (or npm run test:noverbose for minimal logs.)
 ```
 
 ---------------------------------------------------------------

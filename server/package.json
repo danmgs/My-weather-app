@@ -4,15 +4,21 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 -R min \"src/test/**/*\" \"",
-    "test-noverbose": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 \"src/test/**/*\" \" -R min",
-    "start": "nodemon --watch app.js --watch **/*"
+    "eslint": "eslint src || ECHO.",
+    "jshint": "jshint src || ECHO.",
+    "lint": "npm run eslint",
+    "start": "nodemon --watch app.js --watch **/*",
+    "test": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 \"src/test/**/*\" \"",
+    "test:noverbose": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 \"src/test/**/*\" \" -R min"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.1.2",
     "cross-env": "^5.0.5",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
     "expect": "^21.2.1",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
@@ -21,10 +27,15 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.1",
+    "fs": "0.0.1-security",
     "google-finance": "^0.1.10",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.0",
+    "morgan": "^1.9.0",
     "node-env-file": "^0.1.8",
-    "node-news": "0.0.7"
+    "node-news": "0.0.7",
+    "redis": "^2.8.0",
+    "request": "^2.83.0",
+    "rotating-file-stream": "^1.3.4"
   }
 }

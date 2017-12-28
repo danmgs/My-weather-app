@@ -33,12 +33,13 @@
             </h5>
           </div>
           <div id="collapseHtmlItem" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
+            <div class="card-body" *ngIf="quoteCompanyNewsResponse.length > 0; else elseBlock">
               <div class="row" *ngFor="let elt of quoteCompanyNewsResponse; let i = index" style="margin-top:10px;">
                 {{ elt.summary | truncate : 80 }}
                 <a [href]="elt.link" target="_blank">show</a>
               </div>
             </div>
+            <ng-template #elseBlock>No news found !</ng-template>
           </div>
         </div>
       </div>

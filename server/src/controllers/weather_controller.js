@@ -1,18 +1,16 @@
-const WeatherFavAddress = require('../models/WeatherFavAddress');
+const WeatherFavAddress = require('../models/weatherFavAddress');
 
 const request = require('request');
 
 module.exports = {
 
   getForecast(req, res, next) {
-
     const { lat, lng } = req.params;
-
-    const url = `https://api.darksky.net/forecast/3ef106162ed142fc3dc78e058263e0e8/${lat}\,${lng}`;
+    const url = `https://api.darksky.net/forecast/${process.env.API_KEY_DARKSKY}/${lat},${lng}`;
     // console.log('getForecast', url);
 
     request({
-      url: url,
+      url,
       json: true
     }, (error, response, body) => {
       if (error) {
@@ -27,52 +25,44 @@ module.exports = {
   },
 
   getFavorites(req, res, next) {
-
     // console.log(`index with req.params.address=${req.params.address}`);
 
     if (req.params.address != null) {
       WeatherFavAddress.findOne({ address: req.params.address })
-        .then(item => { /* console.log(item); */ return res.send(item); })
+        .then(item => res.send(item))
         .catch(next);
-    }
-    else {
+    } else {
       WeatherFavAddress.find({})
-        .then(items => { /* console.log(items); */ return res.send(items); })
+        .then(items => res.send(items))
         .catch(next);
     }
   },
 
   getActive(req, res, next) {
-
     WeatherFavAddress.find({ active: req.params.active })
-      .then(items => { return res.send(items); })
+      .then(items => res.send(items))
       .catch(next);
   },
 
   create(req, res, next) {
-
     const itemProps = req.body;
     WeatherFavAddress.create(itemProps)
       .then(item => res.send(item))
-      .catch(next)
+      .catch(next);
   },
 
   createIfNotExist(req, res, next) {
-
     const itemProps = req.body;
 
     WeatherFavAddress.findOne(itemProps)
-      .then(item => {
+      .then((item) => {
         // console.log('found ?  ' + item);
-        // console.log(item); 
+        // console.log(item);
         if (item === null) {
-          // console.log('createIfNotExist (item not found, will create one) is called with ' + JSON.stringify(itemProps));
           WeatherFavAddress.create(itemProps)
             .then(itemcreated => res.send(itemcreated))
-            .catch(next)
-        }
-        else {
-          // console.log('createIfNotExist (item found, will not create one) is called with ' + JSON.stringify(itemProps));
+            .catch(next);
+        } else {
           res.send(null);
         }
       })
@@ -80,7 +70,6 @@ module.exports = {
   },
 
   edit(req, res, next) {
-
     const itemId = req.params.id;
     const itemProps = req.body;
 
