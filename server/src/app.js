@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const rfs = require('rotating-file-stream');
 const morgan = require('morgan');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
 const env = require('node-env-file');
@@ -64,6 +65,9 @@ const accessLogStream = rfs('access.log', {
 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }));
+
+// **** Middleware : Security Configuration ****
+app.use(helmet());
 
 // API location
 routes(app);
