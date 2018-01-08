@@ -6,8 +6,8 @@ module.exports = (app) => {
   app.post('/api/weather/favorites/check', WeatherController.createIfNotExist);
   app.post('/api/weather/:lat/:lng', WeatherController.getForecast);
   app.post('/api/weather/favorites', WeatherController.create);
-  app.put('/api/weather/favorites/:id(\\d+)/', WeatherController.edit);
-  app.delete('/api/weather/favorites/:id(\\d+)/', WeatherController.delete);
+  app.put('/api/weather/favorites/:id', WeatherController.edit);
+  app.delete('/api/weather/favorites/:id', WeatherController.delete);
   app.get('/api/weather/favorites/:address?', WeatherController.getFavorites);
   app.get('/api/weather/favorites/active/:active', WeatherController.getActive);
 };

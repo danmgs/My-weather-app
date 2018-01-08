@@ -8,7 +8,7 @@ describe('Geo controller', () => {
             .get('/api/geo?address=Paris')
             .end((err, res) => {
                 assert(res.statusCode === 200);
-                // console.log(res.body);
+                console.log(res.body);
                 assert(res.body.address_components[0].short_name === 'Paris');
                 done();
             });
