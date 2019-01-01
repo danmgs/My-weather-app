@@ -44,3 +44,4 @@ Thumbs.db
 
 # Output log
 log
+server/package-lock.json
