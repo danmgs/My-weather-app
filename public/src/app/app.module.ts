@@ -15,12 +15,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './views/header/header.component';
 import { FooterComponent } from './views/footer/footer.component';
 
-/** Services **/
-import { WeatherService } from './services/weather.service';
-import { GeoService } from './services/geo.service';
-import { QuoteService } from './services/quote.service';
-import { NewsService } from './services/news.service';
-
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -41,7 +35,6 @@ import { AppRoutingModule } from './app-routing.module';
     NewsModule,
     QuoteModule
   ],
-  providers: [WeatherService, GeoService, QuoteService, NewsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

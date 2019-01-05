@@ -7,6 +7,8 @@ import { PrimeNgModule } from '../../primeng.module';
 
 import { QuoteListComponent } from './quote-list.component';
 
+import { QuoteService } from '../../services/quote.service';
+
 @NgModule({
     declarations: [
         QuoteListComponent
@@ -17,6 +19,7 @@ import { QuoteListComponent } from './quote-list.component';
         CustomFiltersModule,
         PrimeNgModule
     ],
-    exports: []
+    exports: [],
+    providers: [QuoteService]
 })
 export class QuoteModule {}

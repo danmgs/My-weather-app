@@ -7,6 +7,9 @@ import { PrimeNgModule } from '../../primeng.module';
 import { WeatherListComponent } from './weather-list/weather-list.component';
 import { WeatherFavAddressListComponent } from './weather-fav-address-list/weather-fav-address-list.component';
 
+import { WeatherService } from '../../services/weather.service';
+import { GeoService } from '../../services/geo.service';
+
 @NgModule({
     declarations: [
         WeatherListComponent,
@@ -18,6 +21,7 @@ import { WeatherFavAddressListComponent } from './weather-fav-address-list/weath
         CustomFiltersModule,
         PrimeNgModule
     ],
-    exports: []
+    exports: [],
+    providers: [WeatherService, GeoService]
 })
 export class WeatherModule { }
