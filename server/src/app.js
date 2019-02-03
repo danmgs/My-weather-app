@@ -21,9 +21,9 @@ mongoose.Promise = global.Promise;
 console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
 if (process.env.NODE_ENV !== 'test') {
     console.log('PROD Config');
-    const url = `mongodb:\/\/${process.env.MONGODB_URL}:${process.env.MONGODB_PORT}\/weatherap`; 
+    const url = `${process.env.MONGODB_URI}/weatherap`;
     mongoose.connect(url, { useMongoClient: true }, (error) => {
-        if(!error) console.log(`Connect to mongodb with success with url : ${url} !`);
+        if (!error) console.log(`Connect to mongodb with success with url : ${url} !`);
         else console.log(`Error connecting to mongodb with url : ${url} !`);
     });
 } else {
@@ -78,7 +78,7 @@ app.get('*', (req, res) => {
 });
 
 // Set Port
-const port = process.env.SERVER_PORT || '3000';
+const port = process.env.SERVER_API_PORT || '3000';
 app.set('port', port);
 
 const server = http.createServer(app);

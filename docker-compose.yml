@@ -1,32 +1,31 @@
 version: '3'
 services:
-  # mongo:
-  #   container_name: mongo
-  #   image: mongo
-  #   restart: always
-  #   ports:
-  #     - "27017:27017"
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
     # environment:
     #   ME_CONFIG_MONGODB_ADMINUSERNAME: root
     #   ME_CONFIG_MONGODB_ADMINPASSWORD: example
-  # server:
-  #   container_name: server
-  #   build: 
-  #     dockerfile : Dockerfile.dev
-  #     context: ./server
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - SERVER_PORT=30001
-  #     - MONGODB_URL=localhost
-  #     - MONGODB_PORT=27017
-
+  server:
+    container_name: server
+    build: 
+      dockerfile : Dockerfile.dev
+      context: ./server
+    ports:
+      - "30002:30001"
+    environment:
+      - SERVER_API_PORT=30002
+      # - MONGODB_URI=mongodb://127.0.0.1:27017
+      - MONGODB_URI=mongodb://mongo:27017
     # volumes:
     #   - /app/node_modules #do not touch this dir in container
     #   - ./server:/app # map server to app in container   
-    # restart: always  
-    # links:
-    #   - mongo
+    restart: always  
+    depends_on:
+      - mongo
   client:
     container_name: client
     build: 
@@ -40,5 +39,9 @@ services:
     # volumes:
     #   - /app/node_modules #do not touch this dir in container
     #   - ./public:/app # map public to app in container   
-    # restart: always
+    restart: always
+    links:
+      - server
+    depends_on:
+      - server    
    
