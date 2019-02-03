@@ -22,9 +22,9 @@ cd server
 npm start
 ```
 
-3. Once started, to test server urls api (can be configured in Environment Variables) :
+3. Once started, to test server urls api (port can be configured in Environment Variables server ".env" file or injected via docker compose) :
 ```
-http://localhost:3000/api/users
+http://localhost:30001/api/serverhealth
 ```
 
 4. To launch unit tests (server must be shutdown, i.e no "<b>npm start</b>"), <b>make sure mongodb is started</b>.
