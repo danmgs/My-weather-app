@@ -22,7 +22,7 @@ cd server
 npm start
 ```
 
-3. Once started, to test server urls api :
+3. Once started, to test server urls api (can be configured in Environment Variables) :
 ```
 http://localhost:3000/api/users
 ```
