@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 before((done) => {
-  const url = 'mongodb://localhost/weatherapp_test';
+  const url = `mongodb:\/\/${process.env.MONGODB_URL}:${process.env.MONGODB_PORT}\/weatherapp_test`;
 
   mongoose.connect(url, { useMongoClient: true });
 
