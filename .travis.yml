@@ -1,3 +1,22 @@
 language: node_js
 node_js:
   - "10"
+
+# whitelist
+branches:
+  only:
+    - master
+    - dockerization-branch  
+
+before_install: cd public
+
+install:
+    - npm install
+
+before_script: cd public
+
+script:
+    - npm run build
+
+notifications:
+- email: false    
