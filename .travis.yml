@@ -8,7 +8,7 @@ branches:
     - /.*/
 
 script: 
-  - ./travis-script.sh
+  - sh ./travis-script.sh
 
 notifications:
   - email: false    
