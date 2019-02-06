@@ -1,4 +1,4 @@
-# MY WEB APP - MEAN STACK (2017)
+# MY WEB APP - MEAN STACK [![Build Status](https://travis-ci.org/danmgs/My-weather-app.svg?branch=master)](https://travis-ci.org/danmgs/My-weather-app)
 
 A WEB application providing weather, news, financial information.
 
