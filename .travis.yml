@@ -5,8 +5,7 @@ node_js:
 # whitelist
 branches:
   only:
-    - master
-    - dockerization-branch  
+    - /.*/
 
 before_install: cd public
 
