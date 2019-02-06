@@ -7,15 +7,7 @@ branches:
   only:
     - /.*/
 
-before_install: cd public
-
-install:
-    - npm install
-
-before_script: cd public
-
-script:
-    - npm run build
+script: build.sh
 
 notifications:
 - email: false    
