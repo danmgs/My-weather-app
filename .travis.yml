@@ -7,7 +7,8 @@ branches:
   only:
     - /.*/
 
-script: build.sh
+script: 
+  - build.sh
 
 notifications:
-- email: false    
+  - email: false    
