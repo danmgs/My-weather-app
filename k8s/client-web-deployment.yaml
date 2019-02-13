@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-web-deployment
+  namespace: weatherapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: client-web
+  template:
+    metadata:
+      labels:
+        component: client-web
+    spec:
+      containers:
+        - name: client-web-cont
+          image: danmgs/weatherapp-client:latest
+          ports:
+            - containerPort: 4200
+          args: ["npm", "run" , "start-for-k8s"]

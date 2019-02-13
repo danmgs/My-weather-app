@@ -21,7 +21,7 @@ mongoose.Promise = global.Promise;
 console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
 if (process.env.NODE_ENV !== 'test') {
     console.log('PROD Config');
-    const url = `${process.env.MONGODB_URI}/weatherap`;
+    const url = `${process.env.MONGODB_URI}/weatherapp`;
     mongoose.connect(url, { useMongoClient: true }, (error) => {
         if (!error) console.log(`Connect to mongodb with success with url : ${url} !`);
         else console.log(`Error connecting to mongodb with url : ${url} !`);

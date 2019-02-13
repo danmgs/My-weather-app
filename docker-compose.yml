@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mongo:
+  my-mongo-service:
     container_name: mongo
     image: mongo
     restart: always
@@ -8,8 +8,8 @@ services:
       - "27017:27017"
     # environment:
     #   ME_CONFIG_MONGODB_ADMINUSERNAME: root
-    #   ME_CONFIG_MONGODB_ADMINPASSWORD: example
-  server:
+    #   ME_CONFIG_MONGODB_ADMINPASSWORD: example      
+  my-server-api-service:
     container_name: server
     build: 
       dockerfile : Dockerfile.dev
@@ -18,28 +18,18 @@ services:
       - "30001:30001"
     environment:
       - SERVER_API_PORT=30001
-      # - MONGODB_URI=mongodb://127.0.0.1:27017
-      - MONGODB_URI=mongodb://mongo:27017
-    # volumes:
-    #   - /app/node_modules #do not touch this dir in container
-    #   - ./server:/app # map server to app in container   
+      - MONGODB_URI=mongodb://my-mongo-service:27017
     restart: always  
     depends_on:
-      - mongo
-  client:
+      - my-mongo-service
+  client-service:
     container_name: client
     build: 
       dockerfile : Dockerfile.dev
       context: ./public
     ports:
       - "4200:4200"
-    # environment:
-    #   - API_URL=localhost
-    #   - API_PORT=30001  
-    # volumes:
-    #   - /app/node_modules #do not touch this dir in container
-    #   - ./public:/app # map public to app in container   
     restart: always
     depends_on:
-      - server    
-   
+      - my-server-api-service
+      

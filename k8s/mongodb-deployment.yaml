@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  namespace: weatherapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: mongodatabase
+  template:
+    metadata:
+      labels:
+        component: mongodatabase
+    spec:
+      volumes:
+        - name:  mongo-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
+      containers:
+        - name: mongodb-cont
+          image: mongo
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: c/data-mongo

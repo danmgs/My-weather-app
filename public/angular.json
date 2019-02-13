@@ -54,7 +54,24 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
-            }
+            },
+            "production-k8s": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod-k8s.ts"
+                }
+              ]
+            }            
           }
         },
         "serve": {
@@ -65,7 +82,10 @@
           "configurations": {
             "production": {
               "browserTarget": "my-weather-app:build:production"
-            }
+            },
+            "production-k8s": {
+              "browserTarget": "my-weather-app:build:production-k8s"
+            }            
           }
         },
         "extract-i18n": {

@@ -37,10 +37,18 @@ docker ps -a
 docker image ls
 
 docker-compose up --build
+docker-compose up
+
+docker volume ls
+
+docker volume inspect mongodatadocker
+
+https://docs.docker.com/storage/volumes/
 
 
-#kill all containers, with powershell
+#remove all containers, with powershell
 docker rm -f $(docker ps -a -q)
+docker-compose down
 
 #Kill Containers with status is created, with powershell
 docker rm -f $(docker ps --filter status=created -q)
@@ -49,3 +57,11 @@ docker rm -f $(docker ps --filter status=created -q)
 docker rm -f $(docker ps --filter status=running -q)
 
 https://github.com/docker/hub-feedback/issues/1255
+
+
+kubectl get pods --all-namespaces
+kubectl get all --all-namespaces
+
+kubectl delete --all pods --namespace=weatherapp
+kubectl delete --all deployments --namespace=weatherapp
+kubectl delete --all services --namespace=weatherapp
