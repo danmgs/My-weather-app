@@ -19,15 +19,15 @@ console.log(`Starting server from ${__dirname} ...`);
 
 mongoose.Promise = global.Promise;
 console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'production') {
+    console.log('TEST Config');
+} else {
     console.log('PROD Config');
-    const url = `${process.env.MONGODB_URI}/weatherapp`;
+    const url = `${process.env.ENV_SERVER_API_MONGODB_URI}/weatherapp`;
     mongoose.connect(url, { useMongoClient: true }, (error) => {
         if (!error) console.log(`Connect to mongodb with success with url : ${url} !`);
         else console.log(`Error connecting to mongodb with url : ${url} !`);
     });
-} else {
-    console.log('TEST Config');
 }
 
 console.log('*************************************');
@@ -40,6 +40,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // CORS Configuration to allow cross domains, to set BEFORE API routing
+console.log(`process.env.ENV_SERVER_API_ALLOW_HOSTS = ${process.env.ENV_SERVER_API_ALLOW_HOSTS}`);
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Credentials', 'true');

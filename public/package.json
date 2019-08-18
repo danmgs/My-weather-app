@@ -4,8 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0",
-    "start-for-k8s": "ng serve --host 0.0.0.0 --configuration=production-k8s",
+    "start": "ng serve --host 0.0.0.0 --configuration $NODE_ENV",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

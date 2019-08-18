@@ -22,6 +22,7 @@ export class WeatherListComponent implements OnInit, OnDestroy {
   private subscriptionGetForecastForFavoritesActive: Subscription;
   weatherResponse: WeatherData;
   show = false;
+  elseBlock: any;
   weatherFavoritesResponse: WeatherData[] = [];
   defaultAddress: String = 'Paris';
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  environmentName: string;
+
   constructor() { }
 
   ngOnInit() {
+    this.environmentName = environment.name;
+     console.log(`Connecting to API URL: ${environment.apiUrl} | ENVIRONMENT: ${this.environmentName}`);
   }
 
 }

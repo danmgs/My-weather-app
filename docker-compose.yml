@@ -1,35 +1,58 @@
 version: '3'
+
 services:
-  my-mongo-service:
+
+  mongo-service:
+
     container_name: mongo
     image: mongo
     restart: always
     ports:
-      - "27017:27017"
-    # environment:
-    #   ME_CONFIG_MONGODB_ADMINUSERNAME: root
-    #   ME_CONFIG_MONGODB_ADMINPASSWORD: example      
-  my-server-api-service:
-    container_name: server
-    build: 
-      dockerfile : Dockerfile.dev
+      - '$ENV_MONGO_PORT:$ENV_MONGO_PORT'
+    volumes:
+      - ./mongo/data/db:/data/db:ro
+
+  server-api-service:
+
+    build:
+      dockerfile: Dockerfile
       context: ./server
+    image: $ENV_SERVER_API_DOCKER_IMAGE_TAG
+    working_dir: /usr/src/app
+    # volumes:
+      #- ./server:/usr/src/app
+      #- /usr/src/app/node_modules
+    # command: './node_modules/nodemon/bin/nodemon'
+    command: 'node ./src/app.js'
+    container_name: server-api-service
     ports:
-      - "30001:30001"
+      - '$ENV_SERVER_API_PORT:$ENV_SERVER_API_PORT'
     environment:
-      - SERVER_API_PORT=30001
-      - MONGODB_URI=mongodb://my-mongo-service:27017
-    restart: always  
-    depends_on:
-      - my-mongo-service
-  client-service:
-    container_name: client
-    build: 
-      dockerfile : Dockerfile.dev
-      context: ./public
-    ports:
-      - "4200:4200"
+      - ENV_SERVER_API_MONGODB_URI=$ENV_SERVER_API_MONGODB_URI
+      - ENV_SERVER_API_ALLOW_HOSTS=$ENV_SERVER_API_ALLOW_HOSTS
+      - NODE_ENV=$NODE_ENV
     restart: always
     depends_on:
-      - my-server-api-service
-      
+      - mongo-service
+
+  client-webapp-service:
+
+    build:
+      context: ./public
+      dockerfile: Dockerfile
+      # args:
+      #   - NODE_ENV=development # development / staging / production
+    image: $ENV_CLIENT_WEBAPP_DOCKER_IMAGE_TAG
+    working_dir: /usr/src/app
+    # volumes:
+    #   - ./public:/usr/src/app
+    #   - /usr/src/app/node_modules
+    container_name: client-webapp-service
+    ports:
+      - '$ENV_CLIENT_WEBAPP_PORT:$ENV_CLIENT_WEBAPP_PORT'
+    environment:
+      - NODE_ENV=$NODE_ENV # development / staging / production
+    command: "npm start"
+    restart: always
+    depends_on:
+      - server-api-service

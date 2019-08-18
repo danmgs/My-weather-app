@@ -8,7 +8,6 @@
     "jshint": "jshint src || ECHO.",
     "lint": "npm run eslint",
     "start": "nodemon --watch app.js --watch **/*",
-    "startsimple": "nodemon",
     "test": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 \"src/test/**/*\" \"",
     "test:noverbose": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 \"src/test/**/*\" \" -R min"
   },
@@ -23,7 +22,7 @@
     "eslint-plugin-import": "^2.16.0",
     "expect": "^21.2.1",
     "mocha": "^4.1.0",
-    "nodemon": "^1.18.9",
+    "nodemon": "^1.19.1",
     "supertest": "^2.0.1"
   },
   "dependencies": {

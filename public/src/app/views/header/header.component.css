@@ -1,0 +1,12 @@
+.title-env-css {
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align:right;
+}
+.env-css {
+  color: green;
+}
+
+.env-css-prod {
+  color: red;
+}

@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  name: 'test',
+  name: 'staging',
   apiUrl: 'localhost',
   apiPort: '30001'
 };
