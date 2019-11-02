@@ -31,7 +31,7 @@
     "google-finance": "^0.1.10",
     "helmet": "^3.9.0",
     "mongodb": "^2.2.34",
-    "mongoose": "^4.13.9",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.0",
     "node-env-file": "^0.1.8",
     "node-news": "0.0.7",
