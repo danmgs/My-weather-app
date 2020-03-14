@@ -25,7 +25,7 @@ module.exports = {
                 // https://console.developers.google.com/apis/credentials?project=_',
                 //   results: [],
                 //   status: 'OVER_QUERY_LIMIT' }
-                // console.log(body);
+                console.log(body);
             }
             res.send(body.results[0]);
         });

@@ -5,7 +5,7 @@ module.exports = {
 
     getArticles(req, res, next) {
         const { source, sortBy } = req.query;
-        const apiKey = 'a81b9a7c23394dcd9c6fc4a5bcf478ef';
+        const apiKey = `${process.env.API_KEY_NEWS}`;
         const url = `https://newsapi.org/v1/articles?source=${source}&sortBy=${sortBy}&apiKey=${apiKey}`;
         // console.log(url);
 

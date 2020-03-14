@@ -1,4 +1,4 @@
-# MY WEB APP - MEAN STACK (2017)
+# MY WEB APP - MEAN STACK
 
 A WEB application providing weather, news, financial information.
 
@@ -7,42 +7,77 @@ A WEB application providing weather, news, financial information.
 
 ![alt capture2](https://github.com/danmgs/My-weather-app/blob/master/public/img/screenshot2.JPG)
 
-# <span style="color:green">BACKEND</span>
+# Backend Server
 
-To start the server (<b>server</b> folder):
+The backend is implemented with NodeJS using:
+- ExpressJs to expose APIs
+- Mongooseto to store data
+- Mocha for unit tests.
+
+To start the server (**server** folder):
 
 1. Launch mongod.exe locally :
 `
-"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe"
+"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --port 27017 --dbpath C:\data\db
 `
 
-2. To start backend server:
+2. Install packages:
 ```
 cd server
+npm install
+```
+
+3. Generate and configure API keys:
+
+- Google Map API
+
+- News API
+https://newsapi.org
+
+- Weather API
+ https://darksky.net/
+
+
+Put these key into the **.env** file
+```
+API_KEY_DARKSKY=xxxxxx
+API_KEY_NEWS=yyyyyy
+```
+
+4. To start backend server:
+```
+# in server directory
 npm start
 ```
 
-3. Once started, to test server urls api :
+5. Once started, to test server urls api :
 ```
 http://localhost:3000/api/users
 ```
 
-4. To launch unit tests (server must be shutdown, i.e no "<b>npm start</b>"), <b>make sure mongodb is started</b>.
+6. To launch unit tests (server must be shutdown, i.e no "**npm start**"), make sure mongodb is started.
 ```
 cd server
 npm test (or npm run test:noverbose for minimal logs.)
 ```
 
----------------------------------------------------------------
+# Frontend WebApp
 
+The frontend is implemented with Angular.
 
-# <span style="color:green">FRONTEND</span>
-
-0. To start client website :
+1. Install packages:
 ```
 cd public
+npm install
+```
+
+2. To start client website :
+```
+# in public directory
 npm start
 ```
+
+The website will reach the server URL configured in file **public\src\environments\environment[Prod].ts**
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.7.
 

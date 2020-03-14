@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
+import { environment } from '../../environments/environment';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
@@ -14,7 +15,7 @@ export class QuoteService {
   constructor(private http: Http) { }
 
   getQuotes(symbol: String, from: String, to: String) {
-    const url = `http://localhost:3000/api/finance/quotes?symbol=${symbol}&from=${from}&to=${to}`;
+    const url = `${environment.serverUrl}/api/finance/quotes?symbol=${symbol}&from=${from}&to=${to}`;
     // console.log('getQuotes', url);
     return this.http.get(url)
       .map(
@@ -38,7 +39,7 @@ export class QuoteService {
   }
 
   getCompanyNews(symbol: String) {
-    const url = `http://localhost:3000/api/finance/companynews?symbol=${symbol}`;
+    const url = `${environment.serverUrl}/api/finance/companynews?symbol=${symbol}`;
     // console.log('getCompanyNews', url);
     return this.http.get(url)
       .map(
