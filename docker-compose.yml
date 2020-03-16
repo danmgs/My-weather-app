@@ -1,58 +1,45 @@
+---
 version: '3'
-
 services:
 
   mongo-service:
-
-    container_name: mongo
-    image: mongo
-    restart: always
-    ports:
-      - '$ENV_MONGO_PORT:$ENV_MONGO_PORT'
+    image: mongo:latest
     volumes:
-      - ./mongo/data/db:/data/db:ro
-
-  server-api-service:
-
-    build:
-      dockerfile: Dockerfile
-      context: ./server
-    image: $ENV_SERVER_API_DOCKER_IMAGE_TAG
-    working_dir: /usr/src/app
-    # volumes:
-      #- ./server:/usr/src/app
-      #- /usr/src/app/node_modules
-    # command: './node_modules/nodemon/bin/nodemon'
-    command: 'node ./src/app.js'
-    container_name: server-api-service
-    ports:
-      - '$ENV_SERVER_API_PORT:$ENV_SERVER_API_PORT'
-    environment:
-      - ENV_SERVER_API_MONGODB_URI=$ENV_SERVER_API_MONGODB_URI
-      - ENV_SERVER_API_ALLOW_HOSTS=$ENV_SERVER_API_ALLOW_HOSTS
-      - NODE_ENV=$NODE_ENV
+      - mongodata:/data/db
     restart: always
+
+  weather-app-backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: weather-app-backend
+    image: ${ENV_BACKEND_IMAGE_TAG}
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      ENV_SERVER_API_MONGODB_URI: ${ENV_SERVER_API_MONGODB_URI}
+      ENV_SERVER_API_ALLOW_HOSTS: ${ENV_SERVER_API_ALLOW_HOSTS}
+      ENV_SERVER_API_PORT: ${ENV_SERVER_API_PORT}
+    ports:
+      - ${ENV_SERVER_API_PORT}:${ENV_SERVER_API_PORT}
     depends_on:
       - mongo-service
+    restart: always
 
-  client-webapp-service:
-
+  weather-app-frontend:
     build:
       context: ./public
       dockerfile: Dockerfile
-      # args:
-      #   - NODE_ENV=development # development / staging / production
-    image: $ENV_CLIENT_WEBAPP_DOCKER_IMAGE_TAG
+      args:
+        - NODE_ENV=${ENV_WEBAPP_NODE_ENV} # development / staging / prod
+    container_name: weather-app-frontend
+    image: ${ENV_FRONTEND_IMAGE_TAG}
     working_dir: /usr/src/app
-    # volumes:
-    #   - ./public:/usr/src/app
-    #   - /usr/src/app/node_modules
-    container_name: client-webapp-service
     ports:
-      - '$ENV_CLIENT_WEBAPP_PORT:$ENV_CLIENT_WEBAPP_PORT'
-    environment:
-      - NODE_ENV=$NODE_ENV # development / staging / production
-    command: "npm start"
-    restart: always
+      - ${ENV_WEBAPP_PORT}:${ENV_WEBAPP_PORT}
     depends_on:
-      - server-api-service
+      - weather-app-backend
+    restart: always
+
+# https://github.com/docker-library/mongo/issues/74#issuecomment-350034758
+volumes:
+  mongodata:

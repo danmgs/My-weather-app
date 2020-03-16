@@ -6,6 +6,8 @@
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --configuration $NODE_ENV",
     "build": "ng build",
+    "build:prod": "ng build --configuration=production --output-path=dist",
+    "build:development": "ng build --configuration=development --output-path=dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

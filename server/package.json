@@ -8,6 +8,9 @@
     "jshint": "jshint src || ECHO.",
     "lint": "npm run eslint",
     "start": "nodemon --watch app.js --watch **/*",
+    "start:prod": "SET NODE_ENV=production && SET ENV_SERVER_API_ALLOW_HOSTS=* && SET ENV_SERVER_API_MONGODB_URI=mongodb://localhost:27017 && SET ENV_SERVER_API_PORT=30001 && node src/app.js",
+    "start:test": "SET NODE_ENV=test && SET ENV_SERVER_API_ALLOW_HOSTS=* && SET ENV_SERVER_API_MONGODB_URI=mongodb://localhost:27017 && SET ENV_SERVER_API_PORT=30001 && node src/app.js",
+    "start:docker": "node src/app.js",
     "test": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 \"src/test/**/*\" \"",
     "test:noverbose": "cross-env NODE_ENV=test nodemon --exec \"mocha --timeout 20000 \"src/test/**/*\" \" -R min"
   },
