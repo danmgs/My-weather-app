@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const WeatherFavAddress = require('../models/WeatherFavAddress');
 
+const url = `${process.env.ENV_SERVER_API_MONGODB_URI}/weatherapp`;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/weatherapp', { useMongoClient: true });
+mongoose.connect(url, { useMongoClient: true });

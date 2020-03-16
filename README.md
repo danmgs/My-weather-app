@@ -1,4 +1,5 @@
-# MY WEB APP - MEAN STACK
+
+# MY WEB APP - MEAN STACK [![Build Status](https://travis-ci.org/danmgs/My-weather-app.svg?branch=master)](https://travis-ci.org/danmgs/My-weather-app)
 
 A WEB application providing weather, news, financial information.
 
@@ -52,7 +53,7 @@ npm start
 
 5. Once started, to test server urls api :
 ```
-http://localhost:3000/api/users
+http://localhost:30001/api/serverhealth
 ```
 
 6. To launch unit tests (server must be shutdown, i.e no "**npm start**"), make sure mongodb is started.
@@ -108,7 +109,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # <span style="color:red">TASKS LIST</span>
 
-- [x] CORS issue between backend / frontend:  No 'Access-Control-Allow-Origin' header is present on the requested resource. 
+- [x] CORS issue between backend / frontend:  No 'Access-Control-Allow-Origin' header is present on the requested resource.
  [Help jsonp here](https://codecraft.tv/courses/angular/http/jsonp-with-observables/).
 - [ ] Langages fr/eng for web pages.
 - [ ] Reorganize menu labels Weather, Finance ...

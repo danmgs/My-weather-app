@@ -1,0 +1,58 @@
+# Manual steps notes
+# Follow instructions in order:
+
+# Create the network
+docker network create mynetwork
+docker network ls
+
+# Build and run frontend webapp
+cd public
+docker build -t app-frontend --build-arg NODE_ENV=prod .
+docker run --rm -d -p 80:80 --name app-frontend app-frontend
+
+# Build and run mongo
+# https://github.com/docker-library/mongo/issues/74
+docker volume create --name=mongodata
+cd server
+docker run -d --name mongo-service -v mongodata:/data/db --network=mynetwork mongo
+
+# Build and run backend server with environment variables settings.
+docker build -t app-backend .
+docker run -d -p 30001:30001 --name app-backend --network=mynetwork -e NODE_ENV=production -e ENV_SERVER_API_MONGODB_URI=mongodb://mongo-service:27017 -e ENV_SERVER_API_ALLOW_HOSTS=* -e ENV_SERVER_API_PORT=30001 app-backend
+
+# check network -> shows 2 containers are linked: backend app container can reach mongo container.
+docker inspect mynetwork
+
+# inspect volume and where it lives.
+docker inspect mongodata
+
+# check backend url
+http://localhost:30001/api/serverhealth
+
+# check frontend url
+http://localhost
+
+
+# check logs
+docker logs <containerId>
+
+# other commands
+
+docker kill mongo-service
+docker rm mongo-service
+
+docker kill app-frontend
+docker kill mongo-service
+docker kill app-backend
+
+docker rm app-frontend
+docker rm mongo-service
+docker rm app-backend
+
+docker ps
+
+# show environment variables injected
+docker-compose config
+
+# docker compose
+docker-compose -f docker-compose-release.yml up

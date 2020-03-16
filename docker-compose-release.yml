@@ -1,0 +1,36 @@
+---
+version: '3'
+services:
+
+  mongo-service:
+    image: mongo:latest
+    volumes:
+      - mongodata:/data/db
+    restart: always
+
+  app-backend:
+    container_name: app-backend
+    image: danmgs/weather-app-backend:1.1
+    environment:
+      NODE_ENV: production
+      ENV_SERVER_API_MONGODB_URI: mongodb://mongo-service:27017
+      ENV_SERVER_API_ALLOW_HOSTS: "*"
+      ENV_SERVER_API_PORT: 30001
+    ports:
+      - "30001:30001"
+    depends_on:
+      - mongo-service
+    restart: always
+
+  app-frontend:
+    container_name: app-frontend
+    image: danmgs/weather-app-frontend:1.1
+    working_dir: /usr/src/app
+    ports:
+      - "80:80"
+    depends_on:
+      - app-backend
+    restart: always
+
+volumes:
+  mongodata:

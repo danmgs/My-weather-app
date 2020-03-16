@@ -2,7 +2,7 @@ const assert = require('assert');
 const request = require('supertest');
 const app = require('../app');
 
-xdescribe('Google Finance controller', () => {
+describe('Google Finance controller', () => {
     it('Get /api/finance/quotes get the historical quotes', (done) => {
         request(app)
             .get('/api/finance/quotes?symbol=NASDAQ:AAPL&from=2014-01-01&to=2014-12-31')

@@ -16,6 +16,7 @@ export class NewsService {
   constructor(private http: Http) { }
 
   getSources(language: String, category: String, country: String) {
+
     const url = `${environment.serverUrl}/api/news/sources?language=${language}&category=${category}&country=${country}`;
     console.log('getSources', url);
     return this.http.get(url)
@@ -40,6 +41,7 @@ export class NewsService {
   }
 
   getArticles(source: String, sortBy: String) {
+
     const url = `${environment.serverUrl}/api/news/articles?source=${source}&sortBy=${sortBy}`;
     console.log('getArticles', url);
     return this.http.get(url)

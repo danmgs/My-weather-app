@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-api-deployment
+  namespace: weatherapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: server-api
+  template:
+    metadata:
+      labels:
+        component: server-api
+    spec:
+      containers:
+        - name: server-api-cont
+          image: danmgs/weatherapp-server:latest
+          ports:
+            - containerPort: 30001
+          env:
+            - name: MONGODB_URI        
+              value: mongodb://mongodb-service

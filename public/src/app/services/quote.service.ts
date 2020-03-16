@@ -15,6 +15,7 @@ export class QuoteService {
   constructor(private http: Http) { }
 
   getQuotes(symbol: String, from: String, to: String) {
+
     const url = `${environment.serverUrl}/api/finance/quotes?symbol=${symbol}&from=${from}&to=${to}`;
     // console.log('getQuotes', url);
     return this.http.get(url)
@@ -39,6 +40,7 @@ export class QuoteService {
   }
 
   getCompanyNews(symbol: String) {
+
     const url = `${environment.serverUrl}/api/finance/companynews?symbol=${symbol}`;
     // console.log('getCompanyNews', url);
     return this.http.get(url)

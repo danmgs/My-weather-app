@@ -1,0 +1,45 @@
+---
+version: '3'
+services:
+
+  mongo-service:
+    image: mongo:latest
+    volumes:
+      - mongodata:/data/db
+    restart: always
+
+  app-backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: app-backend
+    image: ${ENV_BACKEND_IMAGE_TAG}
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      ENV_SERVER_API_MONGODB_URI: ${ENV_SERVER_API_MONGODB_URI}
+      ENV_SERVER_API_ALLOW_HOSTS: ${ENV_SERVER_API_ALLOW_HOSTS}
+      ENV_SERVER_API_PORT: ${ENV_SERVER_API_PORT}
+    ports:
+      - ${ENV_SERVER_API_PORT}:${ENV_SERVER_API_PORT}
+    depends_on:
+      - mongo-service
+    restart: always
+
+  app-frontend:
+    build:
+      context: ./public
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=${ENV_WEBAPP_NODE_ENV} # development / staging / prod
+    container_name: app-frontend
+    image: ${ENV_FRONTEND_IMAGE_TAG}
+    working_dir: /usr/src/app
+    ports:
+      - ${ENV_WEBAPP_PORT}:${ENV_WEBAPP_PORT}
+    depends_on:
+      - app-backend
+    restart: always
+
+# https://github.com/docker-library/mongo/issues/74#issuecomment-350034758
+volumes:
+  mongodata:

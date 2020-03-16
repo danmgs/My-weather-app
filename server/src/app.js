@@ -18,19 +18,29 @@ const app = express();
 console.log(`Starting server from ${__dirname} ...`);
 
 mongoose.Promise = global.Promise;
-console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
-if (process.env.NODE_ENV !== 'test') {
-    console.log('PROD Config');
-    const url = 'mongodb://localhost/weatherapp';
-    mongoose.connect(url, { useMongoClient: true }, (error) => {
-        if (error) console.log(error);
-        console.log(`Connect to mongodb successfully : ${url} !`);
-    });
-} else {
-    console.log('TEST Config');
-}
 
-console.log('*************************************');
+// Init environment variables
+const nodeEnv = process.env.NODE_ENV || 'test';
+const mongodbUri = process.env.ENV_SERVER_API_MONGODB_URI || 'mongodb://localhost:27017';
+const allowHosts = process.env.ENV_SERVER_API_ALLOW_HOSTS || '*';
+const port = process.env.ENV_SERVER_API_PORT || '30001';
+
+console.log(` > process.env.NODE_ENV = '${process.env.NODE_ENV}', use '${nodeEnv}'`);
+console.log(` > process.env.ENV_SERVER_API_MONGODB_URI = '${process.env.ENV_SERVER_API_MONGODB_URI}', use '${mongodbUri}'`);
+console.log(` > process.env.ENV_SERVER_API_ALLOW_HOSTS = '${process.env.ENV_SERVER_API_ALLOW_HOSTS}', use '${allowHosts}'`);
+console.log(` > process.env.ENV_SERVER_API_PORT = '${process.env.ENV_SERVER_API_PORT}', use '${port}'`);
+console.log(' *************************************');
+
+if (nodeEnv.trim() !== 'production') {
+    console.log('TEST Config');
+} else {
+    console.log('PROD Config');
+    const url = `${mongodbUri.trim()}/weatherapp`;
+    mongoose.connect(url, { useMongoClient: true }, (error) => {
+        if (!error) console.log(`Connect to mongodb with success with url : ${url} !`);
+        else console.log(`Error connecting to mongodb with url : ${url} !`);
+    });
+}
 
 // Parsers
 app.use(bodyParser.json());
@@ -41,7 +51,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // CORS Configuration to allow cross domains, to set BEFORE API routing
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', allowHosts.trim());
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Access-Control-Allow-Methods, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
@@ -78,8 +88,7 @@ app.get('*', (req, res) => {
 });
 
 // Set Port
-const port = process.env.PORT || '3000';
-app.set('port', port);
+app.set('port', port.trim());
 
 const server = http.createServer(app);
 

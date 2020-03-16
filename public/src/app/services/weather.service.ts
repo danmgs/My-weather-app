@@ -65,6 +65,7 @@ export class WeatherService {
   }
 
   getFavorites() {
+
     const url = `${environment.serverUrl}/api/weather/favorites`;
     console.log('getFavorites', url);
     return this.http.get(url)
@@ -77,6 +78,7 @@ export class WeatherService {
   }
 
   getFavorite(address: String) {
+
     const url = `${environment.serverUrl}/api/weather/favorites/${address}`;
     console.log('getFavorite', url);
     return this.http.get(url)
