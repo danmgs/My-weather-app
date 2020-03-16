@@ -92,4 +92,7 @@ docker-compose -f docker-compose-release.yml up
 
 ## Frontend WebApp + Backend WebApi : Walkthrough
 
-You can read the README from folder **public** or **server** respectively.
+You can read the README from folder [public](https://github.com/danmgs/My-weather-app/tree/master/public) or [server](https://github.com/danmgs/My-weather-app/tree/master/server) respectively.
+
+
+
