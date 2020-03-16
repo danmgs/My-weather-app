@@ -8,8 +8,8 @@ services:
       - mongodata:/data/db
     restart: always
 
-  weather-app-backend:
-    container_name: weather-app-backend
+  app-backend:
+    container_name: app-backend
     image: danmgs/weather-app-backend:1.1
     environment:
       NODE_ENV: production
@@ -22,14 +22,14 @@ services:
       - mongo-service
     restart: always
 
-  weather-app-frontend:
-    container_name: weather-app-frontend
+  app-frontend:
+    container_name: app-frontend
     image: danmgs/weather-app-frontend:1.1
     working_dir: /usr/src/app
     ports:
       - "80:80"
     depends_on:
-      - weather-app-backend
+      - app-backend
     restart: always
 
 volumes:

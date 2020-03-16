@@ -1,0 +1,75 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "mongodata",
+      "host": {
+        "sourcePath": "/var/app/current/mongodata/data/db"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "mongo-service",
+      "image": "mongo:latest",
+      "hostname": "mongo-service",
+      "essential": true,
+      "memory": 512,
+      "mountPoints": [
+        {
+          "sourceVolume": "mongodata",
+          "containerPath": "/data/db"
+        }
+      ]
+    },
+    {
+      "name": "app-backend",
+      "image": "danmgs/weather-app-backend:1.1",
+      "hostname": "app-backend",
+      "environment": [
+        {
+          "name": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "name": "ENV_SERVER_API_MONGODB_URI",
+          "value": "mongodb://mongo-service:27017"
+        },
+        {
+          "name": "ENV_SERVER_API_ALLOW_HOSTS",
+          "value": "*"
+        },
+        {
+          "name": "ENV_SERVER_API_PORT",
+          "value": "30001"
+        }
+      ],
+      "essential": true,
+      "memory": 256,
+      "portMappings": [
+        {
+          "hostPort": 30001,
+          "containerPort": 30001
+        }
+      ],
+      "links": [
+        "mongo-service"
+      ]
+    },
+    {
+      "name": "app-frontend",
+      "image": "danmgs/weather-app-frontend:1.1",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "app-backend"
+      ]
+    }
+  ]
+}

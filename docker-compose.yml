@@ -8,11 +8,11 @@ services:
       - mongodata:/data/db
     restart: always
 
-  weather-app-backend:
+  app-backend:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: weather-app-backend
+    container_name: app-backend
     image: ${ENV_BACKEND_IMAGE_TAG}
     environment:
       NODE_ENV: ${NODE_ENV}
@@ -25,19 +25,19 @@ services:
       - mongo-service
     restart: always
 
-  weather-app-frontend:
+  app-frontend:
     build:
       context: ./public
       dockerfile: Dockerfile
       args:
         - NODE_ENV=${ENV_WEBAPP_NODE_ENV} # development / staging / prod
-    container_name: weather-app-frontend
+    container_name: app-frontend
     image: ${ENV_FRONTEND_IMAGE_TAG}
     working_dir: /usr/src/app
     ports:
       - ${ENV_WEBAPP_PORT}:${ENV_WEBAPP_PORT}
     depends_on:
-      - weather-app-backend
+      - app-backend
     restart: always
 
 # https://github.com/docker-library/mongo/issues/74#issuecomment-350034758
