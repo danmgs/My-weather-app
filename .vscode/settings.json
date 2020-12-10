@@ -1,3 +1,8 @@
 {
-    "files.autoSave": "onFocusChange"
+    "files.autoSave": "onFocusChange",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "mysonarqube",
+        "projectKey": "My-weather-app"
+    },
+    "git.ignoreLimitWarning": true
 }

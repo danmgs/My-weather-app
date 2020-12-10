@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-8">
     <nav class="navbar navbar-expand-md navbar-light bg-faded">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -44,6 +44,11 @@
       </div>
       </nav>
     </div>
+     <div class="col-md-2 api-status">
+        <button type="button" class="btn btn-info">
+          API Status: <span class="badge badge-light">{{this.checkApiHealthResponse.status | uppercase}}</span>
+        </button>
+      </div>
     <div class="col-md-2">
         <div [ngClass]="{'env-css-prod': environmentName=='production', 'env-css': environmentName!='production', 'title-env-css': true }">{{environmentName}}</div>
     </div>

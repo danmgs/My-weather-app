@@ -24,11 +24,19 @@ const nodeEnv = process.env.NODE_ENV || 'test';
 const mongodbUri = process.env.ENV_SERVER_API_MONGODB_URI || 'mongodb://localhost:27017';
 const allowHosts = process.env.ENV_SERVER_API_ALLOW_HOSTS || '*';
 const port = process.env.ENV_SERVER_API_PORT || '30001';
+const apiKeyDarksky = process.env.ENV_API_KEY_DARKSKY || '';
+const apiKeyNews = process.env.ENV_API_KEY_NEWS || '';
 
 console.log(` > process.env.NODE_ENV = '${process.env.NODE_ENV}', use '${nodeEnv}'`);
 console.log(` > process.env.ENV_SERVER_API_MONGODB_URI = '${process.env.ENV_SERVER_API_MONGODB_URI}', use '${mongodbUri}'`);
 console.log(` > process.env.ENV_SERVER_API_ALLOW_HOSTS = '${process.env.ENV_SERVER_API_ALLOW_HOSTS}', use '${allowHosts}'`);
 console.log(` > process.env.ENV_SERVER_API_PORT = '${process.env.ENV_SERVER_API_PORT}', use '${port}'`);
+console.log(` > process.env.ENV_API_KEY_DARKSKY = '${process.env.ENV_API_KEY_DARKSKY}'`);
+console.log(` > process.env.ENV_API_KEY_NEWS = '${process.env.ENV_API_KEY_NEWS}'`);
+
+if (apiKeyDarksky === '') console.error(' > ENV_API_KEY_DARKSKY is empty');
+if (apiKeyNews === '') console.error(' > ENV_API_KEY_NEWS is empty');
+
 console.log(' *************************************');
 
 if (nodeEnv.trim() !== 'production') {
@@ -38,7 +46,7 @@ if (nodeEnv.trim() !== 'production') {
     const url = `${mongodbUri.trim()}/weatherapp`;
     mongoose.connect(url, { useMongoClient: true }, (error) => {
         if (!error) console.log(`Connect to mongodb with success with url : ${url} !`);
-        else console.log(`Error connecting to mongodb with url : ${url} !`);
+        else console.error(`Error connecting to mongodb with url : ${url} !`);
     });
 }
 

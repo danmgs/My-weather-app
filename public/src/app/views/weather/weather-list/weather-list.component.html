@@ -4,20 +4,42 @@
       <i class="fa fa-thermometer-full" aria-hidden="true"></i> Forecast</h2>
   </div>
   <div class="row">
-      <div class="col-md-12">
-        <form>
-          <div class="form-group">
-            <input type="text" class="form-control" value="{{ defaultAddress }}" placeholder="Enter an address ..." #address>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-info" (click)="getForecast(address.value)">
-              Show Forecast
-            </button>
-            <hr>
-          </div>
-        </form>
-      </div>
-    </div> 
+    <div class="col-md-12">
+      <form>
+        <div class="form-group">
+          <input type="text" class="form-control" value="{{ defaultAddress }}" placeholder="Enter an address ..."
+            #address>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info" (click)="getForecast(address.value)">
+            Show Forecast using city name
+          </button>
+          <hr>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <div class="form-group">
+          <input type="text" class="form-control" value="{{ defaultLatitude }}" placeholder="Enter a latitude ..."
+            #addressLatitude>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" value="{{ defaultLongitude }}" placeholder="Enter an longitude ..."
+            #addressLongitude>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info" (click)="getForecastByGeoCode(addressLatitude.value,addressLongitude.value)">
+            Show Forecast using coordinates
+          </button>
+          <hr>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-12" *ngIf="show; else elseBlock">

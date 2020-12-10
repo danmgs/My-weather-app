@@ -17,7 +17,7 @@ export class NewsService {
 
   getSources(language: String, category: String, country: String) {
 
-    const url = `${environment.serverUrl}/api/news/sources?language=${language}&category=${category}&country=${country}`;
+    const url = `${environment.apiUrl}/api/news/sources?language=${language}&category=${category}&country=${country}`;
     console.log('getSources', url);
     return this.http.get(url)
       .map(
@@ -42,7 +42,7 @@ export class NewsService {
 
   getArticles(source: String, sortBy: String) {
 
-    const url = `${environment.serverUrl}/api/news/articles?source=${source}&sortBy=${sortBy}`;
+    const url = `${environment.apiUrl}/api/news/articles?source=${source}&sortBy=${sortBy}`;
     console.log('getArticles', url);
     return this.http.get(url)
       .map(

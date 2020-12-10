@@ -1,8 +1,8 @@
 export class GeoData {
 
   constructor(
-    public lat: number,
-    public lng: number,
+    public lat: Number,
+    public lng: Number,
     public formatted_address: String
   ) { }
 }

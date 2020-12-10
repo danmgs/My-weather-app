@@ -16,6 +16,8 @@ services:
       ENV_SERVER_API_MONGODB_URI: mongodb://mongo-service:27017
       ENV_SERVER_API_ALLOW_HOSTS: "*"
       ENV_SERVER_API_PORT: 30001
+      ENV_API_KEY_DARKSKY: <YOUR_ENV_API_KEY_DARKSKY>
+      ENV_API_KEY_NEWS: <YOUR_ENV_API_KEY_NEWS>
     ports:
       - "30001:30001"
     depends_on:

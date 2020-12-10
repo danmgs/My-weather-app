@@ -43,9 +43,20 @@ export class WeatherService {
       );
   }
 
+   getForecastByGeoCode(geodata: GeoData) {
+
+    this.getForecastInfos(geodata)
+      .subscribe(
+      (weatherdata: WeatherData) => {
+          this.weatherChanged.next(weatherdata);
+      },
+      (error) => console.log(error)
+      );
+  }
+
   private getForecastInfos(geodata: GeoData) {
 
-    const url = `${environment.serverUrl}/api/weather/${geodata.lat}/${geodata.lng}`;
+    const url = `${environment.apiUrl}/api/weather/${geodata.lat}/${geodata.lng}`;
 
     return this.http.post(url, {}/*, options */)
       .map(
@@ -66,7 +77,7 @@ export class WeatherService {
 
   getFavorites() {
 
-    const url = `${environment.serverUrl}/api/weather/favorites`;
+    const url = `${environment.apiUrl}/api/weather/favorites`;
     console.log('getFavorites', url);
     return this.http.get(url)
       .subscribe(
@@ -79,7 +90,7 @@ export class WeatherService {
 
   getFavorite(address: String) {
 
-    const url = `${environment.serverUrl}/api/weather/favorites/${address}`;
+    const url = `${environment.apiUrl}/api/weather/favorites/${address}`;
     console.log('getFavorite', url);
     return this.http.get(url)
       .map(
@@ -96,7 +107,7 @@ export class WeatherService {
 
   addFavoriteWithCheck(address: String) {
 
-    const url = `${environment.serverUrl}/api/weather/favorites/check`;
+    const url = `${environment.apiUrl}/api/weather/favorites/check`;
     // console.log(`Calling addFavoriteWithCheck with ${url} ${address}`);
     return this.http.post(url, { address })
       .map(
@@ -112,7 +123,7 @@ export class WeatherService {
 
   addFavorite(address: String) {
 
-    const url = `${environment.serverUrl}/api/weather/favorites`;
+    const url = `${environment.apiUrl}/api/weather/favorites`;
     // console.log(`Calling getFavorites with ${url} ${address}`);
     return this.http.post(url, { address })
       .map(
@@ -124,7 +135,7 @@ export class WeatherService {
 
   deleteFromFavorites(id: String) {
 
-    const url = `${environment.serverUrl}/api/weather/favorites/${id}`;
+    const url = `${environment.apiUrl}/api/weather/favorites/${id}`;
     // console.log(`Calling deleteFromFavorites with ${url}`);
     return this.http.delete(url);
   }
@@ -133,7 +144,7 @@ export class WeatherService {
 
     this.weatherFavoritesResponse = [];
 
-    const url = `${environment.serverUrl}/api/weather/favorites/active/true`;
+    const url = `${environment.apiUrl}/api/weather/favorites/active/true`;
     // console.log(`Calling getForecastForFavoritesActive with ${url}`);
     this.http.get(url)
       .subscribe(
@@ -153,7 +164,7 @@ export class WeatherService {
 
   editFavoriteStatus(id: String, activeStatus: Boolean) {
 
-    const url = `${environment.serverUrl}/api/weather/favorites/${id}`;
+    const url = `${environment.apiUrl}/api/weather/favorites/${id}`;
     // console.log(`Calling editFavoriteStatus with ${id} ${activeStatus}`);
     return this.http.put(url, { active: activeStatus })
       .subscribe(

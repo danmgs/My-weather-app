@@ -10,3 +10,8 @@
 .env-css-prod {
   color: red;
 }
+
+.api-status {
+  text-align: right;
+}
+

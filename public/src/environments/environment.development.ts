@@ -6,6 +6,5 @@
 export const environment = {
   production: false,
   name: 'development',
-  apiUrl: 'localhost',
-  apiPort: '30001'
+  apiUrl: 'http://localhost:30001'
 };

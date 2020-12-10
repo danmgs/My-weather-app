@@ -16,7 +16,7 @@ export class QuoteService {
 
   getQuotes(symbol: String, from: String, to: String) {
 
-    const url = `${environment.serverUrl}/api/finance/quotes?symbol=${symbol}&from=${from}&to=${to}`;
+    const url = `${environment.apiUrl}/api/finance/quotes?symbol=${symbol}&from=${from}&to=${to}`;
     // console.log('getQuotes', url);
     return this.http.get(url)
       .map(
@@ -41,7 +41,7 @@ export class QuoteService {
 
   getCompanyNews(symbol: String) {
 
-    const url = `${environment.serverUrl}/api/finance/companynews?symbol=${symbol}`;
+    const url = `${environment.apiUrl}/api/finance/companynews?symbol=${symbol}`;
     // console.log('getCompanyNews', url);
     return this.http.get(url)
       .map(

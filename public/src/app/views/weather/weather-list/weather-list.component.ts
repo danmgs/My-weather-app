@@ -7,9 +7,11 @@ import { WeatherService } from '../../../services/weather.service';
 
 import { WeatherData } from '../../../Shared/WeatherData';
 import { WeatherFav } from '../../../Shared/WeatherFav';
+import { GeoData } from '../../../Shared/GeoData';
 
 import * as _ from 'lodash';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+
 
 @Component({
   selector: 'app-weather-list',
@@ -25,12 +27,15 @@ export class WeatherListComponent implements OnInit, OnDestroy {
   elseBlock: any;
   weatherFavoritesResponse: WeatherData[] = [];
   defaultAddress: String = 'Paris';
+  defaultLatitude: Number = Number("48.8534");
+  defaultLongitude: Number = Number("2.3488");
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
 
     this.getForecast(this.defaultAddress);
+    this.getForecastByGeoCode(this.defaultLatitude, this.defaultLongitude);
     this.getForecastForFavoritesActive();
 
     this.subscriptionGetForecast = this.weatherService.weatherChanged
@@ -54,6 +59,12 @@ export class WeatherListComponent implements OnInit, OnDestroy {
     this.show = false;
     console.log('getForecast', address);
     this.weatherService.getForecast(address);
+  }
+
+  getForecastByGeoCode(addressLatitude: Number, addressLongitude: Number) {
+    this.show = false;
+    console.log('getForecastByGeoCode', addressLatitude, addressLongitude);
+    this.weatherService.getForecastByGeoCode(new GeoData(addressLatitude, addressLongitude, `City with coordinates (${addressLatitude},${addressLongitude})`));
   }
 
   getForecastForFavoritesActive() {

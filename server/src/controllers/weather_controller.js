@@ -6,7 +6,7 @@ module.exports = {
 
   getForecast(req, res, next) {
     const { lat, lng } = req.params;
-    const url = `https://api.darksky.net/forecast/${process.env.API_KEY_DARKSKY}/${lat},${lng}`;
+    const url = `https://api.darksky.net/forecast/${process.env.ENV_API_KEY_DARKSKY}/${lat},${lng}`;
     // console.log('getForecast', url);
 
     request({

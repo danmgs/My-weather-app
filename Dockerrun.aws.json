@@ -42,6 +42,14 @@
         {
           "name": "ENV_SERVER_API_PORT",
           "value": "30001"
+        },
+        {
+          "name": "ENV_API_KEY_DARKSKY",
+          "value": "<YOUR_ENV_API_KEY_DARKSKY>"
+        },
+        {
+          "name": "ENV_API_KEY_NEWS",
+          "value": "<YOUR_ENV_API_KEY_NEWS>"
         }
       ],
       "essential": true,

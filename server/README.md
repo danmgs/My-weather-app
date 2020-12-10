@@ -22,19 +22,20 @@ npm install
 
 3. Generate and configure API keys:
 
-- Google Map API
-
-- News API
-https://newsapi.org
-
-- Weather API
- https://darksky.net/
+Before using these templates, you need to generate some API keys:
 
 
-Put these key into the **.env** file
+|  API             |  Options              | Link                                                  |
+| :--------------: | --------------------- | ----------------------------------------------------- | -----------
+| Google Map API   |                       |                                                       | Mandatory
+| News API         | ENV_API_KEY_DARKSKY   | [https://newsapi.org](https://newsapi.org)            | Mandatory
+| Weather API      | ENV_API_KEY_NEWS      | [https://darksky.net/dev](https://darksky.net/dev)    | Mandatory
+
+
+Configure your key's values into the **\server\\.env** file
 ```
-API_KEY_DARKSKY=xxxxxx
-API_KEY_NEWS=yyyyyy
+ENV_API_KEY_DARKSKY=
+ENV_API_KEY_NEWS=
 ```
 
 4. To start backend server:

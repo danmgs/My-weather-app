@@ -35,6 +35,7 @@ IF "%1"=="up" (
     timeout /t 10 /nobreak > NUL
     START "" http://localhost
     START "" http://localhost:30001/api/serverhealth
+    START "" http://localhost:8081
     GOTO End
 )
 
