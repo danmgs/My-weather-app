@@ -4,13 +4,24 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --configuration $NODE_ENV",
+    "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --configuration=production --output-path=dist",
     "build:development": "ng build --configuration=development --output-path=dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "tslint --config tslint.json --project tsconfig.json"
+    ]
   },
   "private": true,
   "dependencies": {
@@ -36,7 +47,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "popper.js": "^1.14.7",
-    "primeng": "^4.3.0",
+    "primeng": "^4.2.1",
     "rxjs": "^6.4.0",
     "rxjs-compat": "^6.0.0-rc.0",
     "tether": "^1.4.5",
@@ -48,10 +59,13 @@
     "@angular/cli": "^7.3.0",
     "@angular/compiler-cli": "^7.2.3",
     "@angular/language-service": "^7.2.3",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^6.0.118",
     "codelyzer": "~3.0.1",
+    "husky": "^4.3.5",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
@@ -60,10 +74,12 @@
     "karma-coverage-istanbul-reporter": "^1.4.3",
     "karma-jasmine": "^1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lint-staged": "^10.5.3",
     "protractor": "^5.4.2",
     "terser": "^3.16.1",
     "ts-node": "~3.0.4",
-    "tslint": "~5.3.2",
+    "tslint": "~5.11.0",
+    "tslint-config-airbnb": "^5.11.2",
     "typescript": "~3.2.4"
   }
 }
