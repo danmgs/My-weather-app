@@ -76,7 +76,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "lint-staged": "^10.5.3",
     "protractor": "^5.4.2",
-    "terser": "^3.16.1",
+    "terser": "^4.8.1",
     "ts-node": "~3.0.4",
     "tslint": "~5.11.0",
     "tslint-config-airbnb": "^5.11.2",
